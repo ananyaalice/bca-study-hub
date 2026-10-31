@@ -1,31 +1,275 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#f5f7f9">
-<title>Fundamentals of Computer Architecture | Module 5</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>FCA – Module V: Input/Output Systems and Computer Performance</title>
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
 <style>
-:root{color-scheme:light;--text:#202936;--muted:#5f6b7a;--line:#dce2e8;--paper:#fff;--page:#f5f7f9;--link:#245f9e;--soft:#edf3f8;}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--page);color:var(--text);font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
-a{color:var(--link);text-underline-offset:3px}a:hover{color:#123f6d}a:focus-visible{outline:3px solid #8db9e7;outline-offset:3px;border-radius:4px}
-.site-header{background:var(--paper);border-bottom:1px solid var(--line)}.header-inner{max-width:960px;margin:auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px}.site-name{font-size:18px;font-weight:750;text-decoration:none;color:var(--text)}.home-link{font-size:14px;white-space:nowrap}
-main{width:min(960px,calc(100% - 32px));margin:0 auto;padding:24px 0 36px}.breadcrumbs{display:flex;flex-wrap:wrap;gap:7px;align-items:center;font-size:13px;color:var(--muted);margin:0 0 18px}.breadcrumbs a{color:var(--link)}.crumb-sep{color:#9aa3ad}
-h1{font-size:clamp(25px,4vw,34px);line-height:1.2;letter-spacing:-.025em;margin:0 0 8px}h2{font-size:20px;line-height:1.3;margin:28px 0 12px}h3{font-size:17px;margin:0 0 6px}.subtitle{color:var(--muted);margin:0 0 20px}.metadata{display:flex;flex-wrap:wrap;gap:8px 18px;margin:12px 0 22px;color:var(--muted);font-size:14px}.metadata strong{color:var(--text)}
-.card-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.nav-card{display:block;padding:16px;border:1px solid var(--line);border-radius:10px;background:var(--paper);color:var(--text);text-decoration:none;min-width:0}.nav-card:hover{border-color:#a9c2da;background:#fbfdff}.nav-card .eyebrow{font-size:12px;color:var(--muted);margin-bottom:4px}.nav-card .card-title{font-weight:700;line-height:1.4}.nav-card .card-detail{font-size:13px;color:var(--muted);margin-top:5px}.nav-card .card-link{font-size:13px;color:var(--link);margin-top:10px;font-weight:650}.nav-card.disabled{background:#f0f2f4;color:#687382}.nav-card.disabled .card-link{color:#687382}.list-links{padding:0;margin:0;list-style:none;display:grid;gap:8px}.list-links li{margin:0}.list-link{display:flex;align-items:center;justify-content:space-between;gap:14px;background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:12px 14px;text-decoration:none;color:var(--text)}.list-link:hover{border-color:#a9c2da;background:#fbfdff}.list-link span:first-child{min-width:0}.arrow{color:var(--link);font-size:19px;flex:0 0 auto}.section-note{font-size:14px;color:var(--muted);margin:0 0 12px}
-.callout{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:16px}.page-nav{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;border-top:1px solid var(--line);margin-top:30px;padding-top:16px}.nav-button{display:inline-block;border:1px solid var(--line);background:var(--paper);color:var(--link);text-decoration:none;border-radius:7px;padding:9px 12px;font-size:14px;font-weight:600}.nav-button:hover{background:var(--soft)}.site-footer{max-width:960px;margin:0 auto;padding:0 16px 24px;color:var(--muted);font-size:12px}
-@media(max-width:600px){.header-inner{padding:12px 16px}.site-name{font-size:17px}.home-link{font-size:13px}main{width:calc(100% - 28px);padding:19px 0 28px}.card-grid{grid-template-columns:1fr}.nav-card{padding:14px}.metadata{display:grid;gap:5px}.page-nav{display:grid;grid-template-columns:1fr}.nav-button{text-align:center}.breadcrumbs{margin-bottom:14px}}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+:root{--paper:#fdfcf4;--desk:#e9e4d6;--line:#cfe2ee;--margin:#e8798a;--ink:#1d3a8c;--red:#c0262d;--green:#1b7a3d;--hl:#fff08a;--box:#f4f8ff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#20232f;--desk:#14161d;--line:#2d3345;--margin:#a8465a;--ink:#b7c8ff;--red:#ff8a8f;--green:#7fdc9c;--hl:#5a5320;--box:#272b3a}}
+:root[data-theme="dark"]{--paper:#20232f;--desk:#14161d;--line:#2d3345;--margin:#a8465a;--ink:#b7c8ff;--red:#ff8a8f;--green:#7fdc9c;--hl:#5a5320;--box:#272b3a}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--desk);font-family:"Patrick Hand","Comic Sans MS",cursive;color:var(--ink);font-size:19px;line-height:28px}
+.page{max-width:860px;margin:18px auto;padding:20px 20px 28px 64px;background:var(--paper) repeating-linear-gradient(transparent,transparent 27px,var(--line) 27px,var(--line) 28px);border-left:3px double var(--margin);box-shadow:0 2px 14px rgba(0,0,0,.25)}
+h1,h2,h3{font-family:"Caveat","Patrick Hand",cursive;margin:0;line-height:28px}
+h1{font-size:40px;line-height:42px;color:var(--red)}
+h2{font-size:30px;margin:28px 0 8px;color:var(--red);border-bottom:3px wavy var(--red);display:inline-block;line-height:36px}
+h3{font-size:25px;margin:14px 0 2px;text-decoration:underline}
+p,ul,ol{margin:0 0 8px}ul,ol{padding-left:22px}
+ul.t{list-style:none;padding-left:4px}ul.t li:before{content:"→ ";color:var(--red)}
+.sub{color:var(--green);font-size:18px}
+mark{background:linear-gradient(transparent 20%,var(--hl) 20%,var(--hl) 90%,transparent 90%);color:inherit;padding:0 3px}
+b{color:var(--red);font-weight:400;text-decoration:underline wavy 1px}
+code{font-family:ui-monospace,Consolas,monospace;font-size:15px;background:var(--box);padding:0 4px;border-radius:3px}
+.box{border:2px solid var(--ink);border-radius:8px 14px 10px 16px;background:var(--box);padding:8px 14px;margin:8px 0 12px}
+.box.star{border-color:var(--red)}.box h3{margin-top:0;text-decoration:none}
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:8px 0 12px}
+.flow span.n{border:2px solid var(--ink);border-radius:8px;background:var(--box);padding:2px 10px;line-height:24px;text-align:center}
+.flow span.a{color:var(--red);font-size:22px}
+.wrap{overflow-x:auto;margin:6px 0 12px}
+table{border-collapse:collapse;min-width:100%;background:var(--box)}
+th,td{border:1.5px solid var(--ink);padding:3px 8px;text-align:left;line-height:24px;vertical-align:top}
+th{color:var(--red);font-weight:400;background:var(--paper)}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:0 24px}
+@media(max-width:640px){.page{padding-left:46px;padding-right:12px}.cols{grid-template-columns:1fr}body{font-size:18px}}
+
+/* Study Hub navigation */
+.study-nav{font-family:Arial,sans-serif;font-size:13px;line-height:1.4;margin:0 0 18px;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--box);display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.study-nav a{color:var(--ink);text-decoration:none;font-weight:600}
+.study-nav a:hover{text-decoration:underline}
+.study-nav .sep{opacity:.55}
+.study-footer{font-family:Arial,sans-serif;font-size:13px;line-height:1.5;margin:24px 0 0;padding:14px 0 0;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.study-footer a{color:var(--ink);text-decoration:none;font-weight:600}
+.study-footer a:hover{text-decoration:underline}
 </style>
 </head>
 <body>
-<header class="site-header"><div class="header-inner"><a class="site-name" href="../../index.html">BCA Study Hub</a><a class="home-link" href="../../index.html">Home</a></div></header>
-<main>
-<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../../index.html">Home</a><span class="crumb-sep">›</span><a href="../index.html">Semester 1</a><span class="crumb-sep">›</span><a href="index.html">Fundamentals of Computer Architecture</a><span class="crumb-sep">›</span><span>Module 5</span></nav>
-<h1>Input/Output Systems and Computer Performance</h1><p class="subtitle">Fundamentals of Computer Architecture · Module 5</p>
-<section class="callout"><h2 style="margin-top:0">Study Content</h2><p><strong>Content placeholder:</strong> Insert the existing HTML study content for this module here.</p><p style="margin-bottom:0;font-size:14px;color:var(--muted)">Keep this filename as <code>module5.html</code> so subject navigation continues to work.</p></section>
-<div class="page-nav"><a class="nav-button" href="module4.html">← Module 4</a><a class="nav-button" href="ModelQuestions.html">Model Questions →</a></div><p style="margin-top:12px;font-size:14px"><a href="index.html">Subject contents</a> · <a href="../index.html">Semester 1</a> · <a href="../../index.html">Home</a></p>
-</main>
-<div class="site-footer">BCA Study Hub</div>
+<div class="page">
+<nav class="study-nav" aria-label="Study Hub navigation">
+  <a href="../../index.html">Home</a><span class="sep">›</span>
+  <a href="../index.html">Semester 1</a><span class="sep">›</span>
+  <a href="index.html">Fundamentals of Computer Architecture</a><span class="sep">›</span>
+  <span>Module 5</span>
+</nav>
+
+<h1>FCA ★ Module V</h1>
+<p class="sub">Input/Output Systems and Computer Performance | Ch 18 I/O devices | Ch 19 I/O control | Ch 20 Buses and ports | Ch 21 Performance metrics | Ch 22 RISC vs CISC | 25-922-0104</p>
+
+<h2>Chapter 18 : I/O Devices</h2>
+<ul class="t">
+<li><mark>I/O</mark> = Input / Output. Lets the computer <b>communicate with the outside world</b></li>
+<li><b>Input devices</b> send data <b>to</b> the computer. <b>Output devices</b> receive data <b>from</b> the computer</li>
+<li>Essential for user interaction and data processing</li>
+</ul>
+<h3>18.1 Input devices</h3>
+<div class="wrap"><table>
+<tr><th>Device</th><th>Use</th></tr>
+<tr><td><b>Keyboard</b></td><td>Most common. Text data entry. Keys: <b>alphanumeric, function (F1–F12), navigation, numeric keypad</b>. Used for typing and commands</td></tr>
+<tr><td><b>Mouse</b></td><td>Pointing device, moves the cursor. Actions: <b>click, double-click, right-click, drag-and-drop</b>. Types: <b>mechanical, optical, wireless</b></td></tr>
+<tr><td><b>Scanner</b></td><td>Converts images / text to digital format (digitises documents)</td></tr>
+<tr><td><b>Microphone</b></td><td>Audio input / recording</td></tr>
+<tr><td><b>Camera / Webcam</b></td><td>Captures photos and videos</td></tr>
+<tr><td><b>Touchscreen</b></td><td>Direct touch-based input</td></tr>
+<tr><td><b>Barcode reader</b></td><td>Reads barcodes for data capture</td></tr>
+<tr><td><b>Touchpad</b></td><td>Mostly in laptops</td></tr>
+<tr><td><b>Stylus</b></td><td>Writing input for tablets</td></tr>
+<tr><td><b>Joystick</b></td><td>Gaming and simulation control</td></tr>
+</table></div>
+<h3>18.2 Output devices</h3>
+<ul class="t"><li>Show results of the computer; convert <b>digital signals into human-readable form</b>. Examples: <b>monitor, printer, speakers, projectors</b></li></ul>
+<div class="wrap"><table>
+<tr><th>Monitor type</th><th>Key points</th></tr>
+<tr><td><b>CRT</b></td><td>Old, bulky</td></tr>
+<tr><td><b>LCD / LED</b></td><td>Thin, less power, modern</td></tr>
+<tr><td><b>OLED</b></td><td>High contrast and colour quality</td></tr>
+</table></div>
+<ul class="t"><li>Monitor features: <b>resolution</b> (HD, Full HD, 4K); <b>refresh rate</b> (60 Hz – 240 Hz); <b>screen size</b> (14" – 32"+)</li></ul>
+<div class="wrap"><table>
+<tr><th>Printer</th><th>Key points</th></tr>
+<tr><td><b>Inkjet</b></td><td>Good for colour printing. Less expensive</td></tr>
+<tr><td><b>Laser</b></td><td>Fast, high quality. Good for office use</td></tr>
+<tr><td><b>Dot matrix</b></td><td><b>Impact</b> printer. Used for billing and multipart forms</td></tr>
+</table></div>
+<h3>18.3 External (auxiliary) storage devices</h3>
+<ul class="t">
+<li>Store data <b>outside the computer</b>. Portable and easy to use</li>
+<li>Examples: <b>pen drives (USB flash drives), external hard drives (HDD / SSD), memory cards, CDs / DVDs, cloud storage (Google Drive, OneDrive)</b></li>
+</ul>
+<h3>18.4 Why I/O systems are important</h3>
+<ul class="t">
+<li>Help users communicate with the system</li><li>Enable data entry and display</li><li>Support external storage and backups</li><li>Improve usability and accessibility</li><li>Essential for all computer operations</li>
+</ul>
+<h3>18.5 I/O and computer performance</h3>
+<ul class="t">
+<li><b>Factors</b>: processor speed (clock speed, cores); RAM capacity; storage type (<b>SSD &gt; HDD</b>); graphics ability; I/O device speed; system architecture and OS efficiency</li>
+<li><b>Fast I/O</b> → less waiting. <b>Slow I/O</b> → <b>bottlenecks</b></li>
+<li>Examples: SSD loads faster than HDD; high-resolution monitors need a better GPU; USB 3.0 transfers faster than USB 2.0</li>
+<li>Performance also depends on <b>buffering, spooling, interrupt handling</b></li>
+</ul>
+
+<h2>Chapter 19 : I/O Control Mechanisms</h2>
+<ul class="t"><li>They decide how data moves between I/O devices and the CPU / memory. Three: <b>1 Polling (programmed I/O), 2 Interrupts (interrupt-driven I/O), 3 DMA (direct memory access)</b></li></ul>
+<h3>19.1 Polling (programmed I/O)</h3>
+<ul class="t">
+<li>CPU <b>continuously checks</b> the status of an I/O device and waits until it is ready – <mark>busy waiting</mark></li>
+<li>Features: simple to implement; CPU fully involved; suitable for simple or slow devices</li>
+</ul>
+<div class="cols">
+<div class="box"><b>Advantages</b><ul class="t"><li>Easy to understand and implement</li><li>Good for simple systems</li><li>No complex hardware</li></ul></div>
+<div class="box"><b>Disadvantages</b><ul class="t"><li>Wastes CPU time</li><li>CPU busy even if no task</li><li>Low efficiency for fast systems</li><li>Performance bottlenecks</li></ul></div>
+</div>
+<h3>19.2 Interrupts (interrupt-driven I/O)</h3>
+<ul class="t">
+<li><mark>Interrupt</mark> = a <b>signal from a device to the CPU</b>. CPU stops its current task <b>temporarily</b>, handles the I/O request, then <b>returns</b> to the previous task</li>
+<li>Used for devices needing <b>quick attention</b> – e.g. keyboard key press</li>
+</ul>
+<div class="flow"><span class="n">Device sends interrupt signal</span><span class="a">→</span><span class="n">CPU pauses current program</span><span class="a">→</span><span class="n">CPU saves its state</span><span class="a">→</span><span class="n">Executes Interrupt Service Routine (ISR)</span><span class="a">→</span><span class="n">Completes I/O task</span><span class="a">→</span><span class="n">Returns to original program</span></div>
+<ul class="t"><li>Benefits: CPU is <b>not busy-waiting</b>; more efficient than polling</li></ul>
+<div class="wrap"><table>
+<tr><th>Type of interrupt</th><th>Meaning and example</th></tr>
+<tr><td><b>Hardware</b></td><td>Triggered by external devices – keyboard, mouse, printer, network card</td></tr>
+<tr><td><b>Software</b></td><td>Generated by programs or OS – system calls</td></tr>
+<tr><td><b>Timer</b></td><td>Generated at regular intervals – time-sharing, scheduling</td></tr>
+</table></div>
+<div class="cols">
+<div class="box"><b>Advantages</b><ul class="t"><li>Saves CPU time</li><li>Faster response</li><li>Better performance</li><li>Good for multitasking</li></ul></div>
+<div class="box"><b>Disadvantages</b><ul class="t"><li>Needs extra hardware</li><li>More complex to implement</li><li>Too many interrupts → <b>interrupt storm</b></li></ul></div>
+</div>
+<h3>19.3 Direct Memory Access (DMA)</h3>
+<ul class="t">
+<li>I/O devices transfer data <b>directly to main memory</b>; the <b>CPU is bypassed</b> during transfer</li>
+<li>A special hardware – the <mark>DMA controller</mark> – manages the transfer. Very fast; used for <b>high-speed devices</b> (disk, network, graphics)</li>
+</ul>
+<div class="flow"><span class="n">CPU gives DMA controller: memory address, device address, amount of data</span><span class="a">→</span><span class="n">DMA controller starts transfer</span><span class="a">→</span><span class="n">CPU continues other tasks</span><span class="a">→</span><span class="n">DMA sends an interrupt when transfer is complete</span></div>
+<ul class="t">
+<li>Outcome: fast, efficient transfer; CPU involvement minimal</li>
+<li><b>Used for</b>: disk read / write; audio / video streaming; network data transfer; large memory block copying</li>
+<li><b>Why</b>: removes CPU bottleneck, reduces delay, improves performance</li>
+</ul>
+<h3>Polling vs Interrupts vs DMA</h3>
+<div class="wrap"><table>
+<tr><th>Feature</th><th>Polling</th><th>Interrupts</th><th>DMA</th></tr>
+<tr><td>CPU involvement</td><td>Very high</td><td>Moderate</td><td>Very low</td></tr>
+<tr><td>Speed</td><td>Slow</td><td>Faster</td><td>Fastest</td></tr>
+<tr><td>Best for</td><td>Simple devices</td><td>Medium-speed devices</td><td>High-speed transfers</td></tr>
+<tr><td>Hardware requirement</td><td>Low</td><td>Medium</td><td>High</td></tr>
+<tr><td>Efficiency</td><td>Low</td><td>Good</td><td>Excellent</td></tr>
+</table></div>
+
+<h2>Chapter 20 : Buses and I/O Ports</h2>
+<ul class="t"><li>Buses and I/O ports are the <b>pathways and connection points</b> for communication between CPU, memory and peripherals</li></ul>
+<h3>20.1 Bus</h3>
+<ul class="t"><li><mark>Bus</mark> = a <b>shared communication pathway</b> that transfers data, addresses and control signals; connects CPU, memory and I/O devices</li></ul>
+<div class="wrap"><table>
+<tr><th>Bus</th><th>Carries</th><th>Direction</th></tr>
+<tr><td><b>Data bus</b></td><td>Actual data between CPU, memory and I/O devices</td><td><b>Bidirectional</b></td></tr>
+<tr><td><b>Address bus</b></td><td>Memory addresses from CPU to memory / I/O devices</td><td><b>Unidirectional</b></td></tr>
+<tr><td><b>Control bus</b></td><td>Control signals (read, write, interrupt). Manages transfer operations</td><td>—</td></tr>
+</table></div>
+<ul class="t"><li><b>Importance</b>: communication between internal components; decides system performance (<b>speed and bandwidth</b>); the “highway” for data; supports <b>expansion</b></li></ul>
+<h3>20.2 I/O ports</h3>
+<ul class="t"><li><mark>I/O ports</mark> = interfaces that connect the CPU to <b>external devices</b>; entry / exit points for data. Let the CPU send commands and receive data from peripherals</li></ul>
+<div class="wrap"><table>
+<tr><th>Port</th><th>Meaning</th></tr>
+<tr><td><b>Serial</b></td><td>Sends data <b>one bit at a time</b>. E.g. USB, RS-232</td></tr>
+<tr><td><b>Parallel</b></td><td>Sends <b>many bits at the same time</b>. E.g. printer port (older systems)</td></tr>
+<tr><td><b>USB</b></td><td>Universal interface for modern devices</td></tr>
+</table></div>
+<ul class="t"><li><b>Role</b>: connect keyboard, mouse, printer etc.; controlled communication with CPU; device-specific data transfer; enable input and output</li></ul>
+<h3>20.3 Buses and ports together</h3>
+<ul class="t">
+<li>CPU sends addresses on the <b>address bus</b> → data moves on the <b>data bus</b> → <b>control bus</b> gives proper timing → <b>I/O ports</b> are the interface for devices to send / receive data through the bus</li>
+</ul>
+<div class="flow"><span class="n">User presses a key</span><span class="a">→</span><span class="n">Keyboard sends signal to its I/O port</span><span class="a">→</span><span class="n">CPU receives data via data bus</span><span class="a">→</span><span class="n">CPU processes it, sends output to display through display port</span></div>
+
+<h2>Chapter 21 : Performance Metrics</h2>
+<ul class="t"><li>Evaluate <b>speed and efficiency</b> of a computer. Common metrics: <b>clock cycles, execution time, throughput, latency</b></li></ul>
+<div class="wrap"><table>
+<tr><th>Metric</th><th>Meaning</th><th>Formula / examples</th></tr>
+<tr><td><b>Clock cycle</b></td><td>Smallest unit of time in which a processor does a basic operation. Measured by clock speed (e.g. <b>3 GHz</b>). Higher clock speed → more cycles per second → faster</td><td><b>CPU Time = Number of Clock Cycles × Clock Cycle Time</b>. Helps compare processors</td></tr>
+<tr><td><b>Execution time</b></td><td>Total time a system takes to complete a program. Includes CPU time + other delays (memory, I/O). Lower = faster</td><td><b>Execution Time = Number of Instructions × CPI × Clock Cycle Time</b></td></tr>
+<tr><td><b>Throughput</b></td><td>Number of <b>tasks completed per unit time</b> (tasks/sec, requests/sec). High = can handle more workload</td><td>Web server 500 requests/sec; CPU executing many instructions per cycle (IPC); network moving 1 GB per minute</td></tr>
+<tr><td><b>Latency</b></td><td><b>Time delay between a request and its response</b>. How quickly the system reacts. Seen in memory access, networking, I/O</td><td>Time to fetch data from RAM; delay between clicking a link and the page loading; time from sending a packet to getting a response</td></tr>
+</table></div>
+<ul class="t">
+<li><b>CPI</b> = clock cycles per instruction (average cycles one instruction needs). Clock cycle time = 1 / clock speed</li>
+<li>Why execution time matters: shows <b>real-world performance</b>; used to judge algorithms, compilers and hardware upgrades</li>
+<li>Example (textbook style): 1000 instructions, CPI = 2, clock 2 GHz (cycle time 0.5 ns) → 1000 × 2 × 0.5 ns = <b>1000 ns = 1 µs</b></li>
+</ul>
+<div class="cols">
+<div class="box"><h3>Throughput</h3>How <b>much work</b> is done</div>
+<div class="box"><h3>Latency</h3>How <b>fast a single task</b> is completed</div>
+</div>
+<ul class="t"><li>A system can have <b>high throughput but high latency</b>, or <b>low latency but low throughput</b>. Both must be optimised</li></ul>
+
+<h2>Chapter 22 : RISC vs CISC</h2>
+<ul class="t"><li>CPU architectures decide how instructions are designed and executed. Two approaches: <b>RISC</b> and <b>CISC</b>. Goal: better efficiency and performance</li></ul>
+<div class="wrap"><table>
+<tr><th></th><th>RISC – Reduced Instruction Set Computer</th><th>CISC – Complex Instruction Set Computer</th></tr>
+<tr><td><b>Idea</b></td><td>Small, simple set of instructions. Focus on speed and efficiency</td><td>Large set of complex instructions. One instruction can do <b>multiple operations</b>. Focus on fewer instructions per program</td></tr>
+<tr><td><b>Execution</b></td><td>Each instruction usually <b>one clock cycle</b></td><td>Instructions may take <b>multiple clock cycles</b></td></tr>
+<tr><td><b>Key features</b></td><td>Simple, uniform instructions • Larger number of <b>registers</b> • <b>Load/store</b> architecture (memory accessed only by load and store) • <b>Hardwired</b> control unit (faster) • Easy <b>pipelining</b></td><td>Many instructions, varied formats • <b>Memory-to-memory</b> operations allowed • <b>Microprogrammed</b> control unit • More <b>addressing modes</b></td></tr>
+<tr><td><b>Advantages</b></td><td>Faster execution • Better pipeline performance • Lower power • Suited to mobile and embedded devices</td><td>Compact programs (fewer instructions) • Better for complex tasks • Easier compiler design • Good for desktop and server processors</td></tr>
+<tr><td><b>Examples</b></td><td><b>ARM</b> (mobiles / tablets), <b>MIPS</b>, <b>RISC-V</b>, <b>SPARC</b></td><td><b>x86</b> (Intel, AMD), <b>VAX</b>, <b>System/360</b></td></tr>
+</table></div>
+
+<h2>★ Key Observations</h2>
+<ul class="t">
+<li>Polling = CPU <b>keeps checking</b>; interrupt = device <b>calls</b> the CPU; DMA = device talks to <b>memory directly</b></li>
+<li>CPU involvement: <b>polling very high → interrupt moderate → DMA very low</b></li>
+<li>Address bus is <b>unidirectional</b>; data bus is <b>bidirectional</b></li>
+<li>Serial = 1 bit at a time; parallel = many bits at once</li>
+<li>Latency = speed of <b>one</b> task; throughput = <b>amount</b> of work</li>
+<li>RISC = simple, 1 cycle, many registers, load/store; CISC = complex, multi-cycle, fewer instructions</li>
+<li>Slow I/O causes <b>bottlenecks</b>; DMA and interrupts reduce them</li>
+</ul>
+
+<h2>Real-Life Applications</h2>
+<ul class="t">
+<li><b>Keyboard</b> and mouse use <b>interrupts</b>; disk and video streaming use <b>DMA</b></li>
+<li><b>Dot-matrix printers</b> for bills; <b>laser</b> for offices; <b>inkjet</b> for colour</li>
+<li><b>USB 3.0</b> – faster file transfer than USB 2.0. <b>SSD</b> – faster loading than HDD</li>
+<li><b>Web servers</b> – throughput in requests/sec; <b>games / web pages</b> – low latency</li>
+<li><b>ARM (RISC)</b> in phones; <b>x86 (CISC)</b> in PCs and servers</li>
+</ul>
+
+<h2>Important Terms</h2>
+<div class="wrap"><table>
+<tr><td><b>Polling</b></td><td>CPU repeatedly checks a device (busy waiting)</td></tr>
+<tr><td><b>Interrupt / ISR</b></td><td>Device signal to CPU / routine that handles it</td></tr>
+<tr><td><b>DMA</b></td><td>Direct Memory Access – transfer without the CPU</td></tr>
+<tr><td><b>Buffering / Spooling</b></td><td>Temporary holding of data for I/O</td></tr>
+<tr><td><b>Bus</b></td><td>Shared pathway for data, address, control</td></tr>
+<tr><td><b>Serial / Parallel port</b></td><td>1 bit at a time / many bits at a time</td></tr>
+<tr><td><b>Clock cycle / CPI</b></td><td>Smallest time unit of CPU / cycles per instruction</td></tr>
+<tr><td><b>Throughput / Latency</b></td><td>Tasks per unit time / delay for one request</td></tr>
+<tr><td><b>Load/store</b></td><td>Memory accessed only by load and store instructions (RISC)</td></tr>
+<tr><td><b>Hardwired / Microprogrammed</b></td><td>Control unit type of RISC / CISC</td></tr>
+</table></div>
+
+<div class="box star">
+<h3 style="color:var(--red)">★ Exam Points ★</h3>
+<ul class="t">
+<li>Input: <b>keyboard, mouse, scanner, microphone, webcam, touchscreen, barcode reader</b>. Output: <b>monitor, printer, speakers, projector</b></li>
+<li>Monitors: <b>CRT, LCD/LED, OLED</b>. Printers: <b>inkjet, laser, dot matrix</b></li>
+<li>I/O control: <b>Polling, Interrupts, DMA</b></li>
+<li>Interrupt steps: <b>signal → pause → save state → ISR → finish I/O → return</b>. Types: <b>hardware, software, timer</b></li>
+<li>DMA: CPU gives <b>memory address, device address, data amount</b>; DMA controller transfers; interrupt on completion</li>
+<li>Buses: <b>data (bidirectional), address (unidirectional), control</b>. Ports: <b>serial, parallel, USB</b></li>
+<li>Metrics: <b>clock cycles, execution time, throughput, latency</b></li>
+<li><b>CPU Time = Clock Cycles × Clock Cycle Time</b></li>
+<li><b>Execution Time = Instructions × CPI × Clock Cycle Time</b></li>
+<li>RISC: ARM, MIPS, RISC-V, SPARC. CISC: x86, VAX, System/360</li>
+</ul>
+</div>
+
+<footer class="study-footer">
+  <a href="module4.html">← Module 4</a>
+  <span>Fundamentals of Computer Architecture · Semester 1</span>
+  <a href="index.html">Back to subject</a>
+</footer>
+</div>
 </body>
 </html>
