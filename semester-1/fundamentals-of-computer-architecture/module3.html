@@ -1,31 +1,291 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#f5f7f9">
-<title>Fundamentals of Computer Architecture | Module 3</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>FCA – Module III: CPU Architecture</title>
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
 <style>
-:root{color-scheme:light;--text:#202936;--muted:#5f6b7a;--line:#dce2e8;--paper:#fff;--page:#f5f7f9;--link:#245f9e;--soft:#edf3f8;}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--page);color:var(--text);font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
-a{color:var(--link);text-underline-offset:3px}a:hover{color:#123f6d}a:focus-visible{outline:3px solid #8db9e7;outline-offset:3px;border-radius:4px}
-.site-header{background:var(--paper);border-bottom:1px solid var(--line)}.header-inner{max-width:960px;margin:auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px}.site-name{font-size:18px;font-weight:750;text-decoration:none;color:var(--text)}.home-link{font-size:14px;white-space:nowrap}
-main{width:min(960px,calc(100% - 32px));margin:0 auto;padding:24px 0 36px}.breadcrumbs{display:flex;flex-wrap:wrap;gap:7px;align-items:center;font-size:13px;color:var(--muted);margin:0 0 18px}.breadcrumbs a{color:var(--link)}.crumb-sep{color:#9aa3ad}
-h1{font-size:clamp(25px,4vw,34px);line-height:1.2;letter-spacing:-.025em;margin:0 0 8px}h2{font-size:20px;line-height:1.3;margin:28px 0 12px}h3{font-size:17px;margin:0 0 6px}.subtitle{color:var(--muted);margin:0 0 20px}.metadata{display:flex;flex-wrap:wrap;gap:8px 18px;margin:12px 0 22px;color:var(--muted);font-size:14px}.metadata strong{color:var(--text)}
-.card-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.nav-card{display:block;padding:16px;border:1px solid var(--line);border-radius:10px;background:var(--paper);color:var(--text);text-decoration:none;min-width:0}.nav-card:hover{border-color:#a9c2da;background:#fbfdff}.nav-card .eyebrow{font-size:12px;color:var(--muted);margin-bottom:4px}.nav-card .card-title{font-weight:700;line-height:1.4}.nav-card .card-detail{font-size:13px;color:var(--muted);margin-top:5px}.nav-card .card-link{font-size:13px;color:var(--link);margin-top:10px;font-weight:650}.nav-card.disabled{background:#f0f2f4;color:#687382}.nav-card.disabled .card-link{color:#687382}.list-links{padding:0;margin:0;list-style:none;display:grid;gap:8px}.list-links li{margin:0}.list-link{display:flex;align-items:center;justify-content:space-between;gap:14px;background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:12px 14px;text-decoration:none;color:var(--text)}.list-link:hover{border-color:#a9c2da;background:#fbfdff}.list-link span:first-child{min-width:0}.arrow{color:var(--link);font-size:19px;flex:0 0 auto}.section-note{font-size:14px;color:var(--muted);margin:0 0 12px}
-.callout{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:16px}.page-nav{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;border-top:1px solid var(--line);margin-top:30px;padding-top:16px}.nav-button{display:inline-block;border:1px solid var(--line);background:var(--paper);color:var(--link);text-decoration:none;border-radius:7px;padding:9px 12px;font-size:14px;font-weight:600}.nav-button:hover{background:var(--soft)}.site-footer{max-width:960px;margin:0 auto;padding:0 16px 24px;color:var(--muted);font-size:12px}
-@media(max-width:600px){.header-inner{padding:12px 16px}.site-name{font-size:17px}.home-link{font-size:13px}main{width:calc(100% - 28px);padding:19px 0 28px}.card-grid{grid-template-columns:1fr}.nav-card{padding:14px}.metadata{display:grid;gap:5px}.page-nav{display:grid;grid-template-columns:1fr}.nav-button{text-align:center}.breadcrumbs{margin-bottom:14px}}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+:root{--paper:#fdfcf4;--desk:#e9e4d6;--line:#cfe2ee;--margin:#e8798a;--ink:#1d3a8c;--red:#c0262d;--green:#1b7a3d;--hl:#fff08a;--box:#f4f8ff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#20232f;--desk:#14161d;--line:#2d3345;--margin:#a8465a;--ink:#b7c8ff;--red:#ff8a8f;--green:#7fdc9c;--hl:#5a5320;--box:#272b3a}}
+:root[data-theme="dark"]{--paper:#20232f;--desk:#14161d;--line:#2d3345;--margin:#a8465a;--ink:#b7c8ff;--red:#ff8a8f;--green:#7fdc9c;--hl:#5a5320;--box:#272b3a}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--desk);font-family:"Patrick Hand","Comic Sans MS",cursive;color:var(--ink);font-size:19px;line-height:28px}
+.page{max-width:860px;margin:18px auto;padding:20px 20px 28px 64px;background:var(--paper) repeating-linear-gradient(transparent,transparent 27px,var(--line) 27px,var(--line) 28px);border-left:3px double var(--margin);box-shadow:0 2px 14px rgba(0,0,0,.25)}
+h1,h2,h3{font-family:"Caveat","Patrick Hand",cursive;margin:0;line-height:28px}
+h1{font-size:40px;line-height:42px;color:var(--red)}
+h2{font-size:30px;margin:28px 0 8px;color:var(--red);border-bottom:3px wavy var(--red);display:inline-block;line-height:36px}
+h3{font-size:25px;margin:14px 0 2px;text-decoration:underline}
+p,ul,ol{margin:0 0 8px}ul,ol{padding-left:22px}
+ul.t{list-style:none;padding-left:4px}ul.t li:before{content:"→ ";color:var(--red)}
+.sub{color:var(--green);font-size:18px}
+mark{background:linear-gradient(transparent 20%,var(--hl) 20%,var(--hl) 90%,transparent 90%);color:inherit;padding:0 3px}
+b{color:var(--red);font-weight:400;text-decoration:underline wavy 1px}
+code,pre{font-family:ui-monospace,Consolas,monospace;font-size:15px}
+code{background:var(--box);padding:0 4px;border-radius:3px}
+pre{background:var(--box);border:1.5px dashed var(--ink);border-radius:6px;padding:8px 12px;margin:6px 0 10px;line-height:22px;overflow-x:auto}
+.o{color:var(--green)}
+.box{border:2px solid var(--ink);border-radius:8px 14px 10px 16px;background:var(--box);padding:8px 14px;margin:8px 0 12px}
+.box.star{border-color:var(--red)}.box h3{margin-top:0;text-decoration:none}
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:8px 0 12px}
+.flow span.n{border:2px solid var(--ink);border-radius:8px;background:var(--box);padding:2px 10px;line-height:24px;text-align:center}
+.flow span.a{color:var(--red);font-size:22px}
+.wrap{overflow-x:auto;margin:6px 0 12px}
+table{border-collapse:collapse;min-width:100%;background:var(--box)}
+th,td{border:1.5px solid var(--ink);padding:3px 8px;text-align:left;line-height:24px;vertical-align:top}
+th{color:var(--red);font-weight:400;background:var(--paper)}
+table.c td,table.c th{text-align:center;padding:2px 6px}
+td.f{background:var(--hl)}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:0 24px}
+@media(max-width:640px){.page{padding-left:46px;padding-right:12px}.cols{grid-template-columns:1fr}body{font-size:18px}}
+
+/* Study Hub navigation */
+.study-nav{font-family:Arial,sans-serif;font-size:13px;line-height:1.4;margin:0 0 18px;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--box);display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.study-nav a{color:var(--ink);text-decoration:none;font-weight:600}
+.study-nav a:hover{text-decoration:underline}
+.study-nav .sep{opacity:.55}
+.study-footer{font-family:Arial,sans-serif;font-size:13px;line-height:1.5;margin:24px 0 0;padding:14px 0 0;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.study-footer a{color:var(--ink);text-decoration:none;font-weight:600}
+.study-footer a:hover{text-decoration:underline}
 </style>
 </head>
 <body>
-<header class="site-header"><div class="header-inner"><a class="site-name" href="../../index.html">BCA Study Hub</a><a class="home-link" href="../../index.html">Home</a></div></header>
-<main>
-<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../../index.html">Home</a><span class="crumb-sep">›</span><a href="../index.html">Semester 1</a><span class="crumb-sep">›</span><a href="index.html">Fundamentals of Computer Architecture</a><span class="crumb-sep">›</span><span>Module 3</span></nav>
-<h1>Central Processing Unit (CPU) Architecture</h1><p class="subtitle">Fundamentals of Computer Architecture · Module 3</p>
-<section class="callout"><h2 style="margin-top:0">Study Content</h2><p><strong>Content placeholder:</strong> Insert the existing HTML study content for this module here.</p><p style="margin-bottom:0;font-size:14px;color:var(--muted)">Keep this filename as <code>module3.html</code> so subject navigation continues to work.</p></section>
-<div class="page-nav"><a class="nav-button" href="module2.html">← Module 2</a><a class="nav-button" href="module4.html">Module 4 →</a></div><p style="margin-top:12px;font-size:14px"><a href="index.html">Subject contents</a> · <a href="../index.html">Semester 1</a> · <a href="../../index.html">Home</a></p>
-</main>
-<div class="site-footer">BCA Study Hub</div>
+<div class="page">
+<nav class="study-nav" aria-label="Study Hub navigation">
+  <a href="../../index.html">Home</a><span class="sep">›</span>
+  <a href="../index.html">Semester 1</a><span class="sep">›</span>
+  <a href="index.html">Fundamentals of Computer Architecture</a><span class="sep">›</span>
+  <span>Module 3</span>
+</nav>
+
+<h1>FCA ★ Module III</h1>
+<p class="sub">Central Processing Unit (CPU) Architecture | Ch 9 CPU structure | Ch 10 Instruction cycle | Ch 11 Assembly language | Ch 12 ISA | Ch 13 Caching and pipelining | 25-922-0104</p>
+<p class="sub">Built from the syllabus and standard textbook content (no teacher notes for this module yet) – compare with your class notes.</p>
+
+<h2>Chapter 9 : Architecture of the CPU</h2>
+<ul class="t">
+<li><mark>CPU</mark> = the brain of the computer. It fetches, decodes and executes instructions</li>
+<li>Main parts: <b>ALU, Control Unit (CU), Registers, Buses</b> (+ cache)</li>
+</ul>
+<div class="flow"><span class="n">Memory / I/O</span><span class="a">↔</span><span class="n">BUSES<br>(data, address, control)</span><span class="a">↔</span><span class="n">REGISTERS</span><span class="a">↔</span><span class="n">ALU</span><span class="a">↕</span><span class="n">CONTROL UNIT<br>(signals to all parts)</span></div>
+
+<h3>9.1 ALU (Arithmetic and Logic Unit)</h3>
+<ul class="t">
+<li>Does <b>arithmetic</b> (add, subtract, multiply, divide) and <b>logic</b> (AND, OR, NOT, comparison) and <b>shift</b> operations</li>
+<li>Takes operands from registers; result goes to a register (e.g. accumulator)</li>
+<li>Sets <b>status flags</b> – e.g. zero, carry, sign (negative), overflow – used by branch instructions</li>
+</ul>
+<h3>9.2 Control Unit (CU)</h3>
+<ul class="t">
+<li>Directs the whole CPU. <b>Fetches</b> instructions, <b>decodes</b> them and sends <b>control signals</b> (clock, read, write, etc.) to ALU, registers, memory and I/O</li>
+<li>Makes all parts work together in correct <b>timing</b></li>
+<li>Two designs: <b>Hardwired</b> (logic circuits – fast, used in RISC) and <b>Microprogrammed</b> (control memory – flexible, used in CISC)</li>
+</ul>
+<h3>9.3 Registers</h3>
+<ul class="t"><li>Small, very fast storage <b>inside the CPU</b>. Hold data, instructions and addresses being used</li></ul>
+<div class="wrap"><table>
+<tr><th>Register</th><th>Work</th></tr>
+<tr><td><b>PC</b> – Program Counter</td><td>Holds the <b>address of the next instruction</b></td></tr>
+<tr><td><b>IR / CIR</b> – (Current) Instruction Register</td><td>Holds the <b>instruction being executed</b></td></tr>
+<tr><td><b>MAR</b> – Memory Address Register</td><td>Holds the <b>address</b> to be read from / written to memory</td></tr>
+<tr><td><b>MDR / MBR</b> – Memory Data (Buffer) Register</td><td>Holds the <b>data</b> moving to / from memory</td></tr>
+<tr><td><b>AC</b> – Accumulator</td><td>Holds ALU results / operands</td></tr>
+<tr><td><b>General-purpose registers</b></td><td>Temporary data and addresses for programs</td></tr>
+<tr><td><b>Status / Flag register</b></td><td>Holds flag bits (zero, carry, sign, overflow)</td></tr>
+<tr><td><b>SP</b> – Stack Pointer</td><td>Points to the top of the stack</td></tr>
+</table></div>
+<h3>9.4 Buses</h3>
+<div class="wrap"><table>
+<tr><th>Bus</th><th>Carries</th><th>Note</th></tr>
+<tr><td><b>Data bus</b></td><td>Data</td><td>Bidirectional. Width = bits moved at once (word size)</td></tr>
+<tr><td><b>Address bus</b></td><td>Memory / device addresses</td><td>Unidirectional (CPU → memory). Width decides memory size</td></tr>
+<tr><td><b>Control bus</b></td><td>Control signals (read, write, interrupt, clock)</td><td>Coordinates operations</td></tr>
+</table></div>
+<div class="box star"><b>Memory addressed = 2ⁿ locations</b> (n = address bus lines).<br>16-bit address bus → 2¹⁶ = <b>65,536 (64 K)</b> locations. 32-bit → 2³² = <b>4,294,967,296</b> locations (4 GB if each holds 1 byte).</div>
+
+<h2>Chapter 10 : The Instruction Cycle</h2>
+<ul class="t">
+<li>Steps the CPU repeats for every instruction: <b>Fetch → Decode → Execute</b> (and <b>Store</b> the result)</li>
+</ul>
+<div class="flow"><span class="n">FETCH<br>instruction from memory</span><span class="a">→</span><span class="n">DECODE<br>understand it</span><span class="a">→</span><span class="n">EXECUTE<br>carry it out</span><span class="a">→</span><span class="n">STORE<br>result</span><span class="a">↺</span></div>
+<div class="wrap"><table>
+<tr><th>Step</th><th>What happens</th></tr>
+<tr><td><b>Fetch</b></td><td>MAR ← PC (address of instruction) → memory read → MDR ← instruction → IR ← MDR → PC ← PC + 1 (points to next instruction)</td></tr>
+<tr><td><b>Decode</b></td><td>The <b>control unit</b> reads the <b>opcode</b> in the IR, finds the operation and where the operands are</td></tr>
+<tr><td><b>Execute</b></td><td>Operation is done – ALU calculates, or memory is read / written, or a jump changes the PC</td></tr>
+<tr><td><b>Store</b></td><td>Result is written to a register or memory</td></tr>
+</table></div>
+<ul class="t">
+<li><b>Instruction format</b> = <b>Opcode</b> (what to do) + <b>Operand(s)</b> (on what data / where)</li>
+<li>Jump / branch instructions <b>change the PC</b>, so the next instruction comes from a new address</li>
+</ul>
+<h3>Example – add two numbers</h3>
+<p>Memory: address 200 holds 5, address 201 holds 3. Program: <code>100: LOAD 200</code>, <code>101: ADD 201</code>, <code>102: STORE 202</code></p>
+<div class="wrap"><table>
+<tr><th>Instruction (PC)</th><th>Execute</th><th>AC after</th></tr>
+<tr><td>LOAD 200 (PC = 100)</td><td>AC ← Memory[200]</td><td>5</td></tr>
+<tr><td>ADD 201 (PC = 101)</td><td>AC ← AC + Memory[201]</td><td>8</td></tr>
+<tr><td>STORE 202 (PC = 102)</td><td>Memory[202] ← AC</td><td>8 (stored at 202)</td></tr>
+</table></div>
+<ul class="t"><li>The “decode with ALU help” in some slides – in textbooks, decoding is done by the <b>control unit</b>; the ALU works in the execute step</li></ul>
+
+<h2>Chapter 11 : Machine-Level Programming and Assembly Language</h2>
+<ul class="t">
+<li><mark>Machine language</mark> = instructions in <b>binary (0s and 1s)</b> that the CPU understands directly. Depends on the CPU; hard to write and debug</li>
+<li><mark>Assembly language</mark> = <b>low-level</b> language using short <b>mnemonics</b> (symbolic codes) instead of binary</li>
+<li>An <mark>assembler</mark> translates assembly code into machine code. Usually <b>one assembly instruction = one machine instruction</b></li>
+<li>Both are <b>machine-dependent</b> (different for x86, ARM etc.)</li>
+</ul>
+<pre>MOV AX, 5      <span class="o">; copy 5 into register AX</span>
+ADD AX, 3      <span class="o">; AX = AX + 3  → 8</span>
+<span class="o">; machine code example (x86): MOV AL, 61h  →  B0 61 (hex)</span></pre>
+<div class="wrap"><table>
+<tr><th>Mnemonic</th><th>Meaning</th><th>Mnemonic</th><th>Meaning</th></tr>
+<tr><td><code>MOV / LOAD</code></td><td>Copy / load data</td><td><code>INC / DEC</code></td><td>Add 1 / subtract 1</td></tr>
+<tr><td><code>STORE</code></td><td>Save register to memory</td><td><code>CMP</code></td><td>Compare two values</td></tr>
+<tr><td><code>ADD / SUB</code></td><td>Add / subtract</td><td><code>JMP</code></td><td>Jump to an address</td></tr>
+<tr><td><code>MUL / DIV</code></td><td>Multiply / divide</td><td><code>JE / JZ</code></td><td>Jump if equal / zero</td></tr>
+</table></div>
+<div class="wrap"><table>
+<tr><th></th><th>Machine language</th><th>Assembly language</th><th>High-level language</th></tr>
+<tr><td>Form</td><td>Binary</td><td>Mnemonics</td><td>English-like (Python, C, Java)</td></tr>
+<tr><td>Translator</td><td>None needed</td><td>Assembler</td><td>Compiler / interpreter</td></tr>
+<tr><td>Machine dependent?</td><td>Yes</td><td>Yes</td><td>No (portable)</td></tr>
+<tr><td>Ease of writing</td><td>Very hard</td><td>Hard</td><td>Easy</td></tr>
+<tr><td>Speed / control</td><td>Fastest, full control</td><td>Very fast, full control</td><td>Slower, less control</td></tr>
+</table></div>
+<ul class="t">
+<li><b>Uses of assembly</b>: device drivers, operating-system kernels, embedded systems, speed-critical code</li>
+<li><b>Disadvantages</b>: long programs, hard to debug, not portable</li>
+</ul>
+
+<h2>Chapter 12 : Instruction Set Architecture (ISA) in CPU Design</h2>
+<ul class="t">
+<li><mark>ISA</mark> = the <b>interface between software and hardware</b>. It lists what instructions the CPU can execute and how programmers use the CPU</li>
+<li>The ISA defines: <b>instruction set</b>, <b>data types and formats</b>, <b>registers</b>, <b>addressing modes</b>, instruction format and length, memory model, I/O handling</li>
+<li><b>Microarchitecture</b> = how the ISA is <b>built</b> inside the CPU (pipeline, cache, data paths)</li>
+</ul>
+<div class="wrap"><table>
+<tr><th>Instruction type</th><th>Examples</th></tr>
+<tr><td><b>Data transfer</b></td><td>MOV, LOAD, STORE, PUSH, POP</td></tr>
+<tr><td><b>Arithmetic and logic</b></td><td>ADD, SUB, MUL, AND, OR, NOT, shift</td></tr>
+<tr><td><b>Control transfer</b></td><td>JUMP, BRANCH, CALL, RETURN</td></tr>
+<tr><td><b>Input / output</b></td><td>IN, OUT (or memory-mapped I/O)</td></tr>
+</table></div>
+<h3>Instruction formats (by number of addresses)</h3>
+<div class="wrap"><table>
+<tr><th>Format</th><th>Example</th><th>Meaning</th></tr>
+<tr><td><b>3-address</b></td><td><code>ADD R1, R2, R3</code></td><td>R1 ← R2 + R3</td></tr>
+<tr><td><b>2-address</b></td><td><code>ADD R1, R2</code></td><td>R1 ← R1 + R2</td></tr>
+<tr><td><b>1-address</b> (accumulator)</td><td><code>ADD X</code></td><td>AC ← AC + Memory[X]</td></tr>
+<tr><td><b>0-address</b> (stack)</td><td><code>ADD</code></td><td>Pops two values from the stack, pushes their sum</td></tr>
+</table></div>
+<h3>Role of ISA in CPU design</h3>
+<ul class="t">
+<li><b>Fixes what the hardware must do</b> – decides registers, control unit and ALU needed</li>
+<li><b>Software compatibility</b> – programs run on any CPU with the same ISA (e.g. x86 family) even if the hardware inside differs</li>
+<li><b>Performance trade-off</b> – a simple ISA is easier to speed up; a rich ISA gives compact programs</li>
+</ul>
+<div class="wrap"><table>
+<tr><th></th><th>RISC ISA</th><th>CISC ISA</th></tr>
+<tr><td>Instructions</td><td>Few, simple, <b>fixed length</b></td><td>Many, complex, <b>variable length</b></td></tr>
+<tr><td>Memory access</td><td><b>Load / store</b> only</td><td>Memory operands allowed in many instructions</td></tr>
+<tr><td>Control unit</td><td>Hardwired</td><td>Microprogrammed</td></tr>
+<tr><td>Examples</td><td>ARM, MIPS, RISC-V</td><td>x86</td></tr>
+</table></div>
+
+<h2>Chapter 13 : Caching and Pipelining</h2>
+<h3>13.1 Caching</h3>
+<ul class="t">
+<li><mark>Cache</mark> = small, very fast <b>SRAM</b> memory between the CPU and RAM. Stores <b>frequently used</b> data and instructions, so the CPU waits less</li>
+<li>Works because of <mark>locality of reference</mark>: <b>temporal</b> – recently used data is used again soon; <b>spatial</b> – nearby addresses are used soon</li>
+<li><b>Levels</b>: L1 (fastest, smallest, in the CPU) → L2 (larger, slower) → L3 (larger, shared across cores)</li>
+<li><b>Cache hit</b> = data found in cache (fast). <b>Cache miss</b> = not found → fetched from RAM (slow)</li>
+<li><b>Hit ratio</b> = hits ÷ total accesses</li>
+</ul>
+<div class="box star"><b>Average memory access time = Hit time + Miss rate × Miss penalty</b><br>Example: hit time 1 ns, miss rate 10 % (0.1), miss penalty 100 ns → 1 + 0.1 × 100 = <b>11 ns</b></div>
+<ul class="t">
+<li>Textbook points: <b>mapping</b> – direct, associative, set-associative; <b>replacement</b> – LRU, FIFO; <b>write policy</b> – write-through, write-back</li>
+</ul>
+<h3>13.2 Pipelining</h3>
+<ul class="t">
+<li><mark>Pipelining</mark> = the CPU starts the <b>next instruction before the current one finishes</b> – like a <b>factory assembly line</b>. Several instructions are in different stages at once</li>
+<li>Classic 5 stages: <b>IF</b> instruction fetch → <b>ID</b> decode → <b>EX</b> execute → <b>MEM</b> memory access → <b>WB</b> write back</li>
+</ul>
+<div class="wrap"><table class="c">
+<tr><th>Instr.</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th></tr>
+<tr><th>I1</th><td class="f">IF</td><td class="f">ID</td><td class="f">EX</td><td class="f">MEM</td><td class="f">WB</td><td></td><td></td><td></td></tr>
+<tr><th>I2</th><td></td><td class="f">IF</td><td class="f">ID</td><td class="f">EX</td><td class="f">MEM</td><td class="f">WB</td><td></td><td></td></tr>
+<tr><th>I3</th><td></td><td></td><td class="f">IF</td><td class="f">ID</td><td class="f">EX</td><td class="f">MEM</td><td class="f">WB</td><td></td></tr>
+<tr><th>I4</th><td></td><td></td><td></td><td class="f">IF</td><td class="f">ID</td><td class="f">EX</td><td class="f">MEM</td><td class="f">WB</td></tr>
+</table></div>
+<div class="box star"><b>k stages, n instructions:</b> without pipeline = <b>n × k</b> cycles; with pipeline = <b>k + n − 1</b> cycles.<br>Example: k = 5, n = 4 → 20 cycles vs <b>8 cycles</b>. Speed-up = 20 ÷ 8 = <b>2.5</b> (approaches k for large n).</div>
+<ul class="t">
+<li>Pipelining raises <b>throughput</b> (instructions per unit time). One instruction’s own time (<b>latency</b>) does not shrink</li>
+</ul>
+<div class="wrap"><table>
+<tr><th>Pipeline hazard</th><th>Cause</th><th>Fix</th></tr>
+<tr><td><b>Structural</b></td><td>Two instructions need the same hardware at once</td><td>More hardware / stall</td></tr>
+<tr><td><b>Data</b></td><td>An instruction needs a result not yet produced</td><td>Stall (bubble), <b>forwarding</b></td></tr>
+<tr><td><b>Control</b></td><td>Branch – next instruction not known</td><td><b>Branch prediction</b>, stall</td></tr>
+</table></div>
+<ul class="t"><li>RISC (simple, fixed-length instructions) is <b>easy to pipeline</b>. Cache and pipelining reduce the <b>Von Neumann bottleneck</b></li></ul>
+
+<h2>★ Key Observations</h2>
+<ul class="t">
+<li>CPU = <b>ALU + CU + registers + buses</b></li>
+<li><b>PC</b> holds the next instruction address; <b>MAR</b> = address; <b>MDR</b> = data; <b>IR</b> = current instruction</li>
+<li>Address bus width <b>n</b> → <b>2ⁿ</b> memory locations</li>
+<li>Instruction cycle: <b>Fetch → Decode → Execute → Store</b>. Fetch increments the PC</li>
+<li>Machine language = binary. Assembly = mnemonics + <b>assembler</b></li>
+<li>ISA = software–hardware <b>interface</b>. Microarchitecture = its <b>implementation</b></li>
+<li>Cache hit = fast, miss = slow. Pipelining overlaps instructions</li>
+</ul>
+
+<h2>Real-Life Applications</h2>
+<ul class="t">
+<li><b>Assembly</b> – embedded systems, device drivers, OS kernels</li>
+<li><b>ISA compatibility</b> – the same software runs on different x86 PCs; ARM in phones</li>
+<li><b>Cache</b> – faster apps and games on the same CPU</li>
+<li><b>Pipelining</b> – modern CPUs finish about one instruction per cycle</li>
+</ul>
+
+<h2>Important Terms</h2>
+<div class="wrap"><table>
+<tr><td><b>Opcode / Operand</b></td><td>Operation to do / data it works on</td></tr>
+<tr><td><b>Mnemonic</b></td><td>Short symbolic name for an instruction (ADD, MOV)</td></tr>
+<tr><td><b>Assembler</b></td><td>Translates assembly code to machine code</td></tr>
+<tr><td><b>ISA</b></td><td>Instruction Set Architecture</td></tr>
+<tr><td><b>Flag</b></td><td>Status bit set by the ALU (zero, carry, sign, overflow)</td></tr>
+<tr><td><b>Locality of reference</b></td><td>Programs reuse recent and nearby data</td></tr>
+<tr><td><b>Hit / Miss</b></td><td>Data found / not found in cache</td></tr>
+<tr><td><b>Pipeline stage</b></td><td>One step of instruction processing (IF, ID, EX, MEM, WB)</td></tr>
+<tr><td><b>Hazard</b></td><td>Situation that stops the pipeline from running smoothly</td></tr>
+<tr><td><b>Speed-up</b></td><td>Time without pipeline ÷ time with pipeline</td></tr>
+</table></div>
+
+<div class="box star">
+<h3 style="color:var(--red)">★ Exam Points ★</h3>
+<ul class="t">
+<li>CPU parts: <b>ALU, control unit, registers, buses</b>. Buses: <b>data, address, control</b></li>
+<li>Registers: <b>PC, IR, MAR, MDR, AC</b>, general-purpose, flag, stack pointer</li>
+<li>Control unit types: <b>hardwired</b> and <b>microprogrammed</b></li>
+<li>Instruction cycle: <b>fetch, decode, execute</b> (store result)</li>
+<li>Fetch: <b>MAR ← PC; MDR ← Memory[MAR]; IR ← MDR; PC ← PC + 1</b></li>
+<li>Machine language = <b>binary</b>; assembly = <b>mnemonics</b>, translated by an <b>assembler</b></li>
+<li>ISA = <b>interface between software and hardware</b>; gives <b>software compatibility</b></li>
+<li>Cache = fast <b>SRAM</b> between CPU and RAM; <b>L1, L2, L3</b>; uses <b>locality of reference</b></li>
+<li>Average access time = <b>Hit time + Miss rate × Miss penalty</b></li>
+<li>Pipeline: <b>IF, ID, EX, MEM, WB</b>; cycles = <b>k + n − 1</b>; hazards: <b>structural, data, control</b></li>
+</ul>
+</div>
+
+<footer class="study-footer">
+  <a href="Module2.html">← Module 2</a>
+  <span>Fundamentals of Computer Architecture · Semester 1</span>
+  <a href="module4.html">Module 4 →</a>
+</footer>
+</div>
 </body>
 </html>
