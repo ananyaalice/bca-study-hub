@@ -1,0 +1,77 @@
+BCA Study Hub — Semester 1 structure
+
+index.html  (Home: semesters 1–8)
+semester-1/
+  index.html  (Semester 1 subject list)
+  mathematics-for-computing/
+    index.html  (Subject navigation)
+    module1.html  (Mathematical Logic and Proof Techniques)
+    module2.html  (Set Theory, Relations and Functions)
+    module3.html  (Algebraic Structures)
+    module4.html  (Combinatorics and Graph Theory)
+    module5.html  (Matrix Algebra and Linear Transformations)
+    ModelQuestions.html
+    PreviousQuestions.html
+  python-programming/
+    index.html  (Subject navigation)
+    module1.html  (Introduction to Python)
+    module2.html  (Data Types, Control Flow and Iteration)
+    module3.html  (Functions and Modular Programming)
+    module4.html  (Python Data Structures)
+    module5.html  (File Handling and Exception Management)
+    ModelQuestions.html
+    PreviousQuestions.html
+  lab-python-programming/
+    index.html  (Subject navigation)
+    module1.html  (Basic Programs: Variables, Odd/Even and Largest of Three)
+    module2.html  (Recursion and Number/String Logic: Factorial, Fibonacci and Palindrome)
+    module3.html  (String and Number Programs: Vowels, Prime Check and Multiplication Table)
+    module4.html  (List Operations: Sum/Average, Linear Search and Bubble Sort)
+    module5.html  (Dictionaries, Duplicate Removal and Word Counts)
+    ModelQuestions.html
+    PreviousQuestions.html
+  fundamentals-of-computer-architecture/
+    index.html  (Subject navigation)
+    module1.html  (Introduction to Computer Science and Architecture)
+    module2.html  (Number Systems and Data Representation)
+    module3.html  (Central Processing Unit (CPU) Architecture)
+    module4.html  (Memory Hierarchy and Storage)
+    module5.html  (Input/Output Systems and Computer Performance)
+    ModelQuestions.html
+    PreviousQuestions.html
+  design-for-developers-ui-ux/
+    index.html  (Subject navigation)
+    module1.html  (Introduction to UI and UX)
+    module2.html  (Design Principles)
+    module3.html  (Design Fundamentals)
+    module4.html  (Prototyping and Design Tools)
+    module5.html  (Usability Testing and Iteration)
+    ModelQuestions.html
+    PreviousQuestions.html
+  interpersonal-and-essential-skills-1/
+    index.html  (Subject navigation)
+    module1.html  (Introduction to Interpersonal Skills)
+    module2.html  (Effective Communication Techniques)
+    module3.html  (Teamwork and Collaboration)
+    module4.html  (Problem-Solving and Critical Thinking)
+    module5.html  (Presentation and Public Speaking Skills)
+    ModelQuestions.html
+    PreviousQuestions.html
+  analytical-reasoning-and-problem-solving-1/
+    index.html  (Subject navigation)
+    module1.html  (Introduction to Analytical Reasoning)
+    module2.html  (Logical and Verbal Reasoning)
+    module3.html  (Quantitative and Mathematical Reasoning)
+    module4.html  (Data Interpretation and Analytical Puzzles)
+    module5.html  (Advanced Problem-Solving Techniques)
+    ModelQuestions.html
+    PreviousQuestions.html
+  fundamentals-of-programming-certification/
+    index.html  (Subject navigation)
+    module1.html  (Purpose of VAC Courses)
+    module2.html  (Fundamentals of Programming VAC)
+    module3.html  (Structured Programming Problems)
+    module4.html  (Practice and Programming Platforms)
+    module5.html  (Capstone Project and Completion Requirements)
+    ModelQuestions.html
+    PreviousQuestions.html

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Python Programming – Module V Notes</title>
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#fdfcf4;--desk:#e9e4d6;--line:#cfe2ee;--margin:#e8798a;--ink:#1d3a8c;--red:#c0262d;--green:#1b7a3d;--hl:#fff08a;--box:#f4f8ff;--code:#fff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#20232f;--desk:#14161d;--line:#2d3345;--margin:#a8465a;--ink:#b7c8ff;--red:#ff8a8f;--green:#7fdc9c;--hl:#5a5320;--box:#272b3a;--code:#181b25}}
+:root[data-theme="dark"]{--paper:#20232f;--desk:#14161d;--line:#2d3345;--margin:#a8465a;--ink:#b7c8ff;--red:#ff8a8f;--green:#7fdc9c;--hl:#5a5320;--box:#272b3a;--code:#181b25}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--desk);font-family:"Patrick Hand","Comic Sans MS",cursive;color:var(--ink);font-size:19px;line-height:28px}
+.page{max-width:860px;margin:18px auto;padding:20px 20px 28px 64px;background:var(--paper) repeating-linear-gradient(transparent,transparent 27px,var(--line) 27px,var(--line) 28px);border-left:3px double var(--margin);box-shadow:0 2px 14px rgba(0,0,0,.25)}
+h1,h2,h3{font-family:"Caveat","Patrick Hand",cursive;margin:0;line-height:28px}
+h1{font-size:40px;line-height:42px;color:var(--red)}
+h2{font-size:30px;margin:28px 0 8px;color:var(--red);border-bottom:3px wavy var(--red);display:inline-block;line-height:36px}
+h3{font-size:25px;margin:14px 0 2px;text-decoration:underline}
+p,ul,ol{margin:0 0 8px}ul,ol{padding-left:22px}
+ul.t{list-style:none;padding-left:4px}ul.t li:before{content:"→ ";color:var(--red)}
+.sub{color:var(--green);font-size:18px}
+mark{background:linear-gradient(transparent 20%,var(--hl) 20%,var(--hl) 90%,transparent 90%);color:inherit;padding:0 3px}
+b{color:var(--red);font-weight:400;text-decoration:underline wavy 1px}
+code,pre{font-family:ui-monospace,Consolas,"Courier New",monospace;font-size:15px}
+code{background:var(--box);padding:0 4px;border-radius:3px}
+pre{background:var(--code);border:1.5px dashed var(--ink);border-radius:6px;padding:8px 12px;margin:6px 0 10px;line-height:22px;overflow-x:auto}
+.o{color:var(--green)}
+.box{border:2px solid var(--ink);border-radius:8px 14px 10px 16px;background:var(--box);padding:8px 14px;margin:8px 0 12px}
+.box.star{border-color:var(--red)}.box h3{margin-top:0;text-decoration:none}
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:8px 0 12px}
+.flow span.n{border:2px solid var(--ink);border-radius:8px;background:var(--box);padding:2px 10px;line-height:24px;text-align:center}
+.flow span.d{border:2px solid var(--red);border-radius:14px;background:var(--box);padding:2px 10px;line-height:24px;text-align:center}
+.flow span.a{color:var(--red);font-size:22px}
+.wrap{overflow-x:auto;margin:6px 0 12px}
+table{border-collapse:collapse;min-width:100%;background:var(--box)}
+th,td{border:1.5px solid var(--ink);padding:3px 8px;text-align:left;line-height:24px;vertical-align:top}
+th{color:var(--red);font-weight:400;background:var(--paper)}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:0 24px}
+@media(max-width:640px){.page{padding-left:46px;padding-right:12px}.cols{grid-template-columns:1fr}body{font-size:18px}}
+
+/* BCA Study Hub navigation; lesson content styles remain unchanged. */
+.hub-nav,.hub-footer{max-width:860px;margin-left:auto;margin-right:auto;background:var(--paper);color:var(--ink);font:14px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;border:1px solid var(--line);box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.hub-nav{margin-top:18px;margin-bottom:-18px;border-radius:5px 5px 0 0}
+.hub-nav-inner{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 15px}
+.hub-crumbs{display:flex;align-items:center;flex-wrap:wrap;gap:7px;min-width:0}
+.hub-nav a,.hub-footer a{color:var(--ink);text-underline-offset:3px}
+.hub-nav a:hover,.hub-footer a:hover{color:var(--red)}
+.hub-separator{color:var(--red)}
+.hub-current{font-weight:700}
+.hub-footer{margin-top:-18px;margin-bottom:18px;border-radius:0 0 5px 5px;border-top:0}
+.hub-footer-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;padding:10px 15px}
+.hub-footer-links,.hub-module-nav{display:flex;align-items:center;flex-wrap:wrap;gap:10px}
+.hub-footer .hub-muted{color:var(--green)}
+@media(max-width:640px){
+ .hub-nav{margin-top:0;width:100%;border-radius:0}
+ .hub-nav-inner{align-items:flex-start;flex-direction:column;gap:5px;padding:10px 12px}
+ .hub-footer{width:100%;margin-bottom:0;border-radius:0}
+ .hub-footer-inner{display:grid;grid-template-columns:1fr;gap:10px;padding:10px 12px}
+ .hub-footer-links,.hub-module-nav{display:flex;justify-content:space-between;gap:8px}
+ .hub-module-nav a,.hub-footer-links a{padding:5px 0}
+}
+
+</style>
+</head>
+<body>
+<header class="hub-nav" aria-label="Study navigation">
+  <div class="hub-nav-inner">
+    <nav class="hub-crumbs" aria-label="Breadcrumb">
+      <a href="../../index.html">Home</a><span class="hub-separator" aria-hidden="true">›</span>
+      <a href="../index.html">Semester 1</a><span class="hub-separator" aria-hidden="true">›</span>
+      <a href="index.html">Python Programming</a><span class="hub-separator" aria-hidden="true">›</span>
+      <span class="hub-current" aria-current="page">Module 5</span>
+    </nav>
+    <a href="index.html">← Back to subject</a>
+  </div>
+</header>
+<div class="page">
+<h1>Python Programming ★ Module V</h1>
+<p class="sub">File Handling and Exception Management | BCA (Hons) DS &amp; AI, Sem 1 | 25-922-0102</p>
+
+<h2>Chapter 1 : Working with Files</h2>
+<h3>1.1 Why files?</h3>
+<ul class="t">
+<li>Variables lose data when the program ends. A <mark>file</mark> stores data <b>permanently</b> on disk</li>
+<li>Two kinds: <b>text files</b> (readable characters, default) and <b>binary files</b> (images, audio – use mode <code>b</code>)</li>
+<li>Steps: <b>open</b> → <b>read / write</b> → <b>close</b></li>
+</ul>
+
+<h3>1.2 open() function</h3>
+<pre>file_object = open("data.txt", "r")    <span class="o"># open(filename, mode)</span></pre>
+<div class="wrap"><table>
+<tr><th>Mode</th><th>Name</th><th>Meaning</th></tr>
+<tr><td><code>"r"</code></td><td>Read (default)</td><td>Only reading. File must exist, else <b>FileNotFoundError</b></td></tr>
+<tr><td><code>"w"</code></td><td>Write</td><td>Creates file if absent. <mark>Erases old content</mark> if present</td></tr>
+<tr><td><code>"a"</code></td><td>Append</td><td>Creates file if absent. Adds new data at the <b>end</b>, old content stays</td></tr>
+<tr><td><code>"r+"</code></td><td>Read and write</td><td>File must exist</td></tr>
+<tr><td><code>"x"</code></td><td>Create</td><td>Makes a new file. Error if it already exists</td></tr>
+</table></div>
+<ul class="t"><li>Add <code>b</code> for binary: <code>"rb"</code>, <code>"wb"</code></li></ul>
+
+<h3>1.3 Closing a file</h3>
+<ul class="t">
+<li><code>f.close()</code> saves data and frees resources</li>
+<li><mark>with statement</mark> closes the file <b>automatically</b>, even if an error occurs ✔ (best way)</li>
+</ul>
+<pre>with open("data.txt", "r") as f:
+    content = f.read()
+<span class="o"># file is closed here automatically</span></pre>
+
+<h2>Chapter 2 : Reading from Text Files</h2>
+<p>Let <code>sample.txt</code> contain three lines: <b>Hello</b>, <b>Python</b>, <b>Files</b></p>
+<div class="wrap"><table>
+<tr><th>Method</th><th>Work</th><th>Result for sample.txt</th></tr>
+<tr><td><code>read()</code></td><td>Whole file as <b>one string</b></td><td><code>'Hello\nPython\nFiles\n'</code></td></tr>
+<tr><td><code>read(n)</code></td><td>First <b>n characters</b></td><td><code>read(5)</code> → <code>'Hello'</code></td></tr>
+<tr><td><code>readline()</code></td><td><b>One line</b> (with \n). Empty string at end</td><td><code>'Hello\n'</code></td></tr>
+<tr><td><code>readlines()</code></td><td>All lines as a <b>list</b></td><td><code>['Hello\n', 'Python\n', 'Files\n']</code></td></tr>
+</table></div>
+<pre>with open("sample.txt", "r") as f:
+    for line in f:                 <span class="o"># line by line</span>
+        print(line.strip())        <span class="o"># strip() removes \n</span>
+<span class="o">Hello
+Python
+Files</span></pre>
+<ul class="t">
+<li>Each line from a file ends with <code>\n</code>. Use <code>strip()</code> or <code>print(line, end="")</code></li>
+</ul>
+
+<h2>Chapter 3 : Writing to Text Files</h2>
+<ul class="t">
+<li><code>write(string)</code> writes text. It does <b>not</b> add a new line – put <code>\n</code> yourself</li>
+<li><code>writelines(list)</code> writes many strings (no <code>\n</code> added)</li>
+<li>Only <b>strings</b> can be written. Convert numbers: <code>f.write(str(10))</code></li>
+<li><b>"w"</b> replaces old content. <b>"a"</b> keeps it and adds at the end</li>
+</ul>
+<div class="cols">
+<pre><span class="o"># write mode</span>
+with open("out.txt", "w") as f:
+    f.write("Hello\n")
+    f.write("Python\n")</pre>
+<pre><span class="o"># append mode</span>
+with open("out.txt", "a") as f:
+    f.write("Files\n")
+<span class="o"># out.txt: Hello / Python / Files</span></pre>
+</div>
+
+<h2>Chapter 4 : CSV Files</h2>
+<ul class="t">
+<li><mark>CSV</mark> = Comma Separated Values. Each <b>line is a record</b>; fields are separated by commas</li>
+<li>Used for tables – opens in Excel. Handled with the <code>csv</code> module: <code>import csv</code></li>
+<li><code>csv.writer(f)</code> → <code>writerow(list)</code> one row, <code>writerows(list of lists)</code> many rows</li>
+<li><code>csv.reader(f)</code> → each row comes as a <b>list of strings</b></li>
+<li>Use <code>newline=""</code> when writing (avoids blank lines on Windows)</li>
+</ul>
+<pre>import csv
+with open("students.csv", "w", newline="") as f:
+    w = csv.writer(f)
+    w.writerow(["Name", "Marks"])
+    w.writerow(["Ravi", 80])
+    w.writerow(["Anu", 90])
+
+with open("students.csv", "r") as f:
+    r = csv.reader(f)
+    for row in r:
+        print(row)
+<span class="o">['Name', 'Marks']
+['Ravi', '80']        # numbers come back as strings
+['Anu', '90']</span></pre>
+<ul class="t"><li><code>csv.DictReader(f)</code> reads the first row as <b>headings</b>; each row is a dictionary: <code>row["Name"]</code> → 'Ravi'</li></ul>
+
+<h2>Chapter 5 : Exception Handling</h2>
+<h3>5.1 Errors and exceptions</h3>
+<div class="wrap"><table>
+<tr><th>Syntax error</th><th>Exception (run-time error)</th></tr>
+<tr><td>Wrong grammar. Found <b>before</b> the program runs</td><td>Error <b>during</b> running. Stops the program unless handled</td></tr>
+<tr><td><code>print("Hi"</code></td><td><code>10 / 0</code></td></tr>
+</table></div>
+<ul class="t"><li><mark>Exception handling</mark> = catching errors so the program does <b>not crash</b></li></ul>
+
+<h3>5.2 Built-in exceptions</h3>
+<div class="wrap"><table>
+<tr><th>Exception</th><th>Raised when</th><th>Example</th></tr>
+<tr><td><b>ZeroDivisionError</b></td><td>Dividing by zero</td><td><code>10 / 0</code></td></tr>
+<tr><td><b>ValueError</b></td><td>Right type, wrong value</td><td><code>int("abc")</code></td></tr>
+<tr><td><b>TypeError</b></td><td>Wrong type used</td><td><code>"5" + 3</code></td></tr>
+<tr><td><b>NameError</b></td><td>Variable not defined</td><td><code>print(x)</code></td></tr>
+<tr><td><b>IndexError</b></td><td>List index out of range</td><td><code>[1, 2][5]</code></td></tr>
+<tr><td><b>KeyError</b></td><td>Dictionary key not found</td><td><code>{"a": 1}["b"]</code></td></tr>
+<tr><td><b>FileNotFoundError</b></td><td>File does not exist</td><td><code>open("none.txt")</code></td></tr>
+<tr><td><b>ModuleNotFoundError</b></td><td>Module cannot be found</td><td><code>import abc123</code></td></tr>
+</table></div>
+
+<h3>5.3 try – except – else – finally</h3>
+<div class="wrap"><table>
+<tr><th>Block</th><th>Work</th></tr>
+<tr><td><code>try</code></td><td>Code that <b>may cause</b> an error</td></tr>
+<tr><td><code>except</code></td><td>Runs <b>if error occurs</b> – handles it</td></tr>
+<tr><td><code>else</code></td><td>Runs <b>only if no error</b> occurred</td></tr>
+<tr><td><code>finally</code></td><td>Runs <mark>always</mark> – error or not (cleanup, e.g. close file)</td></tr>
+</table></div>
+<div class="flow"><span class="n">try block</span><span class="a">→</span><span class="d">Error?</span><span class="a">Yes →</span><span class="n">except</span><span class="a">|</span><span class="a">No →</span><span class="n">else</span><span class="a">→</span><span class="n">finally<br>(always)</span><span class="a">→</span><span class="n">rest of program</span></div>
+<pre>try:
+    a = int(input("Enter number: "))
+    print(10 / a)
+except ZeroDivisionError:
+    print("Cannot divide by zero")
+except ValueError:
+    print("Enter a valid number")
+else:
+    print("No error")
+finally:
+    print("Done")</pre>
+<div class="wrap"><table>
+<tr><th>Input</th><th>Output</th></tr>
+<tr><td><code>5</code></td><td>2.0 → No error → Done</td></tr>
+<tr><td><code>0</code></td><td>Cannot divide by zero → Done</td></tr>
+<tr><td><code>abc</code></td><td>Enter a valid number → Done</td></tr>
+</table></div>
+<ul class="t">
+<li>Many except blocks allowed. Put <b>specific</b> exceptions first</li>
+<li>One except for many types: <code>except (ValueError, TypeError):</code></li>
+<li>Get the message: <code>except ZeroDivisionError as e:</code> then <code>print(e)</code> → <code>division by zero</code></li>
+<li><code>except:</code> alone catches <b>every</b> error – not good practice</li>
+<li>try needs at least one <b>except</b> or a <b>finally</b>. Order: try, except, else, finally</li>
+</ul>
+<h3>Handling a file error</h3>
+<pre>try:
+    with open("data.txt", "r") as f:
+        print(f.read())
+except FileNotFoundError:
+    print("File not found")</pre>
+
+<h2>Chapter 6 : Raising Exceptions</h2>
+<ul class="t">
+<li><code>raise</code> makes an exception <b>by the programmer</b>. Syntax: <code>raise ExceptionType("message")</code></li>
+<li>Used to stop wrong data, e.g. a negative age</li>
+</ul>
+<pre>age = -5
+if age &lt; 0:
+    raise ValueError("Age cannot be negative")
+<span class="o">ValueError: Age cannot be negative</span>
+
+try:                                   <span class="o"># raise + try-except together</span>
+    raise ValueError("Bad input")
+except ValueError as e:
+    print("Caught:", e)                <span class="o"># Caught: Bad input</span></pre>
+<h3>Exception family (some)</h3>
+<div class="flow"><span class="n">Exception</span><span class="a">→</span><span class="n">ArithmeticError<br>→ ZeroDivisionError</span><span class="a">|</span><span class="n">LookupError<br>→ IndexError, KeyError</span><span class="a">|</span><span class="n">OSError<br>→ FileNotFoundError</span><span class="a">|</span><span class="n">ValueError, TypeError, NameError</span></div>
+<ul class="t"><li>Catching a <b>parent</b> exception also catches its children (<code>except LookupError</code> catches IndexError and KeyError)</li></ul>
+
+<h2>Program (Lab-type)</h2>
+<pre><span class="o"># count lines and words in a file safely</span>
+try:
+    with open("sample.txt", "r") as f:
+        lines = f.readlines()
+    words = 0
+    for line in lines:
+        words += len(line.split())
+    print("Lines:", len(lines), "Words:", words)
+except FileNotFoundError:
+    print("File not found")
+<span class="o"># sample.txt (Hello / Python / Files) → Lines: 3 Words: 3</span></pre>
+
+<h2>★ Key Observations</h2>
+<ul class="t">
+<li><b>"w"</b> erases old content. <b>"a"</b> adds at the end. <b>"r"</b> needs an existing file</li>
+<li>Always close a file. <b>with</b> does it automatically</li>
+<li><code>read()</code> → string. <code>readline()</code> → one line. <code>readlines()</code> → list</li>
+<li><code>write()</code> takes only strings and adds no new line</li>
+<li>CSV values read back are <b>strings</b></li>
+<li><b>finally</b> always runs. <b>else</b> runs only when there is no error</li>
+<li>Syntax error = before running. Exception = while running</li>
+<li><code>raise</code> creates an exception. <code>except</code> catches it</li>
+</ul>
+
+<h2>Real-Life Applications</h2>
+<ul class="t">
+<li><b>Files:</b> saving student records, log files, reports, settings</li>
+<li><b>CSV:</b> reading and writing spreadsheet data (Excel), data science datasets</li>
+<li><b>try-except:</b> stops crashes from wrong user input, missing files, divide by zero</li>
+<li><b>finally:</b> closing files or connections in every case</li>
+<li><b>raise:</b> checking rules – age, marks, password length</li>
+</ul>
+
+<h2>Important Terms</h2>
+<div class="wrap"><table>
+<tr><th>Term</th><th>Meaning</th></tr>
+<tr><td>File object</td><td>Object returned by <code>open()</code> to work with a file</td></tr>
+<tr><td>Mode</td><td>Purpose for opening a file (r, w, a)</td></tr>
+<tr><td>with statement</td><td>Opens a file and closes it automatically</td></tr>
+<tr><td>CSV</td><td>Comma Separated Values file</td></tr>
+<tr><td>Exception</td><td>Run-time error that stops normal flow</td></tr>
+<tr><td>Handler</td><td>The except block that deals with an exception</td></tr>
+<tr><td>Traceback</td><td>Error report shown by Python</td></tr>
+<tr><td>raise</td><td>Keyword to create an exception manually</td></tr>
+</table></div>
+
+<div class="box star">
+<h3 style="color:var(--red)">★ Exam Points ★</h3>
+<ul class="t">
+<li>Syntax: <code>open(filename, mode)</code>. Default mode: <b>"r"</b></li>
+<li>Modes: <b>r</b> read, <b>w</b> write (overwrites), <b>a</b> append. <b>r+</b> read and write</li>
+<li>"r" on a missing file → <b>FileNotFoundError</b></li>
+<li><b>with</b> closes the file automatically. Or use <code>f.close()</code></li>
+<li>Methods: <b>read()</b> whole file, <b>readline()</b> one line, <b>readlines()</b> list of lines, <b>write()</b> text</li>
+<li>CSV module: <b>csv.reader</b>, <b>csv.writer</b>, <b>writerow</b>, <b>writerows</b></li>
+<li>Exception = run-time error. Common: <b>ZeroDivisionError, ValueError, TypeError, NameError, IndexError, KeyError, FileNotFoundError</b></li>
+<li><b>try</b> risky code | <b>except</b> handles error | <b>else</b> no error | <b>finally</b> always runs</li>
+<li>Raise manually: <code>raise ValueError("message")</code></li>
+</ul>
+</div>
+</div>
+<footer class="hub-footer" aria-label="Module navigation">
+  <div class="hub-footer-inner">
+    <nav class="hub-footer-links" aria-label="Study hub links">
+      <a href="../../index.html">Home</a>
+      <span class="hub-separator" aria-hidden="true">·</span>
+      <a href="../index.html">Semester 1</a>
+      <span class="hub-separator" aria-hidden="true">·</span>
+      <a href="index.html">Python Programming</a>
+    </nav>
+    <nav class="hub-module-nav" aria-label="Module navigation">
+      <a href="module4.html">← Previous: Module 4</a>
+    </nav>
+  </div>
+</footer>
+</body>
+</html>

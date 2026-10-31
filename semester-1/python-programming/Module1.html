@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Python Programming – Module I Notes (Revised)</title>
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#fdfcf4;--desk:#e9e4d6;--line:#cfe2ee;--margin:#e8798a;--ink:#1d3a8c;--red:#c0262d;--green:#1b7a3d;--hl:#fff08a;--box:#f4f8ff;--code:#fff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#20232f;--desk:#14161d;--line:#2d3345;--margin:#a8465a;--ink:#b7c8ff;--red:#ff8a8f;--green:#7fdc9c;--hl:#5a5320;--box:#272b3a;--code:#181b25}}
+:root[data-theme="dark"]{--paper:#20232f;--desk:#14161d;--line:#2d3345;--margin:#a8465a;--ink:#b7c8ff;--red:#ff8a8f;--green:#7fdc9c;--hl:#5a5320;--box:#272b3a;--code:#181b25}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--desk);font-family:"Patrick Hand","Comic Sans MS",cursive;color:var(--ink);font-size:19px;line-height:28px}
+.page{max-width:860px;margin:18px auto;padding:20px 20px 28px 64px;background:var(--paper) repeating-linear-gradient(transparent,transparent 27px,var(--line) 27px,var(--line) 28px);border-left:3px double var(--margin);box-shadow:0 2px 14px rgba(0,0,0,.25)}
+h1,h2,h3{font-family:"Caveat","Patrick Hand",cursive;margin:0;line-height:28px}
+h1{font-size:40px;line-height:42px;color:var(--red)}
+h2{font-size:30px;margin:28px 0 8px;color:var(--red);border-bottom:3px wavy var(--red);display:inline-block;line-height:36px}
+h3{font-size:25px;margin:14px 0 2px;text-decoration:underline}
+p,ul,ol{margin:0 0 8px}ul,ol{padding-left:22px}
+ul.t{list-style:none;padding-left:4px}ul.t li:before{content:"→ ";color:var(--red)}
+.sub{color:var(--green);font-size:18px}
+mark{background:linear-gradient(transparent 20%,var(--hl) 20%,var(--hl) 90%,transparent 90%);color:inherit;padding:0 3px}
+b{color:var(--red);font-weight:400;text-decoration:underline wavy 1px}
+code,pre{font-family:ui-monospace,Consolas,"Courier New",monospace;font-size:15px}
+code{background:var(--box);padding:0 4px;border-radius:3px}
+pre{background:var(--code);border:1.5px dashed var(--ink);border-radius:6px;padding:8px 12px;margin:6px 0 10px;line-height:22px;overflow-x:auto}
+.o{color:var(--green)}
+.box{border:2px solid var(--ink);border-radius:8px 14px 10px 16px;background:var(--box);padding:8px 14px;margin:8px 0 12px}
+.box.star{border-color:var(--red)}.box h3{margin-top:0;text-decoration:none}
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:8px 0 12px}
+.flow span.n{border:2px solid var(--ink);border-radius:8px;background:var(--box);padding:2px 10px;line-height:24px;text-align:center}
+.flow span.a{color:var(--red);font-size:24px}
+.wrap{overflow-x:auto;margin:6px 0 12px}
+table{border-collapse:collapse;min-width:100%;background:var(--box)}
+th,td{border:1.5px solid var(--ink);padding:3px 8px;text-align:left;line-height:24px;vertical-align:top}
+th{color:var(--red);font-weight:400;background:var(--paper)}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:0 24px}
+@media(max-width:640px){.page{padding-left:46px;padding-right:12px}.cols{grid-template-columns:1fr}body{font-size:18px}}
+
+/* BCA Study Hub navigation; content styles above remain unchanged. */
+.hub-nav,.hub-footer{max-width:860px;margin-left:auto;margin-right:auto;background:var(--paper);color:var(--ink);font:14px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;border:1px solid var(--line);box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.hub-nav{margin-top:18px;margin-bottom:-18px;border-radius:5px 5px 0 0}
+.hub-nav-inner{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 15px}
+.hub-crumbs{display:flex;align-items:center;flex-wrap:wrap;gap:7px;min-width:0}
+.hub-nav a,.hub-footer a{color:var(--ink);text-underline-offset:3px}
+.hub-nav a:hover,.hub-footer a:hover{color:var(--red)}
+.hub-separator{color:var(--red)}
+.hub-current{font-weight:700}
+.hub-footer{margin-top:-18px;margin-bottom:18px;border-radius:0 0 5px 5px;border-top:0}
+.hub-footer-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;padding:10px 15px}
+.hub-footer-links,.hub-module-nav{display:flex;align-items:center;flex-wrap:wrap;gap:10px}
+.hub-footer .hub-muted{color:var(--green)}
+@media(max-width:640px){
+ .hub-nav{margin-top:0;width:100%;border-radius:0}
+ .hub-nav-inner{align-items:flex-start;flex-direction:column;gap:5px;padding:10px 12px}
+ .hub-footer{width:100%;margin-bottom:0;border-radius:0}
+ .hub-footer-inner{display:grid;grid-template-columns:1fr;gap:10px;padding:10px 12px}
+ .hub-footer-links,.hub-module-nav{display:flex;justify-content:space-between;gap:8px}
+ .hub-module-nav a,.hub-footer-links a{padding:5px 0}
+}
+
+</style>
+</head>
+<body>
+<header class="hub-nav" aria-label="Study navigation">
+  <div class="hub-nav-inner">
+    <nav class="hub-crumbs" aria-label="Breadcrumb">
+      <a href="../../index.html">Home</a><span class="hub-separator" aria-hidden="true">›</span>
+      <a href="../index.html">Semester 1</a><span class="hub-separator" aria-hidden="true">›</span>
+      <a href="index.html">Python Programming</a><span class="hub-separator" aria-hidden="true">›</span>
+      <span class="hub-current" aria-current="page">Module 1</span>
+    </nav>
+    <a href="index.html">← Back to subject</a>
+  </div>
+</header>
+<div class="page">
+<h1>Python Programming ★ Module I</h1>
+<p class="sub">Introduction to Python – Chapters 1 to 5 (revised with college notes) | BCA (Hons) DS &amp; AI, Sem 1 | 25-922-0102</p>
+
+<h2>Chapter 1 : Getting Started</h2>
+
+<h3>1.1 What is Python?</h3>
+<ul class="t">
+<li><mark>Programming</mark> = designing, writing, testing and maintaining instructions for a computer</li>
+<li>Python is a <mark>high-level, interpreted, general-purpose</mark> language, known for readability and simplicity</li>
+<li>Created by <b>Guido van Rossum</b> (Netherlands) as a successor to the <b>ABC</b> language</li>
+<li>Name from the British comedy series <mark>“Monty Python’s Flying Circus”</mark> – <b>not</b> the snake ✔</li>
+<li>Free and open source. File extension → <code>.py</code></li>
+</ul>
+
+<h3>1.2 History of Python</h3>
+<div class="wrap"><table>
+<tr><th>Year</th><th>Event</th></tr>
+<tr><td>1989 (Dec)</td><td>Guido van Rossum starts Python as a hobby project (Christmas holidays)</td></tr>
+<tr><td>1991 (Feb)</td><td><mark>Python 0.9.0</mark> – first public release (functions, exceptions, list, dict, str)</td></tr>
+<tr><td>1994 (Jan)</td><td>Python 1.0 – lambda, map, filter, reduce</td></tr>
+<tr><td>2000 (Oct)</td><td>Python 2.0 – list comprehension, garbage collection, Unicode support</td></tr>
+<tr><td>2008 (Dec)</td><td><mark>Python 3.0</mark> (“Python 3000”) – major revision, <b>not backward compatible</b></td></tr>
+<tr><td>2020</td><td>Python 2 reaches end-of-life</td></tr>
+</table></div>
+
+<h3>1.3 Features of Python (15)</h3>
+<div class="cols">
+<ul class="t"><li>✔ Simple and easy to learn</li><li>✔ Interpreted (line by line)</li><li>✔ High-level</li><li>✔ Object-oriented</li><li>✔ Platform independent</li><li>✔ Free and open source</li><li>✔ Large standard library</li><li>✔ Dynamically typed</li></ul>
+<ul class="t"><li>✔ Portable</li><li>✔ Extensible (C, C++ code)</li><li>✔ Embeddable</li><li>✔ Rich community support</li><li>✔ Multi-paradigm: procedural, OOP, functional</li><li>✔ Automatic memory management (garbage collection)</li><li>✔ Thousands of third-party libraries (pip)</li></ul>
+</div>
+
+<h3>1.4 How a program runs</h3>
+<div class="flow"><span class="n">Source code<br>(.py)</span><span class="a">→</span><span class="n">Interpreter<br>→ bytecode</span><span class="a">→</span><span class="n">Python Virtual<br>Machine (PVM)</span><span class="a">→</span><span class="n">Output</span></div>
+
+<h3>1.5 Installing Python</h3>
+<ol>
+<li>Visit <code>python.org/downloads</code> → download latest stable version</li>
+<li>Run the installer (<code>python-3.x.x.exe</code> on Windows)</li>
+<li>Tick <mark>“Add Python to PATH”</mark> ✔ (very important)</li>
+<li>Click <b>Install Now</b> → wait → Close</li>
+<li>Verify: <code>python --version</code> (Linux/macOS may need <code>python3 --version</code>)</li>
+</ol>
+<ul class="t"><li><b>pip</b> = package manager, installed with Python 3.4 and later. Installs libraries from <b>PyPI</b></li>
+<li>Check: <code>pip --version</code>. Install: <code>pip install package_name</code></li></ul>
+
+<h3>1.6 IDE and code editors</h3>
+<p>IDE = <mark>Integrated Development Environment</mark> – write, run and debug code in one place.</p>
+<div class="wrap"><table>
+<tr><th>Tool</th><th>Key point</th></tr>
+<tr><td><b>IDLE</b></td><td>Integrated Development and Learning Environment. Comes with Python. Simple, for beginners</td></tr>
+<tr><td><b>VS Code</b></td><td>Free, light, extensible. Needs the “Python” extension</td></tr>
+<tr><td><b>PyCharm</b></td><td>Full-featured Python IDE with debugging tools</td></tr>
+<tr><td><b>Jupyter Notebook</b></td><td>Browser-based, runs code in cells. Used in data science</td></tr>
+<tr><td><b>Google Colab</b></td><td>Cloud-based Jupyter. No local installation</td></tr>
+</table></div>
+<p><b>VS Code setup:</b> 1) install VS Code → 2) install Microsoft “Python” extension → 3) create and open a project folder → 4) create a file with <code>.py</code> and write code.</p>
+
+<h3>1.7 Writing and running Python programs</h3>
+<div class="wrap"><table>
+<tr><th></th><th>Interactive shell (REPL)</th><th>Script file</th></tr>
+<tr><td>Meaning</td><td>REPL = Read-Eval-Print Loop</td><td>Code saved in a <code>.py</code> file</td></tr>
+<tr><td>Execution</td><td><code>&gt;&gt;&gt;</code> prompt, one line at a time</td><td>Whole program runs</td></tr>
+<tr><td>Run</td><td>type <code>python</code></td><td><code>python file.py</code> (Linux/macOS: <code>python3 file.py</code>)</td></tr>
+<tr><td>Use</td><td>Quick testing</td><td>Reuse, edit, share, large programs</td></tr>
+</table></div>
+<ul class="t"><li>Steps for a script: write code → save as <code>.py</code> → open terminal → go to the folder → run → output shows on screen</li>
+<li>IDEs also have a <b>Run</b> button</li></ul>
+<pre>print("Hello, World!")
+<span class="o">Output: Hello, World!</span></pre>
+
+<h2>Chapter 2 : Syntax, Keywords and Variables</h2>
+
+<h3>2.1 Basic syntax rules</h3>
+<ul class="t">
+<li><mark>Indentation</mark> (whitespace, usually 4 spaces) defines blocks – no braces <code>{ }</code></li>
+<li>Wrong indentation → <b>IndentationError</b></li>
+<li>Statement ends at new line. Semicolon is optional and rarely used</li>
+<li>Python is <b>case-sensitive</b> – <code>Name</code> and <code>name</code> are different</li>
+<li>Comment: <code>#</code> for one line. Multi-line: triple quotes <code>""" """</code> (often used as docstring)</li>
+</ul>
+<pre>if 5 &gt; 3:
+    print("5 is greater than 3")   # indented block
+else:
+    print("Condition is false")</pre>
+
+<h3>2.2 Keywords</h3>
+<ul class="t">
+<li><mark>Keywords</mark> = reserved words with a fixed meaning. Cannot be used as variable or function names</li>
+<li>Python 3 has <b>35</b> keywords. See them: <code>import keyword</code> then <code>print(keyword.kwlist)</code></li>
+</ul>
+<div class="box"><code>False None True and as assert async await break class continue def del elif else except finally for from global if import in is lambda nonlocal not or pass raise return try while with yield</code></div>
+
+<h3>2.3 Identifiers</h3>
+<ul class="t"><li>Identifier = <mark>name</mark> of a variable, function, class, module or any object</li></ul>
+<ol>
+<li>Must begin with a <b>letter or underscore (_)</b></li>
+<li>Remaining characters: letters, digits, underscore</li>
+<li>Cannot begin with a digit</li>
+<li>Cannot be a keyword</li>
+<li>Case-sensitive: <code>age</code>, <code>Age</code>, <code>AGE</code> are different</li>
+<li>Use meaningful names (PEP 8)</li>
+</ol>
+<div class="wrap"><table>
+<tr><th>Valid ✔</th><th>Invalid ✘</th></tr>
+<tr><td><code>total</code>, <code>student_name</code>, <code>_count</code>, <code>marks1</code>, <code>isValid</code>, <code>MAX_LIMIT</code></td>
+<td><code>1value</code> (digit first), <code>class</code> (keyword), <code>total%</code> (symbol), <code>my-name</code> (hyphen)</td></tr>
+</table></div>
+
+<h3>2.4 Variables</h3>
+<ul class="t">
+<li>Variable = <mark>named location in memory</mark> that stores a value</li>
+<li><mark>Dynamically typed</mark> – no type declaration. Type is decided from the value, at run time</li>
+<li>Same name can be given a new type later</li>
+<li>Naming rules = identifier rules. PEP 8 style: <b>snake_case</b> (<code>student_total</code>)</li>
+</ul>
+<div class="flow"><span class="n">x</span><span class="a">→</span><span class="n">10</span></div>
+<pre>name = "Alice"      # str
+age = 21            # int
+height = 5.6        # float
+is_student = True   # bool</pre>
+
+<h3>2.5 Multiple assignment</h3>
+<pre>x, y, z = 10, 20, 30    # different values
+a = b = c = 0           # same value to all</pre>
+<ul class="t"><li>Works by <b>tuple unpacking</b>. Number of names on the left = number of values on the right</li></ul>
+
+<h2>Chapter 3 : Data Types and Type Conversion</h2>
+
+<h3>3.1 Built-in data types</h3>
+<ul class="t"><li>Data type = kind of value a variable can store. Check with <code>type()</code></li></ul>
+<div class="wrap"><table>
+<tr><th>Type</th><th>Example</th><th>Key point</th></tr>
+<tr><td><b>int</b></td><td><code>25, -47</code></td><td>Whole numbers. No size limit (grows with memory)</td></tr>
+<tr><td><b>float</b></td><td><code>99.50, 2.5e3</code></td><td>Decimal or exponential form. 64-bit double precision. <code>2.5e3</code> = 2500.0</td></tr>
+<tr><td><b>complex</b></td><td><code>3 + 4j</code></td><td>Real part + imaginary part</td></tr>
+<tr><td><b>bool</b></td><td><code>True, False</code></td><td>Subclass of int: <code>True</code>=1, <code>False</code>=0</td></tr>
+<tr><td><b>str</b></td><td><code>"Python"</code></td><td>Characters in ' ' or " " or """ """. <mark>Immutable</mark></td></tr>
+<tr><td><b>list</b></td><td><code>[1, 2, 3]</code></td><td>Ordered, mutable</td></tr>
+<tr><td><b>tuple</b></td><td><code>(2, 3)</code></td><td>Ordered, immutable</td></tr>
+<tr><td><b>dict</b></td><td><code>{"id": 1}</code></td><td>Key–value pairs</td></tr>
+<tr><td><b>set</b></td><td><code>{1, 2, 3}</code></td><td>Unordered, unique items</td></tr>
+</table></div>
+<pre>x = 10
+print(type(x))     <span class="o"># &lt;class 'int'&gt;</span>
+print(type("hi"))  <span class="o"># &lt;class 'str'&gt;</span></pre>
+<ul class="t">
+<li><b>int vs float:</b> int has no decimal point (<code>10</code>); float has (<code>10.5</code>)</li>
+<li>float rounding: <code>0.1 + 0.2</code> → <code>0.30000000000000004</code></li>
+<li><mark>False values:</mark> <code>0, 0.0, "", [], (), {}, None</code>. Everything else is True</li>
+<li>str: <code>name[0]</code> → 'A' | <code>name[1:3]</code> → 'li' | <code>name + " Smith"</code> | <code>name * 3</code> → 'AliceAliceAlice' (name = "Alice")</li>
+</ul>
+
+<h3>3.2 Type conversion (type casting)</h3>
+<p>Changing a value from one data type to another.</p>
+<div class="cols">
+<div class="box"><h3>1) Implicit</h3><ul class="t"><li>Done <b>automatically</b> by Python</li><li>Smaller type → larger type, no data loss</li></ul><code>5 + 2.0</code> → <code>7.0</code> (int → float)</div>
+<div class="box"><h3>2) Explicit (casting)</h3><ul class="t"><li>Done <b>manually</b> by programmer</li><li><code>int() float() str() bool()</code></li></ul></div>
+</div>
+<div class="wrap"><table>
+<tr><th>Code</th><th>Result</th><th>Note</th></tr>
+<tr><td><code>int("25")</code></td><td><code>25</code></td><td>str → int</td></tr>
+<tr><td><code>float("3.14")</code></td><td><code>3.14</code></td><td>str → float</td></tr>
+<tr><td><code>str(100)</code></td><td><code>'100'</code></td><td>int → str</td></tr>
+<tr><td><code>int(9.9)</code>, <code>int(-9.9)</code></td><td><code>9</code>, <code>-9</code></td><td>Decimal <b>cut off</b>, not rounded</td></tr>
+<tr><td><code>bool(0)</code>, <code>bool(42)</code></td><td><code>False</code>, <code>True</code></td><td>0 is False</td></tr>
+<tr><td><code>int(True)</code></td><td><code>1</code></td><td>bool → int</td></tr>
+<tr><td><code>int("abc")</code></td><td>ValueError ✘</td><td>Not a number</td></tr>
+<tr><td><code>int("12.5")</code></td><td>ValueError ✘</td><td>Use <code>int(float("12.5"))</code> → 12</td></tr>
+</table></div>
+
+<h2>Chapter 4 : Input and Output</h2>
+
+<h3>4.1 input()</h3>
+<ul class="t">
+<li>Pauses the program, reads a line typed by the user. Syntax: <code>input("message")</code></li>
+<li><mark>Always returns a string (str)</mark> ★</li>
+<li>For numbers, convert: <code>int(input())</code>, <code>float(input())</code></li>
+</ul>
+<pre>"5" + "3"            <span class="o"># "53"  (joined as text)</span>
+int("5") + int("3")  <span class="o"># 8</span></pre>
+
+<h3>4.2 print()</h3>
+<ul class="t">
+<li>Shows output on the console. Takes many values separated by commas</li>
+<li><mark>sep</mark> = text between values (default: one space)</li>
+<li><mark>end</mark> = text after output (default: new line <code>\n</code>)</li>
+<li>print() returns <b>None</b> – never write <code>result = print(...)</code></li>
+</ul>
+<pre>print("Python", "is", "fun")            <span class="o"># Python is fun</span>
+print("Python", "is", "fun", sep="-")    <span class="o"># Python-is-fun</span>
+print("Loading", end="...")             <span class="o"># no new line after it</span></pre>
+
+<h3>4.3 Formatting output (3 ways)</h3>
+<div class="wrap"><table>
+<tr><th>Method</th><th>Example</th><th>Note</th></tr>
+<tr><td>f-string</td><td><code>f"{name} is {age} years old."</code></td><td>Python 3.6+. Recommended</td></tr>
+<tr><td>format()</td><td><code>"{} is {} years old.".format(name, age)</code></td><td>Works before 3.6 also</td></tr>
+<tr><td>% operator</td><td><code>"%s is %d years old." % (name, age)</code></td><td>Older C-style</td></tr>
+</table></div>
+<ul class="t"><li>2 decimal places: <code>f"{3.14159:.2f}"</code> → <code>3.14</code></li></ul>
+
+<h3>4.4 Summary</h3>
+<div class="wrap"><table>
+<tr><th>Function</th><th>Purpose</th><th>Returns</th></tr>
+<tr><td><code>input()</code></td><td>Reads text from user</td><td>Always <b>str</b></td></tr>
+<tr><td><code>print()</code></td><td>Displays output</td><td><b>None</b></td></tr>
+</table></div>
+<pre>age = int(input("Enter your age: "))
+print("Next year you will be", age + 1)
+<span class="o">Input: 20   →   Output: Next year you will be 21</span></pre>
+
+<h2>Chapter 5 : Operators</h2>
+<p>Operators = symbols that perform operations on <b>operands</b>. Seven families:</p>
+<div class="wrap"><table>
+<tr><th>Family</th><th>Operators</th></tr>
+<tr><td>Arithmetic</td><td><code>+ − * / // % **</code></td></tr>
+<tr><td>Assignment</td><td><code>= += -= *= /= %= **= //=</code></td></tr>
+<tr><td>Comparison</td><td><code>&lt; &gt; &lt;= &gt;= == !=</code></td></tr>
+<tr><td>Logical</td><td><code>and or not</code></td></tr>
+<tr><td>Bitwise</td><td><code>&amp; | ^ ~ &lt;&lt; &gt;&gt;</code></td></tr>
+<tr><td>Identity</td><td><code>is, is not</code></td></tr>
+<tr><td>Membership</td><td><code>in, not in</code></td></tr>
+</table></div>
+
+<h3>5.1 Arithmetic (a = 5, b = 2)</h3>
+<div class="wrap"><table>
+<tr><th>Op</th><th>Name</th><th>Example</th></tr>
+<tr><td><code>+</code></td><td>Addition</td><td><code>a + b</code> = 7</td></tr>
+<tr><td><code>-</code></td><td>Subtraction</td><td><code>a - b</code> = 3</td></tr>
+<tr><td><code>*</code></td><td>Multiplication</td><td><code>a * b</code> = 10</td></tr>
+<tr><td><code>/</code></td><td>Float division</td><td><code>a / b</code> = 2.5</td></tr>
+<tr><td><code>//</code></td><td>Integer (floor) division</td><td><code>a // b</code> = 2</td></tr>
+<tr><td><code>%</code></td><td>Modulus (remainder)</td><td><code>a % b</code> = 1</td></tr>
+<tr><td><code>**</code></td><td>Exponent (power)</td><td><code>a ** b</code> = 25</td></tr>
+</table></div>
+
+<h3>5.2 Assignment</h3>
+<ul class="t">
+<li><code>=</code> assigns right value to left variable: <code>c = a + b</code></li>
+<li>Compound form does the operation, then assigns: <code>c += a</code> means <code>c = c + a</code></li>
+<li>Same for <code>-=  *=  /=  %=  **=  //=</code></li>
+</ul>
+
+<h3>5.3 Comparison and logical (a = 5, b = 2 | x = 3, y = 12)</h3>
+<div class="cols">
+<div class="wrap"><table>
+<tr><th>Example</th><th>Result</th></tr>
+<tr><td><code>a &lt; b</code></td><td>False</td></tr><tr><td><code>a &gt; b</code></td><td>True</td></tr>
+<tr><td><code>a &lt;= b</code></td><td>False</td></tr><tr><td><code>a &gt;= b</code></td><td>True</td></tr>
+<tr><td><code>a == b</code></td><td>False</td></tr><tr><td><code>a != b</code></td><td>True</td></tr>
+</table></div>
+<div class="wrap"><table>
+<tr><th>Example</th><th>Result</th></tr>
+<tr><td><code>x &lt; 5 and y &lt; 10</code></td><td>False</td></tr>
+<tr><td><code>x &lt; 5 or y &lt; 10</code></td><td>True</td></tr>
+<tr><td><code>not (x &lt; 5)</code></td><td>False</td></tr>
+</table></div>
+</div>
+<ul class="t"><li><b>and</b> → True only if both are true | <b>or</b> → True if at least one is true | <b>not</b> → reverses True/False</li></ul>
+
+<h3>5.4 Bitwise (a = 10 = 00001010, b = 11 = 00001011)</h3>
+<div class="wrap"><table>
+<tr><th>Op</th><th>Meaning</th><th>Example</th></tr>
+<tr><td><code>&amp;</code></td><td>AND – 1 if both bits are 1</td><td><code>a &amp; b</code> = 10</td></tr>
+<tr><td><code>|</code></td><td>OR – 1 if either bit is 1</td><td><code>a | b</code> = 11</td></tr>
+<tr><td><code>^</code></td><td>XOR – 1 if bits differ</td><td><code>a ^ b</code> = 1</td></tr>
+<tr><td><code>~</code></td><td>NOT – inverts all bits</td><td><code>~a</code> = -11</td></tr>
+<tr><td><code>&lt;&lt;</code></td><td>Left shift (fills 0)</td><td><code>a &lt;&lt; 2</code> = 40</td></tr>
+<tr><td><code>&gt;&gt;</code></td><td>Right shift</td><td><code>a &gt;&gt; 2</code> = 2</td></tr>
+</table></div>
+
+<h3>5.5 Identity and membership</h3>
+<ul class="t">
+<li><b>is</b> → True if both sides are the <b>same object</b> in memory. <b>is not</b> → opposite</li>
+<li><b>in</b> → True if value is found in a sequence (string, list, tuple). <b>not in</b> → opposite</li>
+<li><mark>Equal ≠ identical</mark> – <code>==</code> compares values, <code>is</code> compares objects</li>
+</ul>
+<pre>x = 12; y = 12
+x is y            <span class="o"># True (small numbers share one object)</span>
+nums = [21, 13, 10, 17]
+10 in nums        <span class="o"># True</span>
+5 in nums         <span class="o"># False</span>
+10 not in nums    <span class="o"># False</span></pre>
+
+<h3>5.6 Operator precedence</h3>
+<p>Which operator works first. High → low:</p>
+<div class="flow"><span class="n">( )</span><span class="a">→</span><span class="n">**</span><span class="a">→</span><span class="n">* / // %</span><span class="a">→</span><span class="n">+ −</span><span class="a">→</span><span class="n">&lt;&lt; &gt;&gt;</span><span class="a">→</span><span class="n">&amp;</span><span class="a">→</span><span class="n">^</span><span class="a">→</span><span class="n">|</span><span class="a">→</span><span class="n">comparison, is, in</span><span class="a">→</span><span class="n">not</span><span class="a">→</span><span class="n">and</span><span class="a">→</span><span class="n">or</span></div>
+<pre>2 + 3 * 4      <span class="o"># 14  (* first)</span>
+(2 + 3) * 4    <span class="o"># 20  (brackets first)</span></pre>
+
+<h2>★ Key Observations</h2>
+<ul class="t">
+<li>Python uses <b>indentation</b> instead of braces</li>
+<li>No type declaration – type comes from the value</li>
+<li><code>input()</code> gives <b>str</b> → convert before calculation</li>
+<li><code>int()</code> <b>cuts</b> the decimal part – it does not round</li>
+<li><code>print()</code> returns <b>None</b></li>
+<li><code>=</code> assigns, <code>==</code> compares. <code>is</code> checks object, <code>==</code> checks value</li>
+<li><code>/</code> gives float (<code>5/2</code> = 2.5). <code>//</code> gives floor (<code>5//2</code> = 2)</li>
+<li><code>17 % 4</code> = 1 (remainder). <code>2 ** 3</code> = 8 (power)</li>
+<li>Version check is <code>python --version</code> (or capital <code>-V</code>). Small <code>-v</code> is <b>not</b> for version</li>
+</ul>
+
+<h2>Real-Life Applications of Python</h2>
+<ul class="t">
+<li><b>Web development</b> – Django</li>
+<li><b>Data science and AI / ML</b> – NumPy (numerical), Pandas (data analysis), TensorFlow (machine learning)</li>
+<li><b>Data visualization</b> – Matplotlib</li>
+<li><b>Automation and scripting</b></li>
+</ul>
+
+<h2>Important Terms</h2>
+<div class="wrap"><table>
+<tr><th>Term</th><th>Meaning</th></tr>
+<tr><td>Interpreter</td><td>Executes the program line by line</td></tr>
+<tr><td>REPL</td><td>Read-Eval-Print Loop – the interactive shell</td></tr>
+<tr><td>IDE</td><td>Tool to write, run and debug code</td></tr>
+<tr><td>pip / PyPI</td><td>Package manager / online library store</td></tr>
+<tr><td>Syntax</td><td>Rules for writing a program correctly</td></tr>
+<tr><td>Keyword</td><td>Reserved word with fixed meaning</td></tr>
+<tr><td>Identifier</td><td>Name given to a variable, function, class, etc.</td></tr>
+<tr><td>Variable</td><td>Named memory location storing a value</td></tr>
+<tr><td>Dynamic typing</td><td>Type decided at run time</td></tr>
+<tr><td>Type casting</td><td>Manual change of data type</td></tr>
+<tr><td>Operand</td><td>Value on which an operator works</td></tr>
+<tr><td>PEP 8</td><td>Python style guide (snake_case names)</td></tr>
+</table></div>
+
+<div class="box star">
+<h3 style="color:var(--red)">★ Exam Points ★</h3>
+<ul class="t">
+<li>Creator: <b>Guido van Rossum</b>. First release: <b>Feb 1991</b>. Python 3.0: <b>Dec 2008</b>. Python 2 ended: <b>2020</b></li>
+<li>Name is from <b>Monty Python’s Flying Circus</b>. Successor to <b>ABC</b></li>
+<li>Python is <b>high-level, interpreted, dynamically typed, open source</b>. File: <code>.py</code></li>
+<li>IDEs: IDLE, VS Code, PyCharm, Jupyter, Colab. <b>pip</b> installs libraries</li>
+<li>Tick <b>“Add Python to PATH”</b> while installing</li>
+<li>Interactive shell prompt: <code>&gt;&gt;&gt;</code>. Script: <code>python file.py</code></li>
+<li>Case-sensitive. Indentation compulsory. Comment: <b>#</b></li>
+<li><b>35</b> keywords. <b>True, False, None</b> start with capital letter</li>
+<li>Identifier: letters, digits, underscore. <b>Cannot start with a digit</b></li>
+<li>Types: <b>int, float, complex, str, bool</b> (+ list, tuple, dict, set). Check: <code>type()</code></li>
+<li>Conversion: <b>implicit</b> (automatic) and <b>explicit</b> (<code>int() float() str() bool()</code>)</li>
+<li><code>input()</code> → always <b>str</b>. <code>print()</code> → <code>sep</code>, <code>end</code>, returns <b>None</b></li>
+<li>Formatting: <b>f-string, format(), %</b></li>
+<li>7 operator families: <b>arithmetic, assignment, comparison, logical, bitwise, identity, membership</b></li>
+</ul>
+</div>
+</div>
+<footer class="hub-footer" aria-label="Module navigation">
+  <div class="hub-footer-inner">
+    <nav class="hub-footer-links" aria-label="Study hub links">
+      <a href="../../index.html">Home</a>
+      <span class="hub-separator" aria-hidden="true">·</span>
+      <a href="../index.html">Semester 1</a>
+      <span class="hub-separator" aria-hidden="true">·</span>
+      <a href="index.html">Python Programming</a>
+    </nav>
+    <nav class="hub-module-nav" aria-label="Module navigation">
+      <span class="hub-muted">Module 1 of 5</span>
+      <a href="module2.html">Next: Module 2 →</a>
+    </nav>
+  </div>
+</footer>
+</body>
+</html>

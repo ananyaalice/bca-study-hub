@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Python Programming – Module IV Notes</title>
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#fdfcf4;--desk:#e9e4d6;--line:#cfe2ee;--margin:#e8798a;--ink:#1d3a8c;--red:#c0262d;--green:#1b7a3d;--hl:#fff08a;--box:#f4f8ff;--code:#fff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#20232f;--desk:#14161d;--line:#2d3345;--margin:#a8465a;--ink:#b7c8ff;--red:#ff8a8f;--green:#7fdc9c;--hl:#5a5320;--box:#272b3a;--code:#181b25}}
+:root[data-theme="dark"]{--paper:#20232f;--desk:#14161d;--line:#2d3345;--margin:#a8465a;--ink:#b7c8ff;--red:#ff8a8f;--green:#7fdc9c;--hl:#5a5320;--box:#272b3a;--code:#181b25}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--desk);font-family:"Patrick Hand","Comic Sans MS",cursive;color:var(--ink);font-size:19px;line-height:28px}
+.page{max-width:860px;margin:18px auto;padding:20px 20px 28px 64px;background:var(--paper) repeating-linear-gradient(transparent,transparent 27px,var(--line) 27px,var(--line) 28px);border-left:3px double var(--margin);box-shadow:0 2px 14px rgba(0,0,0,.25)}
+h1,h2,h3{font-family:"Caveat","Patrick Hand",cursive;margin:0;line-height:28px}
+h1{font-size:40px;line-height:42px;color:var(--red)}
+h2{font-size:30px;margin:28px 0 8px;color:var(--red);border-bottom:3px wavy var(--red);display:inline-block;line-height:36px}
+h3{font-size:25px;margin:14px 0 2px;text-decoration:underline}
+p,ul,ol{margin:0 0 8px}ul,ol{padding-left:22px}
+ul.t{list-style:none;padding-left:4px}ul.t li:before{content:"→ ";color:var(--red)}
+.sub{color:var(--green);font-size:18px}
+mark{background:linear-gradient(transparent 20%,var(--hl) 20%,var(--hl) 90%,transparent 90%);color:inherit;padding:0 3px}
+b{color:var(--red);font-weight:400;text-decoration:underline wavy 1px}
+code,pre{font-family:ui-monospace,Consolas,"Courier New",monospace;font-size:15px}
+code{background:var(--box);padding:0 4px;border-radius:3px}
+pre{background:var(--code);border:1.5px dashed var(--ink);border-radius:6px;padding:8px 12px;margin:6px 0 10px;line-height:22px;overflow-x:auto}
+.o{color:var(--green)}
+.box{border:2px solid var(--ink);border-radius:8px 14px 10px 16px;background:var(--box);padding:8px 14px;margin:8px 0 12px}
+.box.star{border-color:var(--red)}.box h3{margin-top:0;text-decoration:none}
+.wrap{overflow-x:auto;margin:6px 0 12px}
+table{border-collapse:collapse;min-width:100%;background:var(--box)}
+th,td{border:1.5px solid var(--ink);padding:3px 8px;text-align:left;line-height:24px;vertical-align:top}
+th{color:var(--red);font-weight:400;background:var(--paper)}
+table.ix td,table.ix th{text-align:center}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:0 24px}
+@media(max-width:640px){.page{padding-left:46px;padding-right:12px}.cols{grid-template-columns:1fr}body{font-size:18px}}
+
+/* BCA Study Hub navigation; lesson content styles remain unchanged. */
+.hub-nav,.hub-footer{max-width:860px;margin-left:auto;margin-right:auto;background:var(--paper);color:var(--ink);font:14px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;border:1px solid var(--line);box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.hub-nav{margin-top:18px;margin-bottom:-18px;border-radius:5px 5px 0 0}
+.hub-nav-inner{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 15px}
+.hub-crumbs{display:flex;align-items:center;flex-wrap:wrap;gap:7px;min-width:0}
+.hub-nav a,.hub-footer a{color:var(--ink);text-underline-offset:3px}
+.hub-nav a:hover,.hub-footer a:hover{color:var(--red)}
+.hub-separator{color:var(--red)}
+.hub-current{font-weight:700}
+.hub-footer{margin-top:-18px;margin-bottom:18px;border-radius:0 0 5px 5px;border-top:0}
+.hub-footer-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;padding:10px 15px}
+.hub-footer-links,.hub-module-nav{display:flex;align-items:center;flex-wrap:wrap;gap:10px}
+.hub-footer .hub-muted{color:var(--green)}
+@media(max-width:640px){
+ .hub-nav{margin-top:0;width:100%;border-radius:0}
+ .hub-nav-inner{align-items:flex-start;flex-direction:column;gap:5px;padding:10px 12px}
+ .hub-footer{width:100%;margin-bottom:0;border-radius:0}
+ .hub-footer-inner{display:grid;grid-template-columns:1fr;gap:10px;padding:10px 12px}
+ .hub-footer-links,.hub-module-nav{display:flex;justify-content:space-between;gap:8px}
+ .hub-module-nav a,.hub-footer-links a{padding:5px 0}
+}
+
+</style>
+</head>
+<body>
+<header class="hub-nav" aria-label="Study navigation">
+  <div class="hub-nav-inner">
+    <nav class="hub-crumbs" aria-label="Breadcrumb">
+      <a href="../../index.html">Home</a><span class="hub-separator" aria-hidden="true">›</span>
+      <a href="../index.html">Semester 1</a><span class="hub-separator" aria-hidden="true">›</span>
+      <a href="index.html">Python Programming</a><span class="hub-separator" aria-hidden="true">›</span>
+      <span class="hub-current" aria-current="page">Module 4</span>
+    </nav>
+    <a href="index.html">← Back to subject</a>
+  </div>
+</header>
+<div class="page">
+<h1>Python Programming ★ Module IV</h1>
+<p class="sub">Python Data Structures | BCA (Hons) DS &amp; AI, Sem 1 | 25-922-0102</p>
+
+<h2>Chapter 1 : Lists</h2>
+<h3>1.1 What is a list?</h3>
+<ul class="t">
+<li><mark>List</mark> = ordered collection of items, written in <b>square brackets [ ]</b></li>
+<li><mark>Mutable</mark> (can be changed). <b>Duplicates allowed</b>. Items can be of different types</li>
+</ul>
+<pre>marks = [70, 85, 90]
+mixed = [1, "Ravi", 2.5, True]
+empty = []
+a = list("abc")        <span class="o"># ['a', 'b', 'c']</span>
+b = list(range(5))     <span class="o"># [0, 1, 2, 3, 4]</span></pre>
+
+<h3>1.2 Indexing</h3>
+<ul class="t"><li>Positive index starts at <b>0</b>. Negative index starts at <b>-1</b> (last item)</li>
+<li>Index out of range → <b>IndexError</b></li></ul>
+<div class="wrap"><table class="ix">
+<tr><th>lst</th><td>10</td><td>20</td><td>30</td><td>40</td><td>50</td></tr>
+<tr><th>index</th><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td></tr>
+<tr><th>negative</th><td>-5</td><td>-4</td><td>-3</td><td>-2</td><td>-1</td></tr>
+</table></div>
+<pre>lst[0]    <span class="o"># 10</span>
+lst[-1]   <span class="o"># 50</span>
+lst[1] = 99   <span class="o"># list changes → [10, 99, 30, 40, 50]</span></pre>
+
+<h3>1.3 Slicing</h3>
+<ul class="t"><li>Syntax: <code>lst[start:stop:step]</code>. <mark>stop is not included</mark>. Defaults: start 0, step 1</li></ul>
+<pre>lst = [10, 20, 30, 40, 50]
+lst[1:4]    <span class="o"># [20, 30, 40]</span>
+lst[:3]     <span class="o"># [10, 20, 30]</span>
+lst[2:]     <span class="o"># [30, 40, 50]</span>
+lst[::2]    <span class="o"># [10, 30, 50]</span>
+lst[::-1]   <span class="o"># [50, 40, 30, 20, 10]  (reversed)</span></pre>
+
+<h3>1.4 List methods</h3>
+<div class="wrap"><table>
+<tr><th>Method</th><th>Work</th></tr>
+<tr><td><code>append(x)</code></td><td>Adds x at the <b>end</b></td></tr>
+<tr><td><code>insert(i, x)</code></td><td>Adds x at index i</td></tr>
+<tr><td><code>extend(iterable)</code></td><td>Adds <b>each item</b> of another list at the end</td></tr>
+<tr><td><code>remove(x)</code></td><td>Removes <b>first</b> x. ValueError if not found</td></tr>
+<tr><td><code>pop()</code> / <code>pop(i)</code></td><td>Removes and <b>returns</b> last item / item at i</td></tr>
+<tr><td><code>clear()</code></td><td>Removes all items</td></tr>
+<tr><td><code>index(x)</code></td><td>Index of first x</td></tr>
+<tr><td><code>count(x)</code></td><td>How many times x occurs</td></tr>
+<tr><td><code>sort()</code></td><td>Sorts the list <b>itself</b> (ascending). <code>reverse=True</code> for descending</td></tr>
+<tr><td><code>reverse()</code></td><td>Reverses the list itself</td></tr>
+<tr><td><code>copy()</code></td><td>Makes a new copy</td></tr>
+</table></div>
+<pre>a = [1, 2, 3]
+a.append(4)        <span class="o"># [1, 2, 3, 4]</span>
+a.insert(1, 9)     <span class="o"># [1, 9, 2, 3, 4]</span>
+a.extend([5, 6])   <span class="o"># [1, 9, 2, 3, 4, 5, 6]</span>
+a.remove(9)        <span class="o"># [1, 2, 3, 4, 5, 6]</span>
+a.pop()            <span class="o"># returns 6 → [1, 2, 3, 4, 5]</span>
+a.pop(0)           <span class="o"># returns 1 → [2, 3, 4, 5]</span></pre>
+<ul class="t">
+<li><code>append([5, 6])</code> adds the list as <b>one item</b>. <code>extend([5, 6])</code> adds <b>5 and 6</b> separately</li>
+<li><code>sort()</code> changes the list and returns <b>None</b>. <code>sorted(lst)</code> gives a <b>new</b> sorted list</li>
+<li><code>b = a</code> → both names point to the <b>same</b> list. <code>b = a.copy()</code> → separate list</li>
+<li>Useful functions: <code>len() sum() max() min()</code>. Operators: <code>+</code> join, <code>*</code> repeat, <code>in</code> check. <code>del lst[i]</code> deletes an item</li>
+</ul>
+
+<h2>Chapter 2 : Tuples</h2>
+<ul class="t">
+<li><mark>Tuple</mark> = ordered collection in <b>round brackets ( )</b>. <mark>Immutable</mark> – cannot be changed after creation</li>
+<li>Duplicates allowed. Indexing and slicing work like a list</li>
+<li>Changing an item → <b>TypeError</b></li>
+<li>Only two methods: <code>count(x)</code> and <code>index(x)</code></li>
+</ul>
+<pre>t = (10, 20, 30)
+t[0]          <span class="o"># 10</span>
+t[0] = 5      <span class="o"># TypeError (immutable)</span>
+single = (5,) <span class="o"># one item needs a comma. (5) is just an int</span>
+p = 1, 2, 3   <span class="o"># brackets optional → (1, 2, 3)</span></pre>
+<h3>Unpacking</h3>
+<ul class="t">
+<li>Assigning tuple items to separate variables. <b>Number of variables = number of items</b>, else ValueError</li>
+<li><code>*</code> collects the remaining items (as a list)</li>
+</ul>
+<pre>t = (1, 2, 3)
+a, b, c = t           <span class="o"># a=1, b=2, c=3</span>
+x, *rest = (1, 2, 3, 4)   <span class="o"># x=1, rest=[2, 3, 4]</span>
+a, b = b, a           <span class="o"># swap using tuple</span></pre>
+<div class="wrap"><table>
+<tr><th>List</th><th>Tuple</th></tr>
+<tr><td>[ ] – mutable</td><td>( ) – immutable</td></tr>
+<tr><td>Many methods</td><td>Only count and index</td></tr>
+<tr><td>Slower, more memory</td><td>Faster, less memory. Safe for fixed data</td></tr>
+</table></div>
+
+<h2>Chapter 3 : Sets</h2>
+<ul class="t">
+<li><mark>Set</mark> = collection of <b>unique</b> items in <b>curly brackets { }</b></li>
+<li><b>Unordered</b> – no index, no slicing. Can add / remove items (mutable)</li>
+<li>Duplicates are removed automatically. Items must be <b>immutable</b> (numbers, strings, tuples)</li>
+<li><mark>Empty set → set()</mark>. Note <code>{}</code> makes an empty <b>dictionary</b></li>
+</ul>
+<pre>s = {1, 2, 2, 3}        <span class="o"># {1, 2, 3}</span>
+t = set([5, 5, 6])      <span class="o"># {5, 6}</span>
+e = set()               <span class="o"># empty set</span></pre>
+<div class="wrap"><table>
+<tr><th>Method</th><th>Work</th></tr>
+<tr><td><code>add(x)</code></td><td>Adds one item</td></tr>
+<tr><td><code>update(iterable)</code></td><td>Adds many items</td></tr>
+<tr><td><code>remove(x)</code></td><td>Removes x. <b>KeyError</b> if not present</td></tr>
+<tr><td><code>discard(x)</code></td><td>Removes x. <b>No error</b> if not present</td></tr>
+<tr><td><code>pop()</code></td><td>Removes and returns an arbitrary item</td></tr>
+<tr><td><code>clear()</code></td><td>Removes all items</td></tr>
+</table></div>
+<h3>Set operations (A = {1,2,3,4}, B = {3,4,5,6})</h3>
+<div class="wrap"><table>
+<tr><th>Operation</th><th>Symbol / method</th><th>Result</th></tr>
+<tr><td>Union (all items)</td><td><code>A | B</code>, <code>A.union(B)</code></td><td>{1, 2, 3, 4, 5, 6}</td></tr>
+<tr><td>Intersection (common)</td><td><code>A &amp; B</code>, <code>A.intersection(B)</code></td><td>{3, 4}</td></tr>
+<tr><td>Difference (in A, not in B)</td><td><code>A - B</code>, <code>A.difference(B)</code></td><td>{1, 2}</td></tr>
+<tr><td>Symmetric difference</td><td><code>A ^ B</code>, <code>A.symmetric_difference(B)</code></td><td>{1, 2, 5, 6}</td></tr>
+</table></div>
+<p class="sub">Printed order of a set may differ – a set has no fixed order.</p>
+
+<h2>Chapter 4 : Dictionaries</h2>
+<ul class="t">
+<li><mark>Dictionary</mark> = collection of <b>key : value</b> pairs in <b>{ }</b></li>
+<li>Keys are <b>unique</b> and <b>immutable</b> (str, int, tuple). Values can be any type and can repeat</li>
+<li>Mutable. Items are found by <b>key</b>, not by index</li>
+<li>From Python 3.7 a dict keeps insertion order (older books call it “unordered”)</li>
+</ul>
+<pre>student = {"name": "Ravi", "age": 20}
+student["name"]            <span class="o"># 'Ravi'</span>
+student["marks"]           <span class="o"># KeyError (no such key)</span>
+student.get("marks")       <span class="o"># None (no error)</span>
+student.get("marks", 0)    <span class="o"># 0  (default value)</span>
+student["age"] = 21        <span class="o"># update</span>
+student["city"] = "Kochi"  <span class="o"># add new pair</span></pre>
+<div class="wrap"><table>
+<tr><th>Method</th><th>Work</th></tr>
+<tr><td><code>keys()</code></td><td>All keys</td></tr>
+<tr><td><code>values()</code></td><td>All values</td></tr>
+<tr><td><code>items()</code></td><td>All (key, value) pairs</td></tr>
+<tr><td><code>get(k, default)</code></td><td>Value of k, or default if missing</td></tr>
+<tr><td><code>update(other)</code></td><td>Adds / changes pairs from another dict</td></tr>
+<tr><td><code>pop(k)</code></td><td>Removes key k, returns its value</td></tr>
+<tr><td><code>popitem()</code></td><td>Removes the last inserted pair</td></tr>
+<tr><td><code>clear()</code></td><td>Removes all pairs</td></tr>
+</table></div>
+<ul class="t"><li><code>del student["age"]</code> deletes a pair. <code>"name" in student</code> checks the <b>keys</b></li></ul>
+
+<h3>Nested dictionaries</h3>
+<ul class="t"><li>A dictionary <b>inside</b> another dictionary. Use one key after another</li></ul>
+<pre>students = {
+    "s1": {"name": "Ravi", "age": 20},
+    "s2": {"name": "Anu", "age": 19}
+}
+students["s1"]["name"]        <span class="o"># 'Ravi'</span>
+students["s2"]["age"] = 21    <span class="o"># change inner value</span>
+students["s3"] = {"name": "Joel", "age": 22}   <span class="o"># add new inner dict</span></pre>
+
+<h2>Chapter 5 : Iterating over Data Structures</h2>
+<pre>lst = [10, 20, 30]
+for x in lst:                          <span class="o"># items</span>
+    print(x)
+for i in range(len(lst)):              <span class="o"># index</span>
+    print(i, lst[i])
+for i, x in enumerate(lst):            <span class="o"># index + item</span>
+    print(i, x)
+
+d = {"a": 1, "b": 2}
+for k in d:                  <span class="o"># keys</span>
+    print(k)
+for v in d.values():         <span class="o"># values</span>
+    print(v)
+for k, v in d.items():       <span class="o"># key and value</span>
+    print(k, v)</pre>
+<ul class="t">
+<li>Tuple, set and string also work with <code>for x in ...</code> (set order is not fixed)</li>
+<li>Loop over a dictionary directly → gives <b>keys</b></li>
+</ul>
+
+<h2>Chapter 6 : Comprehensions</h2>
+<h3>6.1 List comprehension</h3>
+<ul class="t"><li>Short way to <b>build a list</b> in one line</li>
+<li>Syntax: <code>[expression for item in iterable if condition]</code> (if part is optional)</li></ul>
+<div class="cols">
+<pre><span class="o"># loop way</span>
+sq = []
+for x in range(1, 6):
+    sq.append(x ** 2)</pre>
+<pre><span class="o"># comprehension way</span>
+sq = [x ** 2 for x in range(1, 6)]
+<span class="o"># [1, 4, 9, 16, 25]</span></pre>
+</div>
+<pre>[x for x in range(10) if x % 2 == 0]       <span class="o"># [0, 2, 4, 6, 8]</span>
+["even" if x % 2 == 0 else "odd" for x in range(3)]   <span class="o"># ['even', 'odd', 'even']</span></pre>
+<h3>6.2 Dictionary comprehension</h3>
+<ul class="t"><li>Syntax: <code>{key: value for item in iterable if condition}</code></li></ul>
+<pre>{x: x ** 2 for x in range(1, 5)}        <span class="o"># {1: 1, 2: 4, 3: 9, 4: 16}</span>
+{n: len(n) for n in ["Ravi", "Anu"]}    <span class="o"># {'Ravi': 4, 'Anu': 3}</span></pre>
+
+<h2>Comparison of Data Structures</h2>
+<div class="wrap"><table>
+<tr><th></th><th>List</th><th>Tuple</th><th>Set</th><th>Dictionary</th></tr>
+<tr><td>Brackets</td><td>[ ]</td><td>( )</td><td>{ }</td><td>{key: value}</td></tr>
+<tr><td>Ordered</td><td>Yes</td><td>Yes</td><td>No</td><td>Insertion order (3.7+)</td></tr>
+<tr><td>Mutable</td><td>Yes</td><td>No</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>Duplicates</td><td>Allowed</td><td>Allowed</td><td>Not allowed</td><td>Keys: no. Values: yes</td></tr>
+<tr><td>Access by</td><td>Index</td><td>Index</td><td>No index</td><td>Key</td></tr>
+</table></div>
+
+<h2>Programs (Lab-type)</h2>
+<div class="cols">
+<pre><span class="o"># sum and average of a list</span>
+marks = [70, 80, 90]
+total = sum(marks)
+avg = total / len(marks)
+print(total, avg)     <span class="o"># 240 80.0</span></pre>
+<pre><span class="o"># linear search</span>
+nums = [4, 8, 15, 16]
+target = 15
+for i in range(len(nums)):
+    if nums[i] == target:
+        print("Found at index", i)
+        break
+else:
+    print("Not found")  <span class="o"># Found at index 2</span></pre>
+</div>
+<pre><span class="o"># bubble sort</span>
+arr = [64, 34, 25, 12, 22]
+n = len(arr)
+for i in range(n - 1):
+    for j in range(n - 1 - i):
+        if arr[j] &gt; arr[j + 1]:
+            arr[j], arr[j + 1] = arr[j + 1], arr[j]   <span class="o"># swap</span>
+print(arr)            <span class="o"># [12, 22, 25, 34, 64]</span></pre>
+<div class="cols">
+<pre><span class="o"># remove duplicates (order may change)</span>
+data = [1, 2, 2, 3, 3, 3]
+print(list(set(data)))   <span class="o"># [1, 2, 3]</span></pre>
+<pre><span class="o"># count words using a dictionary</span>
+text = "to be or not to be"
+count = {}
+for w in text.split():
+    count[w] = count.get(w, 0) + 1
+print(count)
+<span class="o"># {'to': 2, 'be': 2, 'or': 1, 'not': 1}</span></pre>
+</div>
+
+<h2>★ Key Observations</h2>
+<ul class="t">
+<li>List <b>[ ]</b> mutable. Tuple <b>( )</b> immutable. Set <b>{ }</b> unique. Dict <b>{k: v}</b> key-value</li>
+<li>Slicing: <b>stop index is not included</b></li>
+<li>Single-item tuple needs a comma: <code>(5,)</code></li>
+<li><code>{}</code> is an empty <b>dict</b>. Empty set is <code>set()</code></li>
+<li><code>remove()</code> gives an error if item is missing. <code>discard()</code> does not</li>
+<li><code>dict[key]</code> → KeyError if missing. <code>dict.get(key)</code> → None</li>
+<li>Dictionary keys must be <b>immutable</b>. A list cannot be a key</li>
+<li>Unpacking needs the <b>same number</b> of variables as items</li>
+</ul>
+
+<h2>Real-Life Applications</h2>
+<ul class="t">
+<li><b>List:</b> marks of students, shopping cart, to-do list</li>
+<li><b>Tuple:</b> fixed data – coordinates (x, y), dates, days of the week</li>
+<li><b>Set:</b> removing duplicates, unique visitors, common friends (intersection)</li>
+<li><b>Dictionary:</b> student records, phone book, word count, JSON-like data</li>
+<li><b>Comprehensions:</b> quick filtering and conversion of data</li>
+</ul>
+
+<h2>Important Terms</h2>
+<div class="wrap"><table>
+<tr><th>Term</th><th>Meaning</th></tr>
+<tr><td>Mutable</td><td>Can be changed after creation (list, set, dict)</td></tr>
+<tr><td>Immutable</td><td>Cannot be changed (tuple, str, int)</td></tr>
+<tr><td>Index</td><td>Position number of an item</td></tr>
+<tr><td>Slicing</td><td>Taking a part of a sequence</td></tr>
+<tr><td>Unpacking</td><td>Assigning items to separate variables</td></tr>
+<tr><td>Key : Value</td><td>A pair in a dictionary</td></tr>
+<tr><td>Nested</td><td>One structure inside another</td></tr>
+<tr><td>Comprehension</td><td>One-line way to build a list or dict</td></tr>
+<tr><td>Iterable</td><td>Object that can be looped over</td></tr>
+</table></div>
+
+<div class="box star">
+<h3 style="color:var(--red)">★ Exam Points ★</h3>
+<ul class="t">
+<li><b>List</b>: ordered, mutable, duplicates allowed, <code>[ ]</code>. Index starts at <b>0</b>; last item is <b>-1</b></li>
+<li>List methods: <b>append, insert, extend, remove, pop, clear, index, count, sort, reverse, copy</b></li>
+<li><b>append</b> adds one item. <b>extend</b> adds many items</li>
+<li><b>sort()</b> changes the list. <b>sorted()</b> returns a new list</li>
+<li><b>Tuple</b>: ordered, <b>immutable</b>, <code>( )</code>. Methods: <b>count, index</b></li>
+<li><b>Unpacking</b>: <code>a, b, c = (1, 2, 3)</code></li>
+<li><b>Set</b>: unordered, <b>unique</b> items, no index. Empty set: <code>set()</code></li>
+<li>Set operations: <b>union |, intersection &amp;, difference -, symmetric difference ^</b></li>
+<li><b>Dictionary</b>: key-value pairs. Keys <b>unique and immutable</b></li>
+<li>Dict methods: <b>keys, values, items, get, update, pop, popitem, clear</b></li>
+<li><b>Nested dictionary</b>: <code>d["s1"]["name"]</code></li>
+<li>List comprehension: <code>[expression for item in iterable if condition]</code></li>
+<li>Dict comprehension: <code>{key: value for item in iterable}</code></li>
+</ul>
+</div>
+</div>
+<footer class="hub-footer" aria-label="Module navigation">
+  <div class="hub-footer-inner">
+    <nav class="hub-footer-links" aria-label="Study hub links">
+      <a href="../../index.html">Home</a>
+      <span class="hub-separator" aria-hidden="true">·</span>
+      <a href="../index.html">Semester 1</a>
+      <span class="hub-separator" aria-hidden="true">·</span>
+      <a href="index.html">Python Programming</a>
+    </nav>
+    <nav class="hub-module-nav" aria-label="Module navigation">
+      <a href="module3.html">← Previous: Module 3</a>
+      <a href="module5.html">Next: Module 5 →</a>
+    </nav>
+  </div>
+</footer>
+</body>
+</html>

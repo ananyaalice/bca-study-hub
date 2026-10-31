@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Python Programming – Module II Notes</title>
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#fdfcf4;--desk:#e9e4d6;--line:#cfe2ee;--margin:#e8798a;--ink:#1d3a8c;--red:#c0262d;--green:#1b7a3d;--hl:#fff08a;--box:#f4f8ff;--code:#fff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#20232f;--desk:#14161d;--line:#2d3345;--margin:#a8465a;--ink:#b7c8ff;--red:#ff8a8f;--green:#7fdc9c;--hl:#5a5320;--box:#272b3a;--code:#181b25}}
+:root[data-theme="dark"]{--paper:#20232f;--desk:#14161d;--line:#2d3345;--margin:#a8465a;--ink:#b7c8ff;--red:#ff8a8f;--green:#7fdc9c;--hl:#5a5320;--box:#272b3a;--code:#181b25}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--desk);font-family:"Patrick Hand","Comic Sans MS",cursive;color:var(--ink);font-size:19px;line-height:28px}
+.page{max-width:860px;margin:18px auto;padding:20px 20px 28px 64px;background:var(--paper) repeating-linear-gradient(transparent,transparent 27px,var(--line) 27px,var(--line) 28px);border-left:3px double var(--margin);box-shadow:0 2px 14px rgba(0,0,0,.25)}
+h1,h2,h3{font-family:"Caveat","Patrick Hand",cursive;margin:0;line-height:28px}
+h1{font-size:40px;line-height:42px;color:var(--red)}
+h2{font-size:30px;margin:28px 0 8px;color:var(--red);border-bottom:3px wavy var(--red);display:inline-block;line-height:36px}
+h3{font-size:25px;margin:14px 0 2px;text-decoration:underline}
+p,ul,ol{margin:0 0 8px}ul,ol{padding-left:22px}
+ul.t{list-style:none;padding-left:4px}ul.t li:before{content:"→ ";color:var(--red)}
+.sub{color:var(--green);font-size:18px}
+mark{background:linear-gradient(transparent 20%,var(--hl) 20%,var(--hl) 90%,transparent 90%);color:inherit;padding:0 3px}
+b{color:var(--red);font-weight:400;text-decoration:underline wavy 1px}
+code,pre{font-family:ui-monospace,Consolas,"Courier New",monospace;font-size:15px}
+code{background:var(--box);padding:0 4px;border-radius:3px}
+pre{background:var(--code);border:1.5px dashed var(--ink);border-radius:6px;padding:8px 12px;margin:6px 0 10px;line-height:22px;overflow-x:auto}
+.o{color:var(--green)}
+.box{border:2px solid var(--ink);border-radius:8px 14px 10px 16px;background:var(--box);padding:8px 14px;margin:8px 0 12px}
+.box.star{border-color:var(--red)}.box h3{margin-top:0;text-decoration:none}
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:8px 0 12px}
+.flow span.n{border:2px solid var(--ink);border-radius:8px;background:var(--box);padding:2px 10px;line-height:24px;text-align:center}
+.flow span.d{border:2px solid var(--red);border-radius:14px;background:var(--box);padding:2px 10px;line-height:24px;text-align:center}
+.flow span.a{color:var(--red);font-size:22px}
+.wrap{overflow-x:auto;margin:6px 0 12px}
+table{border-collapse:collapse;min-width:100%;background:var(--box)}
+th,td{border:1.5px solid var(--ink);padding:3px 8px;text-align:left;line-height:24px;vertical-align:top}
+th{color:var(--red);font-weight:400;background:var(--paper)}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:0 24px}
+@media(max-width:640px){.page{padding-left:46px;padding-right:12px}.cols{grid-template-columns:1fr}body{font-size:18px}}
+
+/* BCA Study Hub navigation; lesson content styles remain unchanged. */
+.hub-nav,.hub-footer{max-width:860px;margin-left:auto;margin-right:auto;background:var(--paper);color:var(--ink);font:14px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;border:1px solid var(--line);box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.hub-nav{margin-top:18px;margin-bottom:-18px;border-radius:5px 5px 0 0}
+.hub-nav-inner{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 15px}
+.hub-crumbs{display:flex;align-items:center;flex-wrap:wrap;gap:7px;min-width:0}
+.hub-nav a,.hub-footer a{color:var(--ink);text-underline-offset:3px}
+.hub-nav a:hover,.hub-footer a:hover{color:var(--red)}
+.hub-separator{color:var(--red)}
+.hub-current{font-weight:700}
+.hub-footer{margin-top:-18px;margin-bottom:18px;border-radius:0 0 5px 5px;border-top:0}
+.hub-footer-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;padding:10px 15px}
+.hub-footer-links,.hub-module-nav{display:flex;align-items:center;flex-wrap:wrap;gap:10px}
+.hub-footer .hub-muted{color:var(--green)}
+@media(max-width:640px){
+ .hub-nav{margin-top:0;width:100%;border-radius:0}
+ .hub-nav-inner{align-items:flex-start;flex-direction:column;gap:5px;padding:10px 12px}
+ .hub-footer{width:100%;margin-bottom:0;border-radius:0}
+ .hub-footer-inner{display:grid;grid-template-columns:1fr;gap:10px;padding:10px 12px}
+ .hub-footer-links,.hub-module-nav{display:flex;justify-content:space-between;gap:8px}
+ .hub-module-nav a,.hub-footer-links a{padding:5px 0}
+}
+
+</style>
+</head>
+<body>
+<header class="hub-nav" aria-label="Study navigation">
+  <div class="hub-nav-inner">
+    <nav class="hub-crumbs" aria-label="Breadcrumb">
+      <a href="../../index.html">Home</a><span class="hub-separator" aria-hidden="true">›</span>
+      <a href="../index.html">Semester 1</a><span class="hub-separator" aria-hidden="true">›</span>
+      <a href="index.html">Python Programming</a><span class="hub-separator" aria-hidden="true">›</span>
+      <span class="hub-current" aria-current="page">Module 2</span>
+    </nav>
+    <a href="index.html">← Back to subject</a>
+  </div>
+</header>
+<div class="page">
+<h1>Python Programming ★ Module II</h1>
+<p class="sub">Data Types, Control Flow &amp; Iteration | BCA (Hons) DS &amp; AI, Sem 1 | 25-922-0102</p>
+
+<h2>Chapter 1 : Built-in Data Types</h2>
+<ul class="t">
+<li>Data type = kind of value a variable can store. Python finds it <b>automatically</b> from the value</li>
+<li>Python is <mark>dynamically typed</mark> – type is set at run time and can change later</li>
+<li>Check type: <code>type(x)</code></li>
+</ul>
+<div class="wrap"><table>
+<tr><th>Type</th><th>Meaning and example</th><th>Key points</th></tr>
+<tr><td><b>int</b></td><td>Whole numbers: <code>25, -47</code></td><td>No fractional part. <mark>Unlimited size</mark> (grows with memory). <code>1_400_000_000</code> – underscore for readability</td></tr>
+<tr><td><b>float</b></td><td>Decimal numbers: <code>99.99, -3.5</code></td><td>Stored as 64-bit double precision. Exponent form <code>2.5e3</code> = 2500.0. Rounding error: <code>0.1 + 0.2</code> = <code>0.30000000000000004</code></td></tr>
+<tr><td><b>complex</b></td><td><code>4 + 5j</code></td><td>Real part + imaginary part</td></tr>
+<tr><td><b>bool</b></td><td><code>True, False</code></td><td>Subclass of int: True = 1, False = 0. <code>True + True</code> = 2. Comparison gives bool: <code>5 &gt; 3</code> → True</td></tr>
+<tr><td><b>str</b></td><td>Text: <code>"Alice"</code></td><td>Immutable sequence of Unicode characters. Quotes: ' ' or " " or """ """ (multi-line)</td></tr>
+</table></div>
+<h3>False values (falsy)</h3>
+<ul class="t"><li><code>0, 0.0, "", [], (), {}, None</code> → False. <mark>Everything else is True</mark> (truthy)</li></ul>
+<h3>String operations (name = "Alice")</h3>
+<div class="wrap"><table>
+<tr><th>Operation</th><th>Code</th><th>Result</th></tr>
+<tr><td>Indexing</td><td><code>name[0]</code></td><td><code>'A'</code></td></tr>
+<tr><td>Slicing</td><td><code>name[1:3]</code></td><td><code>'li'</code></td></tr>
+<tr><td>Concatenation</td><td><code>name + " Smith"</code></td><td><code>'Alice Smith'</code></td></tr>
+<tr><td>Repetition</td><td><code>name * 3</code></td><td><code>'AliceAliceAlice'</code></td></tr>
+</table></div>
+
+<h2>Chapter 2 : Type Conversion and Casting</h2>
+<p>Changing a value from one data type to another.</p>
+<div class="cols">
+<div class="box"><h3>1) Implicit</h3><ul class="t"><li>Done <b>automatically</b> by Python</li><li>Smaller type → larger type, no data lost</li></ul><code>10 + 2.5</code> → <code>12.5</code> (float)</div>
+<div class="box"><h3>2) Explicit (casting)</h3><ul class="t"><li>Done <b>manually</b> by programmer</li><li><code>int() float() str() bool()</code></li></ul></div>
+</div>
+<div class="wrap"><table>
+<tr><th>Code</th><th>Result</th><th>Note</th></tr>
+<tr><td><code>int("25")</code>, <code>float("3.14")</code></td><td><code>25</code>, <code>3.14</code></td><td>str → number</td></tr>
+<tr><td><code>str(100)</code>, <code>str(9.8)</code></td><td><code>'100'</code>, <code>'9.8'</code></td><td>number → str</td></tr>
+<tr><td><code>bool(0)</code>, <code>bool(42)</code></td><td><code>False</code>, <code>True</code></td><td>0 is False</td></tr>
+<tr><td><code>int(True)</code></td><td><code>1</code></td><td>bool → int</td></tr>
+<tr><td><code>int(9.9)</code>, <code>int(-9.9)</code></td><td><code>9</code>, <code>-9</code></td><td>Decimal <b>cut off</b>, not rounded</td></tr>
+<tr><td><code>int("abc")</code>, <code>int("3.5")</code></td><td>ValueError ✘</td><td>Not a whole number</td></tr>
+</table></div>
+<ul class="t"><li>To convert a decimal string: <code>int(float("12.5"))</code> → <code>12</code></li></ul>
+
+<h2>Chapter 3 : Input and Output</h2>
+<h3>3.1 input()</h3>
+<ul class="t">
+<li>Reads a line typed by the user. <mark>Always returns str</mark> ★</li>
+<li>Convert for numbers: <code>int(input())</code>, <code>float(input())</code></li>
+<li>Common error: <code>"5" + "3"</code> gives <code>"53"</code>, not 8</li>
+</ul>
+<h3>3.2 print()</h3>
+<ul class="t">
+<li><mark>sep</mark> = gap between values (default: space). <mark>end</mark> = ending text (default: <code>\n</code>)</li>
+<li>f-string (preferred): <code>f"{name} is {age} years old"</code>. Format: <code>f"{3.14159:.2f}"</code> → <code>3.14</code></li>
+</ul>
+<pre>age = int(input("Enter your age: "))
+print("Next year:", age + 1)             <span class="o"># Next year: 21  (if 20 entered)</span>
+print("A", "B", "C", sep="-")            <span class="o"># A-B-C</span>
+print("No newline", end=" ")             <span class="o"># stays on same line</span></pre>
+
+<h2>Chapter 4 : Conditional Statements</h2>
+<ul class="t">
+<li>A conditional statement chooses <b>which block</b> runs, based on a condition (True or False)</li>
+<li>Block is shown by <mark>indentation</mark>. Condition line ends with a colon <code>:</code></li>
+<li>Four forms: <b>if</b>, <b>if-else</b>, <b>if-elif-else</b>, <b>nested if</b></li>
+</ul>
+
+<h3>4.1 if statement</h3>
+<ul class="t"><li>Runs the block <b>only if condition is True</b>. If False, block is skipped</li></ul>
+<pre>if condition:
+    # body of if
+<span class="o">---</span>
+temperature = 38
+if temperature &gt; 37:
+    print("You have a fever.")</pre>
+
+<h3>4.2 if-else statement</h3>
+<ul class="t"><li>True → if block runs. False → else block runs. <mark>Exactly one</mark> block runs</li></ul>
+<div class="flow"><span class="d">Condition?</span><span class="a">→ True →</span><span class="n">if block</span><span class="a">|</span><span class="a">False →</span><span class="n">else block</span><span class="a">→</span><span class="n">next statement</span></div>
+<pre>age = 16
+if age &gt;= 18:
+    print("You are eligible to vote.")
+else:
+    print("You are not eligible to vote.")   <span class="o"># this runs</span></pre>
+
+<h3>4.3 if-elif-else statement</h3>
+<ul class="t">
+<li>Tests many conditions <b>in order</b>. Runs the <mark>first True</mark> block. Rest are skipped, even if True</li>
+<li><code>elif</code> = “else if” – checks another condition when the earlier ones are False</li>
+<li><code>else</code> runs only if <b>none</b> matched. If none match and there is no else → <b>no block runs</b></li>
+</ul>
+<pre>marks = 72
+if marks &gt;= 90:
+    grade = "A"
+elif marks &gt;= 75:
+    grade = "B"
+elif marks &gt;= 60:
+    grade = "C"
+else:
+    grade = "F"
+print(f"Grade: {grade}")     <span class="o"># Grade: C</span></pre>
+
+<h3>4.4 Nested and compound conditions</h3>
+<ul class="t">
+<li><b>Nested if</b> = an if statement inside another if</li>
+<li><b>Compound condition</b> = tests joined by <code>and</code>, <code>or</code>, <code>not</code></li>
+</ul>
+<pre>username = "admin"
+password = "1234"
+if username == "admin":
+    if password == "1234":
+        print("Access granted")      <span class="o"># this runs</span>
+    else:
+        print("Wrong password")
+else:
+    print("Unknown user")
+
+if age &gt;= 18 and has_id:           <span class="o"># compound</span>
+    print("Entry allowed")</pre>
+<div class="wrap"><table>
+<tr><th>if</th><th>if-else</th></tr>
+<tr><td>Only one path. Nothing happens if False</td><td>Two paths. One always runs</td></tr>
+<tr><td>if can be used <b>without</b> else ✔</td><td>Needs both blocks</td></tr>
+</table></div>
+
+<h2>Chapter 5 : Loops (Iteration)</h2>
+<ul class="t">
+<li><mark>Loop</mark> = repeats a block of code. <mark>Iteration</mark> = one repetition</li>
+<li>Two loops in Python: <b>for</b> and <b>while</b></li>
+<li>Every loop has 4 parts:</li>
+</ul>
+<div class="flow"><span class="n">1 Initialization<br>(i = 0)</span><span class="a">→</span><span class="n">2 Condition<br>(for / while line)</span><span class="a">→</span><span class="n">3 Body<br>(indented)</span><span class="a">→</span><span class="n">4 Update<br>(i += 1)</span><span class="a">↺</span></div>
+<p class="sub">In a for loop the update is automatic. In a while loop we write it ourselves.</p>
+
+<h3>5.1 for loop</h3>
+<ul class="t">
+<li>Goes through a <b>sequence</b> (list, tuple, string, dict, set) or a range. Used when iterations are <b>known</b></li>
+<li>Syntax: <code>for val in sequence:</code></li>
+</ul>
+<h3>range(start, stop, step)</h3>
+<ul class="t">
+<li><b>start</b> – first value (optional, default 0)</li>
+<li><b>stop</b> – end limit (required). <mark>stop is NOT included</mark> (last value = stop − 1)</li>
+<li><b>step</b> – increase between values (optional, default 1)</li>
+<li><code>range(0, 4)</code> → 0, 1, 2, 3 &nbsp;|&nbsp; <code>list(range(5))</code> → <code>[0, 1, 2, 3, 4]</code></li>
+</ul>
+<pre>for i in range(5):          <span class="o"># 0 1 2 3 4</span>
+    print(i)
+for i in range(2, 10, 2):   <span class="o"># 2 4 6 8</span>
+    print(i)
+for ch in "abc":            <span class="o"># a b c</span>
+    print(ch)
+fruits = ["apple", "banana", "cherry"]
+for index, fruit in enumerate(fruits):   <span class="o"># index with item</span>
+    print(index, fruit)</pre>
+
+<h3>5.2 while loop</h3>
+<ul class="t">
+<li>Repeats <b>as long as condition is True</b>. Used when iterations are <b>not known</b> in advance</li>
+<li>Syntax: <code>while condition:</code></li>
+<li>★ Must update the variable inside the loop. Otherwise → <mark>infinite loop</mark></li>
+<li><code>while True:</code> with <code>break</code> – common in menu-driven programs</li>
+</ul>
+<pre>count = 1
+while count &lt;= 5:
+    print(count)
+    count += 1          <span class="o"># update – avoids infinite loop</span>
+
+while True:
+    choice = input("Enter q to quit: ")
+    if choice == 'q':
+        break</pre>
+
+<h3>5.3 Nested loops</h3>
+<ul class="t"><li>A loop inside another loop. Inner loop <mark>finishes all its rounds for every one round</mark> of the outer loop</li>
+<li>Used for tables, grids, matrices, pattern printing</li></ul>
+<div class="cols">
+<pre>for i in range(1, 4):
+    for j in range(1, 4):
+        print(i * j, end="\t")
+    print()
+<span class="o">1  2  3
+2  4  6
+3  6  9</span></pre>
+<pre>for i in range(1, 5):
+    print("*" * i)
+<span class="o">*
+**
+***
+****</span></pre>
+</div>
+<ul class="t"><li>Any loop can be nested in the other: for in while ✔, while in for ✔</li></ul>
+
+<h3>5.4 for vs while</h3>
+<div class="wrap"><table>
+<tr><th></th><th>for loop</th><th>while loop</th></tr>
+<tr><td>Best when</td><td>Number of iterations is known / going through a sequence</td><td>Repeats depend on a condition that may change</td></tr>
+<tr><td>Typical use</td><td>Lists, strings, ranges</td><td>Input validation, game loops, polling</td></tr>
+<tr><td>Risk</td><td>Rare – ends with the sequence</td><td>Infinite loop if condition never becomes False</td></tr>
+</table></div>
+
+<h3>5.5 Programs</h3>
+<div class="cols">
+<pre><span class="o"># 1 to 12 / first 10 natural numbers: for</span>
+for i in range(1, 13):
+    print(i)
+<span class="o"># first 10 natural numbers: for</span>
+for i in range(1, 11):
+    print(i)</pre>
+<pre><span class="o"># first 10 natural numbers: while</span>
+i = 1
+while i &lt;= 10:
+    print(i)
+    i += 1</pre>
+</div>
+
+<h2>Chapter 6 : Loop Control Statements</h2>
+<p>They change the normal flow of a loop: <b>break</b>, <b>continue</b>, <b>pass</b> and <b>else</b> with loops.</p>
+<div class="cols">
+<div class="box"><h3>break</h3>Ends the <b>nearest loop</b> completely. Remaining rounds are skipped.
+<pre>for num in range(1, 10):
+    if num == 5:
+        break
+    print(num)
+<span class="o">1 2 3 4</span></pre></div>
+<div class="box"><h3>continue</h3>Skips the <b>rest of the current round</b>. Goes to the next round. Loop does not end.
+<pre>for num in range(1, 6):
+    if num == 3:
+        continue
+    print(num)
+<span class="o">1 2 4 5</span></pre></div>
+</div>
+<div class="box"><h3>pass</h3>Does <b>nothing</b>. A placeholder where a statement is needed but no action yet. Does not skip anything.
+<pre>for num in range(5):
+    if num == 2:
+        pass
+    print(num)            <span class="o"># 0 1 2 3 4</span>
+def not_ready():
+    pass                  <span class="o"># empty function body, no error</span></pre></div>
+
+<h3>6.4 else with loops</h3>
+<ul class="t">
+<li>for and while can have an optional <code>else</code></li>
+<li>else runs when the loop <mark>ends normally</mark> (all rounds done)</li>
+<li>else is <mark>skipped if the loop was ended by break</mark> ★</li>
+</ul>
+<div class="cols">
+<pre>for i in range(3):
+    print(i)
+else:
+    print("Loop finished normally")
+<span class="o">0 1 2 + message (else RUNS)</span></pre>
+<pre>for i in range(10):
+    if i == 3:
+        break
+    print(i)
+else:
+    print("skipped")
+<span class="o">0 1 2 (else SKIPPED)</span></pre>
+</div>
+<h3>Program: prime number check using loop-else</h3>
+<pre>n = 29
+if n &lt; 2:
+    print("Not prime")
+else:
+    for i in range(2, n):
+        if n % i == 0:
+            print("Not prime")
+            break
+    else:
+        print("Prime")            <span class="o"># Prime</span></pre>
+<h3>Search in a list</h3>
+<pre>numbers = [2, 4, 6, 8]
+target = 5
+for n in numbers:
+    if n == target:
+        print("Found!")
+        break
+else:
+    print("Target not found in list")    <span class="o"># this runs</span></pre>
+
+<h3>Summary table</h3>
+<div class="wrap"><table>
+<tr><th>Statement</th><th>Effect</th><th>Scope</th></tr>
+<tr><td><b>break</b></td><td>Exits the loop immediately</td><td>Ends whole (nearest) loop</td></tr>
+<tr><td><b>continue</b></td><td>Skips rest of current round</td><td>Only the current pass</td></tr>
+<tr><td><b>pass</b></td><td>Does nothing (placeholder)</td><td>No effect on flow</td></tr>
+<tr><td><b>else</b></td><td>Runs if loop ends without break</td><td>Once, after the loop</td></tr>
+</table></div>
+
+<h2>★ Key Observations</h2>
+<ul class="t">
+<li><code>input()</code> → str. Convert with <code>int()</code> / <code>float()</code> before maths</li>
+<li><code>int()</code> cuts decimals – no rounding. <code>int("3.5")</code> → ValueError</li>
+<li>In if-elif-else only the <b>first True</b> block runs</li>
+<li><code>range(5)</code> gives 0 to 4. It does <b>not</b> include 5</li>
+<li>while loop without an update step → infinite loop</li>
+<li><code>break</code> stops the loop. <code>continue</code> skips one round. <code>pass</code> does nothing</li>
+<li>Loop <code>else</code> runs only if there was <b>no break</b></li>
+<li><code>break</code> ends only the <b>nearest</b> loop, not all nested loops</li>
+</ul>
+
+<h2>Real-Life Applications</h2>
+<ul class="t">
+<li><b>Conditions:</b> grading, voting eligibility, login check (username and password)</li>
+<li><b>for loop:</b> going through lists and strings, multiplication tables</li>
+<li><b>while loop:</b> input validation, menu-driven programs, game loops, polling</li>
+<li><b>Nested loops:</b> grids, matrices, pattern printing</li>
+<li><b>Loop-else:</b> searching for an item (found / not found)</li>
+</ul>
+
+<h2>Important Terms</h2>
+<div class="wrap"><table>
+<tr><th>Term</th><th>Meaning</th></tr>
+<tr><td>Condition</td><td>Expression that is True or False</td></tr>
+<tr><td>Block</td><td>Indented group of statements</td></tr>
+<tr><td>Nested</td><td>One statement or loop inside another</td></tr>
+<tr><td>Iteration</td><td>One repetition of a loop</td></tr>
+<tr><td>Iterable</td><td>Object a for loop can go through (list, string, range)</td></tr>
+<tr><td>Infinite loop</td><td>Loop whose condition never becomes False</td></tr>
+<tr><td>Truthy / Falsy</td><td>Values treated as True / False</td></tr>
+<tr><td>Immutable</td><td>Cannot be changed after creation (str)</td></tr>
+<tr><td>Type casting</td><td>Manual change of data type</td></tr>
+</table></div>
+
+<div class="box star">
+<h3 style="color:var(--red)">★ Exam Points ★</h3>
+<ul class="t">
+<li>Basic types: <b>int, float, complex, bool, str</b>. int has <b>no size limit</b>. str is <b>immutable</b></li>
+<li><b>bool</b>: True = 1, False = 0. False values: <code>0, 0.0, "", [], (), {}, None</code></li>
+<li>Conversion: <b>implicit</b> (automatic, int → float) and <b>explicit</b> (<code>int() float() str() bool()</code>)</li>
+<li><code>input()</code> → always <b>str</b>. <code>print()</code> → <code>sep</code> (default space), <code>end</code> (default \n)</li>
+<li>Conditionals: <b>if, if-else, if-elif-else, nested if</b>. Indentation shows the block</li>
+<li>if can be used <b>without else</b>. <code>elif</code> checks the next condition when earlier ones are False</li>
+<li>No condition True and no else → <b>no block runs</b></li>
+<li>Loops: <b>for</b> (known iterations) and <b>while</b> (condition-based)</li>
+<li><code>range(start, stop, step)</code>: start = 0, step = 1 by default. <b>stop excluded</b></li>
+<li><b>Nested loop</b>: inner loop completes fully for each outer round</li>
+<li><b>break</b> ends loop | <b>continue</b> skips the current round | <b>pass</b> placeholder</li>
+<li>Loop <b>else</b> runs when loop ends normally; skipped after <b>break</b></li>
+</ul>
+</div>
+</div>
+<footer class="hub-footer" aria-label="Module navigation">
+  <div class="hub-footer-inner">
+    <nav class="hub-footer-links" aria-label="Study hub links">
+      <a href="../../index.html">Home</a>
+      <span class="hub-separator" aria-hidden="true">·</span>
+      <a href="../index.html">Semester 1</a>
+      <span class="hub-separator" aria-hidden="true">·</span>
+      <a href="index.html">Python Programming</a>
+    </nav>
+    <nav class="hub-module-nav" aria-label="Module navigation">
+      <a href="module1.html">← Previous: Module 1</a>
+      <a href="module3.html">Next: Module 3 →</a>
+    </nav>
+  </div>
+</footer>
+</body>
+</html>

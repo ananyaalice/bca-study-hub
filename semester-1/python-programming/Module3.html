@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Python Programming – Module III Notes</title>
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#fdfcf4;--desk:#e9e4d6;--line:#cfe2ee;--margin:#e8798a;--ink:#1d3a8c;--red:#c0262d;--green:#1b7a3d;--hl:#fff08a;--box:#f4f8ff;--code:#fff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#20232f;--desk:#14161d;--line:#2d3345;--margin:#a8465a;--ink:#b7c8ff;--red:#ff8a8f;--green:#7fdc9c;--hl:#5a5320;--box:#272b3a;--code:#181b25}}
+:root[data-theme="dark"]{--paper:#20232f;--desk:#14161d;--line:#2d3345;--margin:#a8465a;--ink:#b7c8ff;--red:#ff8a8f;--green:#7fdc9c;--hl:#5a5320;--box:#272b3a;--code:#181b25}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--desk);font-family:"Patrick Hand","Comic Sans MS",cursive;color:var(--ink);font-size:19px;line-height:28px}
+.page{max-width:860px;margin:18px auto;padding:20px 20px 28px 64px;background:var(--paper) repeating-linear-gradient(transparent,transparent 27px,var(--line) 27px,var(--line) 28px);border-left:3px double var(--margin);box-shadow:0 2px 14px rgba(0,0,0,.25)}
+h1,h2,h3{font-family:"Caveat","Patrick Hand",cursive;margin:0;line-height:28px}
+h1{font-size:40px;line-height:42px;color:var(--red)}
+h2{font-size:30px;margin:28px 0 8px;color:var(--red);border-bottom:3px wavy var(--red);display:inline-block;line-height:36px}
+h3{font-size:25px;margin:14px 0 2px;text-decoration:underline}
+p,ul,ol{margin:0 0 8px}ul,ol{padding-left:22px}
+ul.t{list-style:none;padding-left:4px}ul.t li:before{content:"→ ";color:var(--red)}
+.sub{color:var(--green);font-size:18px}
+mark{background:linear-gradient(transparent 20%,var(--hl) 20%,var(--hl) 90%,transparent 90%);color:inherit;padding:0 3px}
+b{color:var(--red);font-weight:400;text-decoration:underline wavy 1px}
+code,pre{font-family:ui-monospace,Consolas,"Courier New",monospace;font-size:15px}
+code{background:var(--box);padding:0 4px;border-radius:3px}
+pre{background:var(--code);border:1.5px dashed var(--ink);border-radius:6px;padding:8px 12px;margin:6px 0 10px;line-height:22px;overflow-x:auto}
+.o{color:var(--green)}
+.box{border:2px solid var(--ink);border-radius:8px 14px 10px 16px;background:var(--box);padding:8px 14px;margin:8px 0 12px}
+.box.star{border-color:var(--red)}.box h3{margin-top:0;text-decoration:none}
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:8px 0 12px}
+.flow span.n{border:2px solid var(--ink);border-radius:8px;background:var(--box);padding:2px 10px;line-height:24px;text-align:center}
+.flow span.a{color:var(--red);font-size:22px}
+.wrap{overflow-x:auto;margin:6px 0 12px}
+table{border-collapse:collapse;min-width:100%;background:var(--box)}
+th,td{border:1.5px solid var(--ink);padding:3px 8px;text-align:left;line-height:24px;vertical-align:top}
+th{color:var(--red);font-weight:400;background:var(--paper)}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:0 24px}
+@media(max-width:640px){.page{padding-left:46px;padding-right:12px}.cols{grid-template-columns:1fr}body{font-size:18px}}
+
+/* BCA Study Hub navigation; lesson content styles remain unchanged. */
+.hub-nav,.hub-footer{max-width:860px;margin-left:auto;margin-right:auto;background:var(--paper);color:var(--ink);font:14px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;border:1px solid var(--line);box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.hub-nav{margin-top:18px;margin-bottom:-18px;border-radius:5px 5px 0 0}
+.hub-nav-inner{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 15px}
+.hub-crumbs{display:flex;align-items:center;flex-wrap:wrap;gap:7px;min-width:0}
+.hub-nav a,.hub-footer a{color:var(--ink);text-underline-offset:3px}
+.hub-nav a:hover,.hub-footer a:hover{color:var(--red)}
+.hub-separator{color:var(--red)}
+.hub-current{font-weight:700}
+.hub-footer{margin-top:-18px;margin-bottom:18px;border-radius:0 0 5px 5px;border-top:0}
+.hub-footer-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;padding:10px 15px}
+.hub-footer-links,.hub-module-nav{display:flex;align-items:center;flex-wrap:wrap;gap:10px}
+.hub-footer .hub-muted{color:var(--green)}
+@media(max-width:640px){
+ .hub-nav{margin-top:0;width:100%;border-radius:0}
+ .hub-nav-inner{align-items:flex-start;flex-direction:column;gap:5px;padding:10px 12px}
+ .hub-footer{width:100%;margin-bottom:0;border-radius:0}
+ .hub-footer-inner{display:grid;grid-template-columns:1fr;gap:10px;padding:10px 12px}
+ .hub-footer-links,.hub-module-nav{display:flex;justify-content:space-between;gap:8px}
+ .hub-module-nav a,.hub-footer-links a{padding:5px 0}
+}
+
+</style>
+</head>
+<body>
+<header class="hub-nav" aria-label="Study navigation">
+  <div class="hub-nav-inner">
+    <nav class="hub-crumbs" aria-label="Breadcrumb">
+      <a href="../../index.html">Home</a><span class="hub-separator" aria-hidden="true">›</span>
+      <a href="../index.html">Semester 1</a><span class="hub-separator" aria-hidden="true">›</span>
+      <a href="index.html">Python Programming</a><span class="hub-separator" aria-hidden="true">›</span>
+      <span class="hub-current" aria-current="page">Module 3</span>
+    </nav>
+    <a href="index.html">← Back to subject</a>
+  </div>
+</header>
+<div class="page">
+<h1>Python Programming ★ Module III</h1>
+<p class="sub">Functions and Modular Programming | BCA (Hons) DS &amp; AI, Sem 1 | 25-922-0102</p>
+
+<h2>Chapter 1 : Defining and Calling Functions</h2>
+<h3>1.1 What is a function?</h3>
+<ul class="t">
+<li><mark>Function</mark> = a named block of code that does one task. It runs only when <b>called</b></li>
+<li>Uses: <b>reuse</b> code, break a big program into small parts (<b>modular</b>), easy to read and debug</li>
+<li>Defined with the keyword <code>def</code></li>
+</ul>
+<pre>def function_name(parameters):
+    """docstring - optional description"""
+    # body (indented)
+    return value          <span class="o"># optional</span></pre>
+<h3>1.2 Calling a function</h3>
+<pre>def greet(name):             <span class="o"># definition</span>
+    print("Hello,", name)
+
+greet("Ravi")                <span class="o"># call → Hello, Ravi</span></pre>
+<div class="flow"><span class="n">Function call<br>greet("Ravi")</span><span class="a">→</span><span class="n">Argument sent<br>to parameter</span><span class="a">→</span><span class="n">Body<br>executes</span><span class="a">→</span><span class="n">Value returned<br>to caller</span></div>
+<div class="wrap"><table>
+<tr><th>Parameter</th><th>Argument</th></tr>
+<tr><td>Variable in the <b>definition</b> (<code>name</code>)</td><td>Actual value in the <b>call</b> (<code>"Ravi"</code>)</td></tr>
+</table></div>
+<ul class="t"><li>A function must be <b>defined before</b> it is called</li><li>Wrong number of arguments → <b>TypeError</b></li></ul>
+
+<h2>Chapter 2 : Function Arguments</h2>
+<h3>2.1 Positional arguments</h3>
+<ul class="t"><li>Matched by <b>position (order)</b>. First value → first parameter</li></ul>
+<pre>def sub(a, b):
+    return a - b
+sub(10, 3)      <span class="o"># 7</span>
+sub(3, 10)      <span class="o"># -7  (order matters)</span></pre>
+<h3>2.2 Keyword arguments</h3>
+<ul class="t"><li>Passed as <code>name=value</code>. <mark>Order does not matter</mark></li>
+<li>In a call, positional arguments must come <b>before</b> keyword arguments</li></ul>
+<pre>sub(b=3, a=10)  <span class="o"># 7</span></pre>
+<h3>2.3 Default arguments</h3>
+<ul class="t"><li>Parameter has a <b>default value</b>, used if the caller gives no value</li>
+<li>Default parameters must come <b>after</b> non-default ones</li></ul>
+<pre>def greet(name, msg="Hello"):
+    print(msg, name)
+greet("Ravi")          <span class="o"># Hello Ravi</span>
+greet("Ravi", "Hi")    <span class="o"># Hi Ravi</span></pre>
+<h3>2.4 Variable-length arguments</h3>
+<ul class="t">
+<li>Used when the number of arguments is <b>not known</b></li>
+<li><mark>*args</mark> → extra positional arguments, collected as a <b>tuple</b></li>
+<li><mark>**kwargs</mark> → extra keyword arguments, collected as a <b>dictionary</b></li>
+<li>Order in definition: normal, default, <code>*args</code>, <code>**kwargs</code></li>
+</ul>
+<div class="cols">
+<pre>def total(*nums):
+    print(nums)
+    return sum(nums)
+total(1, 2, 3)
+<span class="o">(1, 2, 3)  → returns 6</span></pre>
+<pre>def info(**data):
+    print(data)
+info(name="Ravi", age=20)
+<span class="o">{'name': 'Ravi', 'age': 20}</span></pre>
+</div>
+
+<h2>Chapter 3 : The return Statement</h2>
+<ul class="t">
+<li><code>return</code> sends a value <b>back to the caller</b> and <mark>ends the function</mark> at once</li>
+<li>Code written after <code>return</code> is <b>not executed</b></li>
+<li>No return statement → function gives <b>None</b></li>
+<li>Can return many values → returned as a <b>tuple</b></li>
+</ul>
+<pre>def add(a, b):
+    return a + b
+result = add(5, 3)       <span class="o"># 8</span>
+
+def calc(a, b):
+    return a + b, a - b
+s, d = calc(10, 4)       <span class="o"># s = 14, d = 6</span></pre>
+<div class="wrap"><table>
+<tr><th>print()</th><th>return</th></tr>
+<tr><td>Only <b>shows</b> a value on screen</td><td>Gives the value <b>back</b> to the caller to store or use</td></tr>
+</table></div>
+
+<h2>Chapter 4 : Recursion and Lambda</h2>
+<h3>4.1 Recursion</h3>
+<ul class="t">
+<li><mark>Recursion</mark> = a function that <b>calls itself</b></li>
+<li>Two parts: <b>base case</b> (stops the calls) and <b>recursive case</b> (calls itself with a smaller problem)</li>
+<li>No base case → <b>RecursionError</b> (maximum recursion depth exceeded; default limit 1000)</li>
+</ul>
+<pre>def fact(n):
+    if n == 0 or n == 1:      <span class="o"># base case</span>
+        return 1
+    return n * fact(n - 1)    <span class="o"># recursive case</span>
+print(fact(5))                <span class="o"># 120</span></pre>
+<div class="flow"><span class="n">fact(3)</span><span class="a">→</span><span class="n">3 × fact(2)</span><span class="a">→</span><span class="n">2 × fact(1)</span><span class="a">→</span><span class="n">fact(1) = 1</span><span class="a">⇒ back:</span><span class="n">2×1 = 2</span><span class="a">→</span><span class="n">3×2 = 6</span></div>
+<h3>Fibonacci series (n terms)</h3>
+<ul class="t"><li>Each term = sum of the previous two. Series: 0, 1, 1, 2, 3, 5, 8 …</li></ul>
+<pre>def fib(n):
+    if n &lt; 2:
+        return n
+    return fib(n - 1) + fib(n - 2)
+
+for i in range(7):
+    print(fib(i), end=" ")    <span class="o"># 0 1 1 2 3 5 8</span></pre>
+<div class="wrap"><table>
+<tr><th>Recursion</th><th>Loop (iteration)</th></tr>
+<tr><td>Function calls itself. Short code</td><td>Repeats using for / while</td></tr>
+<tr><td>Uses more memory (call stack), usually slower</td><td>Uses less memory, usually faster</td></tr>
+</table></div>
+
+<h3>4.2 Lambda expressions</h3>
+<ul class="t">
+<li><mark>Lambda</mark> = small <b>anonymous</b> function (no name) written in <b>one line</b></li>
+<li>Syntax: <code>lambda arguments: expression</code></li>
+<li>Can take many arguments but has <b>only one expression</b>. Result is returned automatically (no <code>return</code>)</li>
+<li>Used for short, one-time functions</li>
+</ul>
+<pre>square = lambda x: x * x
+print(square(5))                      <span class="o"># 25</span>
+add = lambda a, b: a + b
+print(add(2, 3))                      <span class="o"># 5</span>
+print(list(map(lambda x: x * 2, [1, 2, 3])))   <span class="o"># [2, 4, 6]</span></pre>
+<div class="wrap"><table>
+<tr><th>def function</th><th>lambda</th></tr>
+<tr><td>Has a name. Many statements. Uses <code>return</code></td><td>Anonymous. Single expression. No <code>return</code></td></tr>
+</table></div>
+
+<h2>Chapter 5 : Scope and Lifetime of Variables</h2>
+<ul class="t">
+<li><mark>Scope</mark> = the part of the program where a variable can be used</li>
+<li><mark>Lifetime</mark> = how long the variable exists in memory</li>
+</ul>
+<div class="wrap"><table>
+<tr><th></th><th>Local variable</th><th>Global variable</th></tr>
+<tr><td>Created</td><td><b>Inside</b> a function</td><td><b>Outside</b> all functions</td></tr>
+<tr><td>Scope</td><td>Only inside that function</td><td>Whole program</td></tr>
+<tr><td>Lifetime</td><td>Created when function is called, <b>destroyed when it ends</b></td><td>Until the program ends</td></tr>
+</table></div>
+<ul class="t">
+<li>Using a local variable outside its function → <b>NameError</b></li>
+<li>Assigning inside a function creates a <b>new local</b> variable, even if a global has the same name</li>
+<li><mark>global</mark> keyword → lets a function change the global variable</li>
+<li>Python searches names in order <b>LEGB</b>:</li>
+</ul>
+<div class="flow"><span class="n">L – Local</span><span class="a">→</span><span class="n">E – Enclosing<br>(outer function)</span><span class="a">→</span><span class="n">G – Global</span><span class="a">→</span><span class="n">B – Built-in</span></div>
+<pre>x = 10
+def f():
+    x = 5          <span class="o"># local x</span>
+    print(x)       <span class="o"># 5</span>
+f()
+print(x)           <span class="o"># 10  (global unchanged)</span>
+
+def g():
+    global x
+    x = 20         <span class="o"># changes global x</span>
+g()
+print(x)           <span class="o"># 20</span></pre>
+
+<h2>Chapter 6 : Built-in vs User-defined Functions</h2>
+<div class="wrap"><table>
+<tr><th></th><th>Built-in function</th><th>User-defined function</th></tr>
+<tr><td>Made by</td><td>Python itself</td><td>Programmer, using <code>def</code></td></tr>
+<tr><td>Import needed?</td><td>No – always available</td><td>No – defined in program</td></tr>
+<tr><td>Examples</td><td><code>print() input() len() type() max()</code></td><td><code>greet() add() fact()</code></td></tr>
+</table></div>
+<div class="wrap"><table>
+<tr><th>Built-in</th><th>Use</th><th>Example</th></tr>
+<tr><td><code>len()</code></td><td>Length</td><td><code>len("abc")</code> → 3</td></tr>
+<tr><td><code>max() / min()</code></td><td>Largest / smallest</td><td><code>max(3, 9, 2)</code> → 9</td></tr>
+<tr><td><code>sum()</code></td><td>Total of a list</td><td><code>sum([1, 2, 3])</code> → 6</td></tr>
+<tr><td><code>abs()</code></td><td>Absolute value</td><td><code>abs(-5)</code> → 5</td></tr>
+<tr><td><code>round()</code></td><td>Round off</td><td><code>round(3.567, 2)</code> → 3.57</td></tr>
+<tr><td><code>pow()</code></td><td>Power</td><td><code>pow(2, 3)</code> → 8</td></tr>
+</table></div>
+
+<h2>Chapter 7 : Modules and Standard Libraries</h2>
+<h3>7.1 Modules</h3>
+<ul class="t">
+<li><mark>Module</mark> = a <code>.py</code> file with functions, variables, classes. Helps <b>reuse</b> and organise code</li>
+</ul>
+<div class="wrap"><table>
+<tr><th>Way to import</th><th>Use</th></tr>
+<tr><td><code>import math</code></td><td><code>math.sqrt(16)</code></td></tr>
+<tr><td><code>from math import sqrt</code></td><td><code>sqrt(16)</code> – no prefix</td></tr>
+<tr><td><code>import math as m</code></td><td><code>m.sqrt(16)</code> – short name</td></tr>
+<tr><td><code>from math import *</code></td><td>All names. <b>Not recommended</b></td></tr>
+</table></div>
+<h3>7.2 Creating your own module</h3>
+<pre><span class="o"># file 1: mymath.py</span>
+def add(a, b):
+    return a + b
+
+<span class="o"># file 2: main.py  (same folder)</span>
+import mymath
+print(mymath.add(2, 3))     <span class="o"># 5</span></pre>
+
+<h3>7.3 math module</h3>
+<div class="wrap"><table>
+<tr><th>Function</th><th>Meaning</th><th>Example</th></tr>
+<tr><td><code>sqrt(x)</code></td><td>Square root</td><td><code>math.sqrt(16)</code> → 4.0</td></tr>
+<tr><td><code>pow(x, y)</code></td><td>x to the power y (float)</td><td><code>math.pow(2, 3)</code> → 8.0</td></tr>
+<tr><td><code>ceil(x)</code></td><td>Round <b>up</b></td><td><code>math.ceil(4.2)</code> → 5</td></tr>
+<tr><td><code>floor(x)</code></td><td>Round <b>down</b></td><td><code>math.floor(4.8)</code> → 4</td></tr>
+<tr><td><code>factorial(n)</code></td><td>n!</td><td><code>math.factorial(5)</code> → 120</td></tr>
+<tr><td><code>gcd(a, b)</code></td><td>Greatest common divisor</td><td><code>math.gcd(12, 18)</code> → 6</td></tr>
+<tr><td><code>fabs(x)</code></td><td>Absolute value (float)</td><td><code>math.fabs(-5)</code> → 5.0</td></tr>
+<tr><td><code>pi</code>, <code>e</code></td><td>Constants</td><td><code>math.pi</code> → 3.141592653589793</td></tr>
+</table></div>
+
+<h3>7.4 random module</h3>
+<div class="wrap"><table>
+<tr><th>Function</th><th>Meaning</th></tr>
+<tr><td><code>random()</code></td><td>Random float from 0.0 up to (not including) 1.0</td></tr>
+<tr><td><code>randint(a, b)</code></td><td>Random integer from a to b – <b>both included</b></td></tr>
+<tr><td><code>randrange(start, stop)</code></td><td>Random integer, <b>stop not included</b></td></tr>
+<tr><td><code>choice(seq)</code></td><td>One random item from a list / string</td></tr>
+<tr><td><code>shuffle(list)</code></td><td>Mixes the list order (changes the list itself)</td></tr>
+</table></div>
+<pre>import random
+print(random.randint(1, 6))      <span class="o"># any of 1,2,3,4,5,6  (dice)</span>
+print(random.choice(["a", "b"])) <span class="o"># 'a' or 'b'</span></pre>
+
+<h3>7.5 time module</h3>
+<div class="wrap"><table>
+<tr><th>Function</th><th>Meaning</th></tr>
+<tr><td><code>time()</code></td><td>Seconds passed since the <b>epoch</b> (1 Jan 1970), as float</td></tr>
+<tr><td><code>sleep(n)</code></td><td>Pauses the program for n seconds</td></tr>
+<tr><td><code>ctime()</code></td><td>Current date and time as readable text</td></tr>
+</table></div>
+<pre>import time
+start = time.time()
+time.sleep(2)                    <span class="o"># wait 2 seconds</span>
+print(time.time() - start)       <span class="o"># about 2.0 (time taken)</span></pre>
+
+<h2>Programs (Lab-type)</h2>
+<pre><span class="o"># prime number check using a function</span>
+def is_prime(n):
+    if n &lt; 2:
+        return False
+    for i in range(2, n):
+        if n % i == 0:
+            return False
+    return True
+print(is_prime(7))      <span class="o"># True</span>
+print(is_prime(10))     <span class="o"># False</span></pre>
+
+<h2>★ Key Observations</h2>
+<ul class="t">
+<li><b>Parameter</b> is in the definition. <b>Argument</b> is in the call</li>
+<li>No <code>return</code> → function gives <b>None</b></li>
+<li>Positional arguments come <b>before</b> keyword arguments in a call</li>
+<li>Default parameters come <b>after</b> normal parameters</li>
+<li><code>*args</code> → tuple. <code>**kwargs</code> → dictionary</li>
+<li>Recursion <b>must</b> have a base case</li>
+<li>Lambda has <b>one expression</b> only</li>
+<li>Local variable cannot be used outside its function</li>
+<li>Built-in functions need no import. <code>math</code>, <code>random</code>, <code>time</code> <b>need</b> import</li>
+</ul>
+
+<h2>Real-Life Applications</h2>
+<ul class="t">
+<li><b>Functions:</b> write once, use many times – calculators, billing, menu programs</li>
+<li><b>Recursion:</b> factorial, Fibonacci, searching folders</li>
+<li><b>math:</b> scientific and engineering calculations</li>
+<li><b>random:</b> dice and card games, random passwords, sample selection</li>
+<li><b>time:</b> delays, timers, measuring program speed</li>
+</ul>
+
+<h2>Important Terms</h2>
+<div class="wrap"><table>
+<tr><th>Term</th><th>Meaning</th></tr>
+<tr><td>Function</td><td>Named block of code that does one task</td></tr>
+<tr><td>Parameter / Argument</td><td>Variable in definition / value in call</td></tr>
+<tr><td>Docstring</td><td>Text in triple quotes describing a function</td></tr>
+<tr><td>Base case</td><td>Condition that stops recursion</td></tr>
+<tr><td>Lambda</td><td>One-line anonymous function</td></tr>
+<tr><td>Scope</td><td>Where a variable can be used</td></tr>
+<tr><td>Lifetime</td><td>How long a variable stays in memory</td></tr>
+<tr><td>LEGB</td><td>Local, Enclosing, Global, Built-in – name search order</td></tr>
+<tr><td>Module</td><td>A <code>.py</code> file of reusable code</td></tr>
+<tr><td>Epoch</td><td>Start of time counting: 1 Jan 1970</td></tr>
+</table></div>
+
+<div class="box star">
+<h3 style="color:var(--red)">★ Exam Points ★</h3>
+<ul class="t">
+<li>Function is defined with <b>def</b> and runs only when <b>called</b></li>
+<li>Four argument types: <b>positional, keyword, default, variable-length</b></li>
+<li><b>*args</b> = tuple of extra positional values. <b>**kwargs</b> = dictionary of extra keyword values</li>
+<li><b>return</b> sends a value back and <b>ends</b> the function. Many values → <b>tuple</b>. No return → <b>None</b></li>
+<li>Recursion = function calls itself. Needs <b>base case</b>. Else <b>RecursionError</b></li>
+<li>Lambda: <code>lambda arguments: expression</code> – anonymous, one expression</li>
+<li><b>Local</b>: inside function, destroyed when function ends. <b>Global</b>: outside, lives till program ends</li>
+<li><b>global</b> keyword changes a global variable inside a function</li>
+<li>Built-in: made by Python (<code>print, len, max</code>). User-defined: made with <code>def</code></li>
+<li>Import: <code>import m</code>, <code>from m import x</code>, <code>import m as n</code></li>
+<li><b>math</b>: sqrt, pow, ceil, floor, factorial, gcd, pi. <b>random</b>: random, randint, choice. <b>time</b>: time, sleep, ctime</li>
+<li><code>randint(a, b)</code> includes both ends. <code>randrange(a, b)</code> excludes b</li>
+</ul>
+</div>
+</div>
+<footer class="hub-footer" aria-label="Module navigation">
+  <div class="hub-footer-inner">
+    <nav class="hub-footer-links" aria-label="Study hub links">
+      <a href="../../index.html">Home</a>
+      <span class="hub-separator" aria-hidden="true">·</span>
+      <a href="../index.html">Semester 1</a>
+      <span class="hub-separator" aria-hidden="true">·</span>
+      <a href="index.html">Python Programming</a>
+    </nav>
+    <nav class="hub-module-nav" aria-label="Module navigation">
+      <a href="module2.html">← Previous: Module 2</a>
+      <a href="module4.html">Next: Module 4 →</a>
+    </nav>
+  </div>
+</footer>
+</body>
+</html>
