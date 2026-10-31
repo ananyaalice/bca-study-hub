@@ -1,31 +1,552 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#f5f7f9">
-<title>Fundamentals of Computer Architecture | Module 1</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>FCA – Module I: Introduction to Computer Science and Architecture (Complete)</title>
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
 <style>
-:root{color-scheme:light;--text:#202936;--muted:#5f6b7a;--line:#dce2e8;--paper:#fff;--page:#f5f7f9;--link:#245f9e;--soft:#edf3f8;}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--page);color:var(--text);font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
-a{color:var(--link);text-underline-offset:3px}a:hover{color:#123f6d}a:focus-visible{outline:3px solid #8db9e7;outline-offset:3px;border-radius:4px}
-.site-header{background:var(--paper);border-bottom:1px solid var(--line)}.header-inner{max-width:960px;margin:auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px}.site-name{font-size:18px;font-weight:750;text-decoration:none;color:var(--text)}.home-link{font-size:14px;white-space:nowrap}
-main{width:min(960px,calc(100% - 32px));margin:0 auto;padding:24px 0 36px}.breadcrumbs{display:flex;flex-wrap:wrap;gap:7px;align-items:center;font-size:13px;color:var(--muted);margin:0 0 18px}.breadcrumbs a{color:var(--link)}.crumb-sep{color:#9aa3ad}
-h1{font-size:clamp(25px,4vw,34px);line-height:1.2;letter-spacing:-.025em;margin:0 0 8px}h2{font-size:20px;line-height:1.3;margin:28px 0 12px}h3{font-size:17px;margin:0 0 6px}.subtitle{color:var(--muted);margin:0 0 20px}.metadata{display:flex;flex-wrap:wrap;gap:8px 18px;margin:12px 0 22px;color:var(--muted);font-size:14px}.metadata strong{color:var(--text)}
-.card-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.nav-card{display:block;padding:16px;border:1px solid var(--line);border-radius:10px;background:var(--paper);color:var(--text);text-decoration:none;min-width:0}.nav-card:hover{border-color:#a9c2da;background:#fbfdff}.nav-card .eyebrow{font-size:12px;color:var(--muted);margin-bottom:4px}.nav-card .card-title{font-weight:700;line-height:1.4}.nav-card .card-detail{font-size:13px;color:var(--muted);margin-top:5px}.nav-card .card-link{font-size:13px;color:var(--link);margin-top:10px;font-weight:650}.nav-card.disabled{background:#f0f2f4;color:#687382}.nav-card.disabled .card-link{color:#687382}.list-links{padding:0;margin:0;list-style:none;display:grid;gap:8px}.list-links li{margin:0}.list-link{display:flex;align-items:center;justify-content:space-between;gap:14px;background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:12px 14px;text-decoration:none;color:var(--text)}.list-link:hover{border-color:#a9c2da;background:#fbfdff}.list-link span:first-child{min-width:0}.arrow{color:var(--link);font-size:19px;flex:0 0 auto}.section-note{font-size:14px;color:var(--muted);margin:0 0 12px}
-.callout{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:16px}.page-nav{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;border-top:1px solid var(--line);margin-top:30px;padding-top:16px}.nav-button{display:inline-block;border:1px solid var(--line);background:var(--paper);color:var(--link);text-decoration:none;border-radius:7px;padding:9px 12px;font-size:14px;font-weight:600}.nav-button:hover{background:var(--soft)}.site-footer{max-width:960px;margin:0 auto;padding:0 16px 24px;color:var(--muted);font-size:12px}
-@media(max-width:600px){.header-inner{padding:12px 16px}.site-name{font-size:17px}.home-link{font-size:13px}main{width:calc(100% - 28px);padding:19px 0 28px}.card-grid{grid-template-columns:1fr}.nav-card{padding:14px}.metadata{display:grid;gap:5px}.page-nav{display:grid;grid-template-columns:1fr}.nav-button{text-align:center}.breadcrumbs{margin-bottom:14px}}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+:root{--paper:#fdfcf4;--desk:#e9e4d6;--line:#cfe2ee;--margin:#e8798a;--ink:#1d3a8c;--red:#c0262d;--green:#1b7a3d;--hl:#fff08a;--box:#f4f8ff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#20232f;--desk:#14161d;--line:#2d3345;--margin:#a8465a;--ink:#b7c8ff;--red:#ff8a8f;--green:#7fdc9c;--hl:#5a5320;--box:#272b3a}}
+:root[data-theme="dark"]{--paper:#20232f;--desk:#14161d;--line:#2d3345;--margin:#a8465a;--ink:#b7c8ff;--red:#ff8a8f;--green:#7fdc9c;--hl:#5a5320;--box:#272b3a}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--desk);font-family:"Patrick Hand","Comic Sans MS",cursive;color:var(--ink);font-size:19px;line-height:28px}
+.page{max-width:860px;margin:18px auto;padding:20px 20px 28px 64px;background:var(--paper) repeating-linear-gradient(transparent,transparent 27px,var(--line) 27px,var(--line) 28px);border-left:3px double var(--margin);box-shadow:0 2px 14px rgba(0,0,0,.25)}
+h1,h2,h3{font-family:"Caveat","Patrick Hand",cursive;margin:0;line-height:28px}
+h1{font-size:40px;line-height:42px;color:var(--red)}
+h2{font-size:30px;margin:28px 0 8px;color:var(--red);border-bottom:3px wavy var(--red);display:inline-block;line-height:36px}
+h3{font-size:25px;margin:14px 0 2px;text-decoration:underline}
+p,ul,ol{margin:0 0 8px}ul,ol{padding-left:22px}
+ul.t{list-style:none;padding-left:4px}ul.t li:before{content:"→ ";color:var(--red)}
+.sub{color:var(--green);font-size:18px}
+mark{background:linear-gradient(transparent 20%,var(--hl) 20%,var(--hl) 90%,transparent 90%);color:inherit;padding:0 3px}
+b{color:var(--red);font-weight:400;text-decoration:underline wavy 1px}
+code{font-family:ui-monospace,Consolas,monospace;font-size:15px;background:var(--box);padding:0 4px;border-radius:3px}
+.box{border:2px solid var(--ink);border-radius:8px 14px 10px 16px;background:var(--box);padding:8px 14px;margin:8px 0 12px}
+.box.star{border-color:var(--red)}.box h3{margin-top:0;text-decoration:none}
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:8px 0 12px}
+.flow span.n{border:2px solid var(--ink);border-radius:8px;background:var(--box);padding:2px 10px;line-height:24px;text-align:center}
+.flow span.a{color:var(--red);font-size:22px}
+.wrap{overflow-x:auto;margin:6px 0 12px}
+table{border-collapse:collapse;min-width:100%;background:var(--box)}
+th,td{border:1.5px solid var(--ink);padding:3px 8px;text-align:left;line-height:24px;vertical-align:top}
+th{color:var(--red);font-weight:400;background:var(--paper)}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:0 24px}
+@media(max-width:640px){.page{padding-left:46px;padding-right:12px}.cols{grid-template-columns:1fr}body{font-size:18px}}
+h1.ch{font-size:34px;line-height:38px;margin:34px 0 4px;border-top:3px double var(--red);padding-top:10px}
+
+/* Study Hub navigation */
+.study-nav{font-family:Arial,sans-serif;font-size:13px;line-height:1.4;margin:0 0 18px;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--box);display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.study-nav a{color:var(--ink);text-decoration:none;font-weight:600}
+.study-nav a:hover{text-decoration:underline}
+.study-nav .sep{opacity:.55}
+.study-footer{font-family:Arial,sans-serif;font-size:13px;line-height:1.5;margin:24px 0 0;padding:14px 0 0;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.study-footer a{color:var(--ink);text-decoration:none;font-weight:600}
+.study-footer a:hover{text-decoration:underline}
 </style>
 </head>
 <body>
-<header class="site-header"><div class="header-inner"><a class="site-name" href="../../index.html">BCA Study Hub</a><a class="home-link" href="../../index.html">Home</a></div></header>
-<main>
-<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../../index.html">Home</a><span class="crumb-sep">›</span><a href="../index.html">Semester 1</a><span class="crumb-sep">›</span><a href="index.html">Fundamentals of Computer Architecture</a><span class="crumb-sep">›</span><span>Module 1</span></nav>
-<h1>Introduction to Computer Science and Architecture</h1><p class="subtitle">Fundamentals of Computer Architecture · Module 1</p>
-<section class="callout"><h2 style="margin-top:0">Study Content</h2><p><strong>Content placeholder:</strong> Insert the existing HTML study content for this module here.</p><p style="margin-bottom:0;font-size:14px;color:var(--muted)">Keep this filename as <code>module1.html</code> so subject navigation continues to work.</p></section>
-<div class="page-nav"><a class="nav-button" href="index.html">← Back to Subject</a><a class="nav-button" href="module2.html">Module 2 →</a></div><p style="margin-top:12px;font-size:14px"><a href="index.html">Subject contents</a> · <a href="../index.html">Semester 1</a> · <a href="../../index.html">Home</a></p>
-</main>
-<div class="site-footer">BCA Study Hub</div>
+<div class="page">
+<nav class="study-nav" aria-label="Study Hub navigation">
+  <a href="../../index.html">Home</a><span class="sep">›</span>
+  <a href="../index.html">Semester 1</a><span class="sep">›</span>
+  <a href="index.html">Fundamentals of Computer Architecture</a><span class="sep">›</span>
+  <span>Module 1</span>
+</nav>
+
+<h1>FCA ★ Module I</h1>
+<p class="sub">Introduction to Computer Science and Architecture – complete notes (Ch 1 to Ch 4) | Fundamentals of Computer Architecture | 25-922-0104</p>
+<div class="box"><b>Contents:</b> Ch 1 Basic concepts (computer science, computer system, IPOS, hardware, software, data representation) → Ch 2 Overview of computer architecture (three pillars, four types, five generations) → Ch 3 Von Neumann architecture (CPU, memory, I/O) → Ch 4 Types of computers</div>
+<h1 class="ch">Chapter 1 : Basic Concepts – Computer Science, Hardware, Software, Data Representation</h1>
+
+<h2>1.1 Computer Science</h2>
+<ul class="t">
+<li><mark>Computer science</mark> = study of computers and computation – <b>theory</b> and <b>practice</b></li>
+<li>Includes algorithms, data structures, software and hardware design, and using computers to solve real-world problems</li>
+</ul>
+<div class="wrap"><table>
+<tr><th colspan="2">Areas of computer science</th></tr>
+<tr><td>Theory of Computation</td><td>Algorithms &amp; Data Structures</td></tr>
+<tr><td>Programming Languages</td><td>Software Engineering</td></tr>
+<tr><td>Hardware &amp; Architecture</td><td>AI &amp; ML</td></tr>
+<tr><td>Networks &amp; Communication</td><td>Databases and Information Systems</td></tr>
+<tr><td>Cybersecurity</td><td>Human-Computer Interaction</td></tr>
+</table></div>
+<h3>Applications</h3>
+<div class="wrap"><table>
+<tr><td><b>Healthcare</b></td><td>Medical diagnostics, imaging, data analysis</td></tr>
+<tr><td><b>Finance</b></td><td>Algorithmic trading, risk modelling, fraud detection</td></tr>
+<tr><td><b>Entertainment</b></td><td>Video games, animation, streaming</td></tr>
+<tr><td><b>Transportation</b></td><td>Navigation, autonomous vehicles, traffic modelling</td></tr>
+<tr><td><b>Education</b></td><td>Online learning, educational software, adaptive testing</td></tr>
+<tr><td><b>Environment</b></td><td>Climate modelling, resource management, remote sensing</td></tr>
+<tr><td><b>Government</b></td><td>Digital services, cybersecurity, infrastructure management</td></tr>
+<tr><td><b>Science &amp; engineering</b></td><td>Simulations, data analysis, research in physics, biology, chemistry</td></tr>
+</table></div>
+
+<h2>1.2 Computer and Computer System</h2>
+<ul class="t">
+<li><mark>Computer</mark> = <b>electronic device</b> that processes data as per instructions given by software programs. It takes <b>input</b>, processes it in the <b>CPU</b>, <b>stores</b> information and gives <b>output</b></li>
+<li><b>Analytical Engine</b> – first <b>mechanical</b> computer. <b>Charles Babbage</b> (Father of the Computer), 1830s</li>
+<li><b>ENIAC</b> (Electronic Numerical Integrator and Computer) – first fully functional programmable electronic digital computer, <b>1945</b></li>
+<li><mark>Computer system</mark> = <b>hardware</b> (processing unit, memory, I/O devices, storage) + <b>software</b> (operating system, applications) working together for a specific purpose</li>
+<li>Parts of a computer system: monitor, CPU, CD drive, floppy drive, printer, mouse, keyboard, speaker</li>
+</ul>
+
+<h3>IPOS cycle</h3>
+<div class="flow"><span class="n">INPUT</span><span class="a">→</span><span class="n">PROCESSING</span><span class="a">→</span><span class="n">OUTPUT</span><span class="a">|</span><span class="n">STORAGE<br>(↔ processing)</span></div>
+<h3>How the CPU works – example 5 + 3</h3>
+<div class="flow"><span class="n">User presses keys 5, +, 3</span><span class="a">→</span><span class="n">Input goes to memory (RAM)</span><span class="a">→</span><span class="n">Control unit fetches and interprets instruction</span><span class="a">→</span><span class="n">ALU performs 5 + 3</span><span class="a">→</span><span class="n">Result stored in memory</span><span class="a">→</span><span class="n">Output shown on screen</span></div>
+
+<h2>1.3 Hardware</h2>
+<ul class="t">
+<li><mark>Hardware</mark> = physical parts of a computer that you can <b>see and touch</b></li>
+<li>They work together to process input and give output as per user instructions</li>
+</ul>
+<div class="flow"><span class="n">Components of Computer</span><span class="a">→</span><span class="n">Hardware: Input devices | Output devices | Storage devices | Internal components</span><span class="a">+</span><span class="n">Software: System | Application</span></div>
+
+<h3>A. Input devices</h3>
+<ul class="t"><li>Let users enter data or commands. Convert the input into a form the computer can process</li></ul>
+<div class="wrap"><table>
+<tr><th>Device</th><th>Key points</th></tr>
+<tr><td><b>Keyboard</b></td><td>Most widely used. <b>104 keys</b> – alphabetic, numeric, function keys. Modern ones connect by Bluetooth</td></tr>
+<tr><td><b>Mouse</b></td><td>Pointing device, controls the cursor. Left, right, middle buttons. Sensor detects movement speed</td></tr>
+<tr><td><b>Scanner</b></td><td>Converts documents / images into digital form (like a Xerox machine)</td></tr>
+<tr><td><b>Trackball</b></td><td>Stationary pointing device. User rolls a ball. Needs less space than a mouse</td></tr>
+<tr><td><b>Light pen</b></td><td>Light-sensitive pen to draw / select on a <b>CRT</b> screen (detects raster patterns)</td></tr>
+<tr><td><b>Microphone</b></td><td>Sound → electrical signals. Voice input, speech recognition, voice commands</td></tr>
+<tr><td><b>OCR</b> (Optical Character Reader)</td><td>Scans printed or handwritten text → digital data using reflected light</td></tr>
+<tr><td><b>Bar code reader</b></td><td>Reads bar codes (light and dark lines) → digital data</td></tr>
+<tr><td>Touchscreen, Webcam</td><td>Also shown as input devices in the slides</td></tr>
+</table></div>
+
+<h3>B. Output devices</h3>
+<ul class="t"><li>Show results in <b>human-readable</b> form</li></ul>
+<div class="wrap"><table>
+<tr><td><b>Monitor</b></td><td>Main output device, also called <b>VDU</b> (Visual Display Unit). Shows text, video, images</td></tr>
+<tr><td><b>Printer</b></td><td>Prints text / images on paper. Colour and black &amp; white. Types: <b>Laser, Dot-matrix, Inkjet</b></td></tr>
+<tr><td><b>Plotter</b></td><td>Like a printer but <b>large</b>. Makes large high-quality drawings, architectural blueprints</td></tr>
+<tr><td><b>Speakers</b></td><td>Give sound output – music etc. (headphones also shown)</td></tr>
+</table></div>
+
+<h3>C. Storage devices (secondary storage)</h3>
+<div class="wrap"><table>
+<tr><th>Device</th><th>Details</th></tr>
+<tr><td><b>CD</b> (Compact Disc)</td><td>Circular optical disc. Polycarbonate plastic + thin reflective metal layer + protective coating. Stores music, video, software, documents. <b>650–700 MB</b>, <b>12 cm</b> wide, hole in centre</td></tr>
+<tr><td>• CD-ROM</td><td>Read only. Data recorded at manufacture. Cannot be changed or erased</td></tr>
+<tr><td>• CD-R</td><td>Recordable – <b>write once</b>, read many times. Cannot be erased. Extra data can sometimes be added later if space remains</td></tr>
+<tr><td>• CD-RW</td><td>Rewritable – write, erase and rewrite many times</td></tr>
+<tr><td><b>DVD</b> (Digital Video / Versatile Disc)</td><td>Like a CD with more features, much larger capacity. Single and dual layer.<br><b>4.7 GB</b> one-sided single layer | <b>8.5 GB</b> one-sided double layer | <b>9.4 GB</b> double-sided single layer | <b>17 GB</b> double-sided double layer</td></tr>
+<tr><td>• DVD-ROM</td><td>Read only (software, movies, games)</td></tr>
+<tr><td>• DVD-R / DVD+R</td><td>Recordable once. Two different recording standards, similar use</td></tr>
+<tr><td>• DVD-RW / DVD+RW</td><td>Rewritable, about <b>1,000</b> rewrite cycles</td></tr>
+<tr><td>• DVD-RAM</td><td>Rewritable, works like a hard disk. Reliable, supports frequent rewriting, more cycles than DVD-RW</td></tr>
+<tr><td><b>Hard disk</b></td><td><b>Non-volatile</b> permanent storage. HDD uses magnetic <b>platters</b> + read/write heads. Stores OS, software, documents, photos, videos. Capacity in GB / TB</td></tr>
+<tr><td>• Internal hard disk</td><td>Fixed inside the computer / laptop. Holds OS, applications, user files</td></tr>
+<tr><td>• External hard disk</td><td>Portable, connected by <b>USB</b> when needed. For backup, transferring files, extra storage (the slide heading says “Internal Cartridges” but describes this)</td></tr>
+<tr><td>• Hard disk packs</td><td>Old mainframe systems. Many magnetic platters mounted together, could be removable. <b>Obsolete</b> now</td></tr>
+</table></div>
+
+<h3>D. Internal components</h3>
+<ul class="t">
+<li><b>CPU</b> – “heart of the computer”. Has <b>control unit</b>, <b>ALU</b> and <b>memory unit</b></li>
+<li><b>Motherboard</b> – main circuit board. All parts connect to it directly or indirectly. Has RAM slots, controllers, chipsets</li>
+<li><b>RAM</b> (Random Access Memory) – temporary / <mark>volatile</mark> memory. Holds programs and data being processed. Data is <b>erased when power is off</b>. Data can be changed</li>
+</ul>
+
+<h2>1.4 Software</h2>
+<ul class="t">
+<li><mark>Software</mark> = set of instructions that tell the computer what to do. <b>Not physical</b>. It makes the hardware work as the user needs</li>
+<li>Examples: MS-Word, MS-Excel, PowerPoint, web browser</li>
+</ul>
+<h3>System software</h3>
+<ul class="t">
+<li><b>Directly operates the hardware</b>; gives basic functions to users and other software</li>
+<li>Controls internal functions, manages devices (monitor, printer, storage). Acts as <b>interface</b> between hardware (machine language) and user applications</li>
+</ul>
+<div class="wrap"><table>
+<tr><th>Type</th><th>Meaning</th></tr>
+<tr><td><b>Operating System</b></td><td>Loads first when computer starts. Manages resources (CPU, memory, printer, disk). Gives user interface. E.g. Linux, Windows</td></tr>
+<tr><td><b>Language processor</b></td><td>Converts source code to machine code. Python, Java, C, C++ → compiler / interpreter → object code</td></tr>
+<tr><td><b>Device driver</b></td><td>Controls a hardware device. Each device (printer, mouse, modem) needs one. Must be installed for the OS to recognise the device</td></tr>
+</table></div>
+<h3>Application software</h3>
+<ul class="t"><li>Does <b>specific tasks</b> for end-users, beyond basic computer operations. E.g. word processors, spreadsheets, database management, inventory, payroll</li></ul>
+<div class="wrap"><table>
+<tr><th>Type</th><th>Meaning and examples</th></tr>
+<tr><td><b>General purpose</b></td><td>Many different tasks. MS Word, Excel, PowerPoint, Photoshop</td></tr>
+<tr><td><b>Customized</b></td><td>Made for a specific organisation / task (tailor-made). Railway reservation system, invoice management</td></tr>
+<tr><td><b>Utility</b></td><td>Supports and maintains the computer; optimises, protects, analyses performance. Antivirus, disk cleaner, registry cleaner, memory tester</td></tr>
+</table></div>
+<div class="wrap"><table>
+<tr><th>System software</th><th>Application software</th></tr>
+<tr><td>Closer to the computer system</td><td>Does specialised tasks (word processing, spreadsheet, email)</td></tr>
+<tr><td>Written in <b>low-level</b> language</td><td>Written in <b>high-level</b> language</td></tr>
+<tr><td>Difficult to design and understand</td><td>Easy to design and understand</td></tr>
+<tr><td>Fast working speed</td><td>Big in size – needs more storage</td></tr>
+<tr><td>Less interactive for users</td><td>More interactive, easy to use</td></tr>
+</table></div>
+
+<h2>1.5 Data Representation</h2>
+<ul class="t">
+<li><mark>Data representation</mark> = how data is <b>represented, stored and processed</b> in binary (0s and 1s)</li>
+<li>Computers understand only binary. Numbers, text, images, audio, video are all converted to binary codes</li>
+</ul>
+<div class="wrap"><table>
+<tr><th>Data</th><th>How it is represented</th></tr>
+<tr><td><b>Binary</b></td><td>Only 0 and 1 (<b>bits</b>). Groups of bits form <b>bytes</b> and larger units. Uses the on / off state of hardware</td></tr>
+<tr><td><b>Numeric</b></td><td>Integers → directly in binary. Floating-point (real numbers) → special formats like <b>IEEE 754</b> (magnitude + precision)</td></tr>
+<tr><td><b>Text</b></td><td><b>ASCII</b> – 7 or 8 bits per character (English letters, symbols). <b>Unicode</b> – almost all human languages, up to 32 bits per character</td></tr>
+<tr><td><b>Image</b></td><td>Grid of <b>pixels</b>. Each pixel has a binary value. Black &amp; white: 1 bit per pixel. Colour: several bytes for <b>R, G, B</b></td></tr>
+<tr><td><b>Audio</b></td><td>Sound wave <b>sampled</b> at regular intervals. Each sample’s amplitude → binary number. Higher sampling rate and bit depth = better quality</td></tr>
+<tr><td><b>Video</b></td><td>Sequence of image <b>frames</b> + synchronised audio samples</td></tr>
+</table></div>
+
+<h1 class="ch">Chapter 2 : Overview of Computer Architecture – Definition, History, Evolution</h1>
+
+<h2>2.1 Computer Architecture</h2>
+<h3>Definition</h3>
+<ul class="t">
+<li><mark>Computer architecture</mark> = a <b>specification</b> describing how computer <b>software and hardware connect and interact</b> to form a system</li>
+<li>Defines the <b>structure and function</b> of components – CPU, memory, I/O devices, storage</li>
+<li>Decides which <b>technologies are compatible</b> with the computer system</li>
+</ul>
+<div class="wrap"><table>
+<tr><th>Architecture</th><th>Organization (textbook point)</th></tr>
+<tr><td>Attributes <b>visible to the programmer</b> – instruction set, data type bits, I/O mechanism, addressing</td><td>How it is <b>built</b> – control signals, interfaces, memory technology</td></tr>
+</table></div>
+<h3>Importance</h3>
+<ul class="t">
+<li>Essential for computer scientists and technology enthusiasts</li>
+<li>Foundation for designing <b>innovative and efficient</b> computing solutions</li>
+<li>Lets programmers write <b>optimised software</b> that uses the full power of the computer</li>
+</ul>
+<h3>Impact of design decisions</h3>
+<ul class="t">
+<li>Strongly affects <b>processing speed</b> and overall <b>performance</b></li>
+<li>Affects <b>energy efficiency</b> – critical for modern devices and large systems</li>
+<li>Key role in advanced applications – from web software to large language models (<b>LLMs</b>)</li>
+</ul>
+
+<h3>Three main pillars of computer architecture</h3>
+<div class="wrap"><table>
+<tr><th>Pillar</th><th>Meaning</th></tr>
+<tr><td><b>1. System Design</b></td><td>Overall structure of the hardware – CPU, data processors, multiprocessors, memory controllers, <b>DMA</b>. How hardware parts connect and coordinate to execute instructions efficiently</td></tr>
+<tr><td><b>2. Instruction Set Architecture (ISA)</b></td><td><mark>Interface between software and hardware</mark>. Specifies CPU functions, capabilities and the instructions it can execute. Defines data formats, processor register types, instruction types. Crucial for <b>software compatibility</b> and performance</td></tr>
+<tr><td><b>3. Microarchitecture</b></td><td><mark>Implementation of the ISA</mark> inside the CPU. Data paths, execution units, <b>pipeline design</b>, cache structure, storage. How ALU, registers and caches work together</td></tr>
+</table></div>
+
+<h3>Four main types of computer architecture</h3>
+<ul class="t"><li>Fundamentals stay the same despite rapid advances. Types: <b>1 Von Neumann, 2 Harvard, 3 Modified Harvard, 4 RISC &amp; CISC</b></li></ul>
+<div class="wrap"><table>
+<tr><th>Type</th><th>Key points</th></tr>
+<tr><td><b>Von Neumann</b></td><td>Single shared memory for data and instructions. Fetched <b>sequentially</b>. Easy program modification. <b>Von Neumann bottleneck</b> – CPU cannot fetch instruction and data at the same time. Modern CPUs use <b>caching and pipelining</b> to reduce it. Introduced <b>stored-program</b> computers</td></tr>
+<tr><td><b>Harvard</b></td><td><b>Separate memory and pathways</b> for instructions and data. <b>Simultaneous access</b> → better performance for data-intensive tasks. Instruction memory can be read-only; data memory is optimised for read/write speed. More complex and <b>costlier</b></td></tr>
+<tr><td><b>Modified Harvard</b></td><td><b>Hybrid</b> of the two. Separate instruction and data <b>caches</b> but one shared (unified) main memory. Simultaneous access with simpler design. <b>Common in most modern processors</b></td></tr>
+<tr><td><b>RISC</b> (Reduced Instruction Set Computing)</td><td>Simple, <b>fixed-length</b> instructions, usually <b>one clock cycle</b>. Hardware efficiency, faster clock, low power. E.g. <b>ARM</b> (smartphones, tablets), <b>MIPS</b> (embedded)</td></tr>
+<tr><td><b>CISC</b> (Complex Instruction Set Computing)</td><td>Large variety of instructions, including complex <b>multi-operation</b> ones. May take <b>multiple cycles</b>. Fewer instructions for the programmer to write. E.g. <b>Intel x86</b> (most PCs), Motorola 68000 (older Apple computers)</td></tr>
+</table></div>
+
+<h2>2.2 History and Evolution</h2>
+<div class="flow"><span class="n">Analytical Engine<br>(Babbage, 1830s)</span><span class="a">→</span><span class="n">ENIAC<br>(1945)</span><span class="a">→</span><span class="n">1st Vacuum tube</span><span class="a">→</span><span class="n">2nd Transistor</span><span class="a">→</span><span class="n">3rd IC</span><span class="a">→</span><span class="n">4th Microprocessor</span><span class="a">→</span><span class="n">5th AI</span></div>
+<div class="wrap"><table>
+<tr><th>Generation</th><th>Period</th><th>Technology</th><th>Examples</th></tr>
+<tr><td><b>1st</b></td><td>1940–1956</td><td><mark>Vacuum tubes</mark></td><td>ENIAC, EDVAC, IBM-701, IBM-650, UNIVAC</td></tr>
+<tr><td><b>2nd</b></td><td>1956–1963</td><td><mark>Transistors</mark></td><td>Honeywell 400, IBM 7094, CDC 1604, CDC 3600, UNIVAC 1108</td></tr>
+<tr><td><b>3rd</b></td><td>1964–1971</td><td><mark>Integrated Circuits (IC)</mark></td><td>PDP-8, ICL 2900, IBM 360, PDP-11, IBM 370</td></tr>
+<tr><td><b>4th</b></td><td>1971–present</td><td><mark>Microprocessor</mark></td><td>IBM 4341, STAR 1000, DEC 10, “PUP 11” (as in the slides)</td></tr>
+<tr><td><b>5th</b></td><td>2010 onwards</td><td><mark>Artificial Intelligence</mark> (ULSI)</td><td>AI assistants, chatbots, self-driving systems, image recognition, machine learning, robotics</td></tr>
+</table></div>
+
+<h3>1st generation – Vacuum tubes (1940–1956)</h3>
+<ul class="t">
+<li>Huge, heavy, hot, high power use; handled only small amounts of data. Many failures and reliability problems</li>
+<li>Established electronic digital computing and <b>binary maths</b>; set the base for <b>stored-program</b> architecture and the shift to transistors</li>
+<li><b>ENIAC</b> – by <b>J.P. Eckert and J.W. Mauchly</b>; first successful electronic computer</li>
+</ul>
+<div class="cols"><div class="box"><b>Advantages</b><ul class="t"><li>Calculates in <b>milliseconds</b></li><li>Vacuum tubes were the only electronic parts available</li></ul></div>
+<div class="box"><b>Disadvantages</b><ul class="t"><li>Size and weight – <b>30 tons</b></li><li>Magnetic drums store little data</li><li>Low work efficiency</li><li>Large energy use</li></ul></div></div>
+
+<h3>2nd generation – Transistors (1956–1963)</h3>
+<ul class="t"><li>Transistors replaced vacuum tubes – <b>smaller, faster, more dependable, power-efficient</b>. Computing spread to many industries</li></ul>
+<div class="cols"><div class="box"><b>Advantages</b><ul class="t"><li>Less heat than 1st generation</li><li>Lower cost</li><li>Faster – <b>microseconds</b></li><li>Smaller size</li></ul></div>
+<div class="box"><b>Disadvantages</b><ul class="t"><li>Needs cooling system and constant maintenance</li><li>Used for specific purposes only</li></ul></div></div>
+
+<h3>3rd generation – Integrated Circuits (1964–1971)</h3>
+<ul class="t">
+<li><b>Many transistors on one chip</b> – higher capacity, much smaller size, cost and power. Smaller, quicker, more dependable computers; new uses in industry, government, education</li>
+<li>IC invented by <b>Robert Noyce and Jack Kilby</b> (1958–59)</li>
+</ul>
+<div class="cols"><div class="box"><b>Advantages</b><ul class="t"><li>Fast and reliable, cheaper, smaller</li><li>Big storage capacity</li><li>Time down from microseconds to <b>nanoseconds</b></li></ul></div>
+<div class="box"><b>Disadvantages</b><ul class="t"><li>IC chips hard to maintain</li><li>Air conditioning needed</li><li>Very advanced technology needed to make ICs</li></ul></div></div>
+
+<h3>4th generation – Microprocessor (1971–present)</h3>
+<ul class="t">
+<li>Major <b>CPU functions on a single chip</b>. Made strong, portable, affordable computers – embedded systems, smartphones, laptops, PCs</li>
+<li>A microprocessor executes any logical and mathematical function of software</li>
+</ul>
+<div class="cols"><div class="box"><b>Advantages</b><ul class="t"><li>Negligible heat</li><li>Less maintenance</li><li>Small size</li><li>High-level languages can be used</li></ul></div>
+<div class="box"><b>Disadvantages</b><ul class="t"><li>Advanced technology needed to make microprocessors</li><li>Air conditioning often needed</li><li>Complicated design and production</li></ul></div></div>
+
+<h3>5th generation – Artificial Intelligence (2010 onwards)</h3>
+<ul class="t">
+<li>Progress in <b>machine learning, neural networks, natural language processing</b> – language translation, image identification, independent decision-making</li>
+<li>Goal: a device that <b>responds to natural language, learns and self-organises</b></li>
+<li>Uses <b>ULSI</b> (Ultra Large Scale Integration) – about <b>10 million</b> electronic components in microprocessor chips</li>
+</ul>
+<div class="cols"><div class="box"><b>Advantages</b><ul class="t"><li>Works faster</li><li>Unique features, different sizes</li><li>Multimedia features</li><li>User-friendly interfaces</li></ul></div>
+<div class="box"><b>Disadvantages (teacher’s notes)</b><ul class="t"><li>Low-level languages needed</li><li>Over-use may dull human thinking</li></ul></div></div>
+
+<h1 class="ch">Chapter 3 : Von Neumann Architecture and its Components</h1>
+
+<h2>3.1 Von Neumann Architecture</h2>
+<ul class="t">
+<li><mark>Von Neumann architecture</mark> = basic computer design proposed by mathematician <b>John von Neumann in 1945</b></li>
+<li>Based on the <mark>stored-program computer</mark> model – <b>instructions and data share the same memory space</b></li>
+<li>Underpins most modern computers</li>
+</ul>
+<div class="flow"><span class="n">Input device</span><span class="a">→</span><span class="n">CPU<br>(Control Unit + Arithmetic/Logic Unit) ↕ Memory Unit</span><span class="a">→</span><span class="n">Output device</span></div>
+
+<div class="cols">
+<div class="box"><h3>Benefits</h3><ul class="t">
+<li><b>Simplicity</b> – one memory for instructions and data, simple design</li>
+<li><b>Flexibility</b> – programs stored like data, easy to modify</li>
+<li><b>Ease of programming</b> – versatile software without hardware change</li>
+<li><b>Foundation of modern computing</b> – scalable, general-purpose</li></ul></div>
+<div class="box"><h3>Limitations</h3><ul class="t">
+<li><b>Von Neumann bottleneck</b> – data and instructions share memory and bus, so CPU fetches them one after the other; limits throughput</li>
+<li><b>Sequential processing</b> – one instruction at a time</li>
+<li><b>Memory latency</b> – shared memory becomes a bottleneck under high demand</li>
+<li><b>Energy efficiency</b> – higher energy use than Harvard (separate paths)</li></ul></div>
+</div>
+
+<h2>3.2 Components of Von Neumann Architecture</h2>
+<div class="wrap"><table>
+<tr><th>Component</th><th>Details</th></tr>
+<tr><td><b>Memory unit</b></td><td>Stores data and instructions in the <b>same addressable space</b>. Fast <b>random access</b>. Typically <b>RAM</b></td></tr>
+<tr><td><b>CPU</b></td><td>Core unit that executes instructions. Has <b>ALU</b> (operations), <b>Control Unit (CU)</b> (manages execution) and registers: <b>PC</b> Program Counter, <b>MAR</b> Memory Address Register, <b>MDR</b> Memory Data Register, <b>CIR</b> Current Instruction Register, <b>AC</b> Accumulator</td></tr>
+<tr><td><b>I/O devices</b></td><td>Data entry and output with outside devices – keyboard, mouse, monitor, printer</td></tr>
+<tr><td><b>Buses</b></td><td>Pathways for data and control signals: <b>Data bus</b> (carries data), <b>Address bus</b> (carries memory addresses), <b>Control bus</b> (carries control signals)</td></tr>
+</table></div>
+
+<h2>3.3 Central Processing Unit (CPU)</h2>
+<ul class="t">
+<li>CPU = the <mark>brain</mark> of the computer – thinking, calculating, decision-making</li>
+<li>Handles instructions for games, typing, videos. Installed in a <b>socket on the motherboard</b></li>
+<li>Tasks: maths calculations; running applications and games; coordinating input (keyboard, mouse) with output (screen); storing and retrieving data while processing</li>
+</ul>
+<h3>Main components of the CPU</h3>
+<div class="flow"><span class="n">Input unit</span><span class="a">→</span><span class="n">CONTROL UNIT<br>(clock circuit, latch circuit, reset circuit)</span><span class="a">↓</span><span class="n">ALU</span><span class="a">↕</span><span class="n">MEMORY UNIT<br>(registers, cache)</span><span class="a">↕</span><span class="n">Main memory</span><span class="a">→</span><span class="n">Output unit</span></div>
+<div class="wrap"><table>
+<tr><th>Component</th><th>Work</th></tr>
+<tr><td><b>Control unit</b></td><td>Manages the CPU by sending signals – <b>clock, hold, reset</b> – to its parts. Makes all parts work together. E.g. synchronises data movement from <b>cache to ALU</b></td></tr>
+<tr><td><b>ALU</b> (Arithmetic and Logic Unit)</td><td><b>Arithmetic</b>: add, subtract, multiply, divide. <b>Logic</b>: AND, OR, comparisons. Uses addition for all calculations – e.g. 2×3 = 2+2+2 = 6</td></tr>
+<tr><td><b>Memory unit</b></td><td>Stores data and instructions. Old CPUs used registers; modern ones also have fast <b>cache</b>. CPU fetches from RAM, ROM or hard disk and keeps it in registers or cache</td></tr>
+<tr><td><b>Registers</b></td><td>Small, <b>high-speed</b> memory inside the CPU. Hold data, instructions and addresses being used. Types: general-purpose, instruction register, program counter</td></tr>
+<tr><td><b>Cache</b></td><td>Fast temporary storage for <b>most frequently used</b> data and instructions. Cuts the time to fetch from slower main memory</td></tr>
+</table></div>
+
+<h3>Functions of the CPU (instruction cycle)</h3>
+<div class="flow"><span class="n">1 FETCH<br>data &amp; instructions</span><span class="a">→</span><span class="n">2 DECODE<br>instructions</span><span class="a">→</span><span class="n">3 EXECUTE<br>commands</span><span class="a">→</span><span class="n">4 STORE<br>output</span><span class="a">↺</span></div>
+<ul class="t">
+<li><b>Fetch</b> – CPU gets the instruction (binary numbers) from <b>RAM</b></li>
+<li><b>Decode</b> – CPU interprets the instruction. The slide says “with the help of ALU”; in textbooks decoding is done by the <b>control unit</b></li>
+<li><b>Execute</b> – the decoded instruction is carried out</li>
+<li><b>Store</b> – the result is stored in memory</li>
+</ul>
+
+<h3>Types of CPUs (by cores)</h3>
+<ul class="t"><li>A <mark>core</mark> = a mini-CPU inside the main CPU. More cores → more tasks at once</li></ul>
+<div class="wrap"><table>
+<tr><td><b>Single-core</b></td><td>Oldest, used in the <b>1970s</b>. One task at a time – slow for modern apps</td></tr>
+<tr><td><b>Dual-core</b></td><td>Two cores, two tasks at once. Better multitasking (music while doing homework)</td></tr>
+<tr><td><b>Quad-core</b></td><td>Four cores. Heavy tasks – video editing, modern games. Common today</td></tr>
+</table></div>
+
+<h3>Why is the CPU called the brain?</h3>
+<ul class="t">
+<li>Thinks through and executes <b>every task</b>; processes instructions like the brain processes information</li>
+<li>Controls and coordinates all hardware and software operations</li>
+<li>Without the CPU the computer cannot function – “a lifeless box of parts”</li>
+</ul>
+<h3>How the CPU gets faster</h3>
+<div class="wrap"><table>
+<tr><td><b>Multiple cores</b></td><td>Mini-CPUs work on different tasks at the same time</td></tr>
+<tr><td><b>Faster clock</b></td><td>Clock speed in <b>GHz</b> (e.g. 3.5 GHz) – how many instructions per second</td></tr>
+<tr><td><b>Bigger cache</b></td><td>More data stored close by – less waiting</td></tr>
+<tr><td><b>Pipelining</b></td><td>Starts the next instruction before the current one finishes – like a factory line</td></tr>
+</table></div>
+<div class="cols">
+<div class="box"><h3>Advantages of CPU</h3><ul class="t">
+<li><b>Versatile</b> – simple maths to complex games</li><li><b>Fast</b> – billions of instructions per second</li><li><b>Multi-tasking</b> with multi-core</li><li><b>Compatible</b> with wide software</li><li><b>Precision and control</b></li><li>Widely available, cost-effective</li></ul></div>
+<div class="box"><h3>Disadvantages of CPU</h3><ul class="t">
+<li><b>Heat</b> – needs fans / cooling</li><li><b>High power</b> consumption</li><li><b>Cost</b> – e.g. Intel Core i9</li><li>Less efficient than <b>GPU</b> for massive parallel tasks (graphics, video editing)</li><li><b>Sequential</b> processing limits speed</li></ul></div>
+</div>
+
+<h2>3.4 Memory in Von Neumann Architecture</h2>
+<ul class="t">
+<li>Memory unit stores <b>both instructions and data in the same physical memory</b> – the defining feature</li>
+<li>Organised as a <b>memory hierarchy</b> balancing speed, capacity and cost</li>
+</ul>
+<div class="wrap"><table>
+<tr><th>Level</th><th>Location</th><th>Speed</th><th>Size</th><th>Role</th></tr>
+<tr><td><b>Registers</b></td><td>Inside CPU</td><td>Fastest</td><td>Small (e.g. 16–64 bits)</td><td>Hold immediate operands and instructions</td></tr>
+<tr><td><b>Cache</b></td><td>Close to CPU</td><td>Very fast</td><td>Small</td><td>Frequently used data / instructions; reduces access time</td></tr>
+<tr><td><b>Main memory (RAM)</b></td><td>System memory</td><td>Moderate</td><td>Larger</td><td>Active data and programs. <b>SRAM</b> – faster, used for cache. <b>DRAM</b> – slower, higher density, used for main memory</td></tr>
+<tr><td><b>Secondary storage</b></td><td>External drives</td><td>Slowest</td><td>Very large</td><td>Permanent storage. Non-volatile – hard drives, SSDs</td></tr>
+</table></div>
+<h3>How memory works in the cycle</h3>
+<ul class="t">
+<li>CPU fetches instructions <b>and</b> data from the same memory through a <b>shared bus</b></li>
+<li><b>MAR</b> holds the <b>address</b> to be accessed. <b>MDR</b> temporarily holds the <b>data</b> moving to / from memory</li>
+<li>Shared memory and bus → instructions and data processed <b>sequentially</b></li>
+</ul>
+
+<h2>3.5 Input / Output (I/O) Systems</h2>
+<ul class="t">
+<li><mark>I/O systems</mark> = components that let the computer <b>communicate with the outside</b> by accepting input and giving output – the <b>interface</b> between internal processing and the user / other devices</li>
+</ul>
+<div class="wrap"><table>
+<tr><th>Role</th><th>Details</th></tr>
+<tr><td><b>Input devices</b></td><td>Keyboard, mouse, scanner, sensors – convert outside data into a form the computer can process</td></tr>
+<tr><td><b>Output devices</b></td><td>Monitor, printer, speakers, actuators – present processed data to user or environment</td></tr>
+<tr><td><b>Controlled by CPU</b></td><td>The <b>control unit</b> manages I/O by sending control signals and coordinating data movement between I/O devices and memory</td></tr>
+<tr><td><b>Data transfer by buses</b></td><td><b>Data bus</b> – actual data. <b>Address bus</b> – device or memory location. <b>Control bus</b> – signals like read / write to synchronise</td></tr>
+</table></div>
+<h3>Types of I/O interfaces</h3>
+<div class="wrap"><table>
+<tr><td><b>Memory-mapped I/O</b></td><td>Devices get addresses <b>inside the memory space</b>. CPU reads / writes those addresses to talk to the device</td></tr>
+<tr><td><b>Isolated I/O</b></td><td>Devices have a <b>separate address space</b>. Needs special I/O instructions, different from memory instructions</td></tr>
+</table></div>
+<ul class="t">
+<li><b>Input operation</b>: CPU sends a command to the input device (keyboard) → device sends data over the data bus to memory or CPU registers</li>
+<li><b>Output operation</b>: CPU sends data from memory to the output device (monitor)</li>
+<li><b>Importance</b>: extends the computer beyond internal calculation; user interaction, data storage / retrieval, communication with other systems</li>
+<li><b>Link to bottleneck</b>: I/O also shares the data and control buses, so heavy I/O adds to the Von Neumann bottleneck</li>
+</ul>
+
+<h1 class="ch">Chapter 4 : Types of Computers</h1>
+<h2>4.1 Types of Computers</h2>
+<ul class="t"><li>Classified by <b>size</b> and <b>data handling capability</b>. Ten types:</li></ul>
+<div class="wrap"><table>
+<tr><th>Type</th><th>Key points</th></tr>
+<tr><td><b>1 Super computer</b></td><td>Most powerful and fastest. Very complex tasks – scientific research, weather forecasting, nuclear simulations, space exploration, cryptography. Very large, costly, needs air-conditioned rooms. <b>Fugaku, IBM Blue Gene, Cray XT5</b></td></tr>
+<tr><td><b>2 Mainframe</b></td><td>Large, powerful. Used by big organisations (banks, government, insurance) to process huge data. Supports <b>hundreds to thousands of users</b> at once. Reliable, large memory, multitasking. <b>IBM Z Series, Unisys ClearPath</b></td></tr>
+<tr><td><b>3 Mini computer</b></td><td>Mid-sized: smaller / less powerful than mainframe, larger than PC. Used by small and medium businesses for dedicated tasks. Now largely replaced by small or mid-sized <b>servers</b></td></tr>
+<tr><td><b>4 Workstation</b></td><td>High-performance, for technical / scientific work – graphic design, 3D rendering, engineering simulation, software development. More powerful than a PC, less than servers and mainframes</td></tr>
+<tr><td><b>5 Personal computer (PC)</b></td><td>General-purpose, for <b>individual use</b>. Desktops, laptops, tablets, smartphones. Browsing, office work, gaming, multimedia</td></tr>
+<tr><td><b>6 Server</b></td><td>Provides resources, data, services or programs to other computers over a <b>network</b>. Many users at once – hosting websites, managing email, data storage</td></tr>
+<tr><td><b>7 Analog</b></td><td>Processes <b>continuous data</b> (voltage, temperature), not discrete values. Rare today; used in specialised science and engineering to measure physical quantities</td></tr>
+<tr><td><b>8 Digital</b></td><td>Most common. Processes discrete <b>binary data (0s and 1s)</b> using digital circuits and binary logic. PCs, servers, laptops</td></tr>
+<tr><td><b>9 Hybrid</b></td><td>Combines analog and digital. Processes both continuous and discrete data. Medical equipment (patient monitoring), space research</td></tr>
+<tr><td><b>10 Tablets and smartphones</b></td><td>Portable microcomputers / personal computers. Touchscreen, wireless communication, apps – communication, entertainment, productivity</td></tr>
+</table></div>
+
+<h2>★ Key Observations</h2>
+<ul class="t">
+<li>Hardware = <b>touchable</b>. Software = <b>instructions</b>, not physical</li>
+<li>Computer works in the cycle: <b>Input → Processing → Output → Storage</b></li>
+<li>CD-ROM / DVD-ROM <b>read only</b>; -R <b>write once</b>; -RW <b>rewritable</b></li>
+<li>RAM is <b>volatile</b>; hard disk is <b>non-volatile</b></li>
+<li>System software is <b>low-level</b>, fast, less interactive. Application software is <b>high-level</b>, more interactive</li>
+<li>All data inside a computer is only <b>0s and 1s</b></li>
+<li>Generations are defined by <b>technology</b>: tube → transistor → IC → microprocessor → AI</li>
+<li>Each generation: <b>smaller, faster, cheaper, more reliable</b></li>
+<li>ISA = software–hardware <b>interface</b>. Microarchitecture = <b>how ISA is built</b></li>
+<li>Von Neumann = shared memory; Harvard = <b>separate</b> memory; Modified Harvard = separate caches + <b>shared main memory</b></li>
+<li>RISC = simple, 1 cycle, low power; CISC = complex, multi-cycle, fewer instructions</li>
+<li>Classification: by <b>size</b> (super, mainframe, mini, micro) and by <b>data</b> (analog, digital, hybrid)</li>
+<li>Von Neumann = <b>one memory</b> for program and data; bottleneck = <b>one bus</b></li>
+<li>Caching and pipelining reduce the bottleneck</li>
+<li>CPU parts: <b>CU + ALU + memory unit (registers, cache)</b></li>
+<li>Instruction cycle: <b>Fetch → Decode → Execute → Store</b></li>
+<li><b>MAR</b> = address, <b>MDR</b> = data, <b>PC</b> = next instruction address</li>
+<li>Memory: speed falls and size rises from <b>registers → cache → RAM → secondary</b></li>
+</ul>
+
+<h2>Real-Life Applications</h2>
+<ul class="t">
+<li>Choosing the right devices – scanner and OCR for documents, barcode reader in shops, plotter for blueprints</li>
+<li>Installing a driver when a new printer is connected</li>
+<li>Using antivirus / disk cleaner (utility software) to protect the system</li>
+<li>Camera pictures and songs stored as pixels and samples</li>
+<li><b>ARM (RISC)</b> in phones and tablets – low power. <b>x86 (CISC)</b> in most PCs</li>
+<li><b>Supercomputers</b> – weather forecasting. <b>Mainframes</b> – banks. <b>Servers</b> – websites, email</li>
+<li><b>Hybrid computers</b> – patient monitoring. <b>Workstations</b> – 3D rendering</li>
+<li>Good architecture → faster apps and longer battery life</li>
+<li><b>Multi-core CPUs</b> – music while doing homework; quad-core for video editing and games</li>
+<li><b>Cache and pipelining</b> – faster phones and laptops</li>
+<li><b>GPU vs CPU</b> – graphics and video editing use GPU for parallel work</li>
+<li><b>Keyboard press</b> – CPU issues command, data comes over data bus to memory</li>
+</ul>
+
+<h2>Important Terms</h2>
+<div class="wrap"><table>
+<tr><td><b>IPOS</b></td><td>Input, Processing, Output, Storage</td></tr>
+<tr><td><b>VDU</b></td><td>Visual Display Unit (monitor)</td></tr>
+<tr><td><b>OCR</b></td><td>Optical Character Reader</td></tr>
+<tr><td><b>Volatile</b></td><td>Loses data when power is off (RAM)</td></tr>
+<tr><td><b>Non-volatile</b></td><td>Keeps data without power (hard disk, ROM)</td></tr>
+<tr><td><b>Language processor</b></td><td>Compiler / interpreter – source code → machine code</td></tr>
+<tr><td><b>Device driver</b></td><td>Software that lets the OS control a device</td></tr>
+<tr><td><b>Bit / Byte</b></td><td>0 or 1 / group of 8 bits</td></tr>
+<tr><td><b>Pixel</b></td><td>Smallest dot of an image</td></tr>
+<tr><td><b>ASCII / Unicode</b></td><td>Character coding standards</td></tr>
+<tr><td><b>ISA</b></td><td>Instruction Set Architecture – interface between software and hardware</td></tr>
+<tr><td><b>Microarchitecture</b></td><td>How the ISA is implemented inside the CPU</td></tr>
+<tr><td><b>Von Neumann bottleneck</b></td><td>CPU cannot fetch instruction and data at the same time</td></tr>
+<tr><td><b>Stored program</b></td><td>Program kept in memory like data</td></tr>
+<tr><td><b>RISC / CISC</b></td><td>Reduced / Complex Instruction Set Computing</td></tr>
+<tr><td><b>IC</b></td><td>Many transistors on a single chip</td></tr>
+<tr><td><b>ULSI</b></td><td>Ultra Large Scale Integration</td></tr>
+<tr><td><b>Microprocessor</b></td><td>CPU on a single chip</td></tr>
+<tr><td><b>Stored-program concept</b></td><td>Instructions and data kept together in memory</td></tr>
+<tr><td><b>PC / MAR / MDR / CIR / AC</b></td><td>Program Counter / Memory Address Register / Memory Data Register / Current Instruction Register / Accumulator</td></tr>
+<tr><td><b>Bus</b></td><td>Pathway for data, addresses and control signals</td></tr>
+<tr><td><b>Core</b></td><td>A mini-CPU inside the CPU</td></tr>
+<tr><td><b>Clock speed</b></td><td>Instructions handled per second (GHz)</td></tr>
+<tr><td><b>Pipelining</b></td><td>Starting the next instruction before the current ends</td></tr>
+<tr><td><b>SRAM / DRAM</b></td><td>Static RAM (cache) / Dynamic RAM (main memory)</td></tr>
+<tr><td><b>Memory-mapped / Isolated I/O</b></td><td>Device addresses inside / outside memory space</td></tr>
+</table></div>
+
+<div class="box star">
+<h3 style="color:var(--red)">★ Exam Points ★</h3>
+<ul class="t">
+<li>Computer = electronic device: <b>input → process (CPU) → store → output</b></li>
+<li>First mechanical computer: <b>Analytical Engine</b> (Babbage, 1830s). First programmable electronic digital computer: <b>ENIAC</b> (1945)</li>
+<li>Hardware types: <b>input, output, storage, internal components</b></li>
+<li>Keyboard has <b>104 keys</b>. Monitor = <b>VDU</b>. Printers: <b>laser, dot-matrix, inkjet</b></li>
+<li>CD: <b>650–700 MB</b>, 12 cm. DVD: <b>4.7 / 8.5 / 9.4 / 17 GB</b></li>
+<li>CPU = control unit + ALU + memory unit. RAM = volatile</li>
+<li>Software: <b>system</b> (OS, language processor, device driver) and <b>application</b> (general purpose, customized, utility)</li>
+<li>Data representation uses <b>binary</b>. Text: ASCII / Unicode. Image: pixels (RGB). Audio: sampling. Video: frames</li>
+<li>Three pillars: <b>System Design, ISA, Microarchitecture</b></li>
+<li>Four types: <b>Von Neumann, Harvard, Modified Harvard, RISC &amp; CISC</b></li>
+<li>Generations: <b>1st vacuum tube (1940–56), 2nd transistor (1956–63), 3rd IC (1964–71), 4th microprocessor (1971–), 5th AI (2010–)</b></li>
+<li>ENIAC – Eckert and Mauchly. IC – <b>Noyce and Kilby</b>. 1st gen machine weighed <b>30 tons</b></li>
+<li>Speed: 1st <b>milliseconds</b>, 2nd <b>microseconds</b>, 3rd <b>nanoseconds</b></li>
+<li>RISC examples: <b>ARM, MIPS</b>. CISC examples: <b>x86, Motorola 68000</b></li>
+<li>Ten types of computers: super, mainframe, mini, workstation, PC, server, analog, digital, hybrid, tablets &amp; smartphones</li>
+<li>Von Neumann architecture – <b>John von Neumann, 1945</b>; <b>stored-program</b>; shared memory for data and instructions</li>
+<li>Components: <b>memory unit, CPU (ALU + CU + registers), I/O devices, buses</b></li>
+<li>Registers: <b>PC, MAR, MDR, CIR, AC</b></li>
+<li>Buses: <b>data, address, control</b></li>
+<li>Limitation: <b>Von Neumann bottleneck</b>; reduced by <b>caching and pipelining</b></li>
+<li>CPU = brain. Control unit signals: <b>clock, hold, reset</b>. ALU = arithmetic + logic</li>
+<li>CPU functions: <b>Fetch, Decode, Execute, Store</b></li>
+<li>CPU types: <b>single-core, dual-core, quad-core</b>. Speed-ups: <b>cores, clock, cache, pipelining</b></li>
+<li>Memory levels: <b>registers, cache, RAM (SRAM / DRAM), secondary</b></li>
+<li>I/O interfaces: <b>memory-mapped</b> and <b>isolated</b></li>
+</ul>
+</div>
+
+<footer class="study-footer">
+  <a href="index.html">← Subject home</a>
+  <span>Fundamentals of Computer Architecture · Semester 1</span>
+  <a href="Module2.html">Module 2 →</a>
+</footer>
+</div>
 </body>
 </html>
