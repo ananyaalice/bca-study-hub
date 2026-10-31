@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>FCA – Chapter 2 Notes: Computer Architecture Overview</title>
+<title>FCA – Module II: Number Systems and Data Representation</title>
 <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
 <style>
 :root{--paper:#fdfcf4;--desk:#e9e4d6;--line:#cfe2ee;--margin:#e8798a;--ink:#1d3a8c;--red:#c0262d;--green:#1b7a3d;--hl:#fff08a;--box:#f4f8ff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -22,6 +22,7 @@ ul.t{list-style:none;padding-left:4px}ul.t li:before{content:"→ ";color:var(--
 .sub{color:var(--green);font-size:18px}
 mark{background:linear-gradient(transparent 20%,var(--hl) 20%,var(--hl) 90%,transparent 90%);color:inherit;padding:0 3px}
 b{color:var(--red);font-weight:400;text-decoration:underline wavy 1px}
+code{font-family:ui-monospace,Consolas,monospace;font-size:15px;background:var(--box);padding:0 4px;border-radius:3px}
 .box{border:2px solid var(--ink);border-radius:8px 14px 10px 16px;background:var(--box);padding:8px 14px;margin:8px 0 12px}
 .box.star{border-color:var(--red)}.box h3{margin-top:0;text-decoration:none}
 .flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:8px 0 12px}
@@ -31,133 +32,268 @@ b{color:var(--red);font-weight:400;text-decoration:underline wavy 1px}
 table{border-collapse:collapse;min-width:100%;background:var(--box)}
 th,td{border:1.5px solid var(--ink);padding:3px 8px;text-align:left;line-height:24px;vertical-align:top}
 th{color:var(--red);font-weight:400;background:var(--paper)}
+table.c td,table.c th{text-align:center;padding:2px 6px}
 .cols{display:grid;grid-template-columns:1fr 1fr;gap:0 24px}
 @media(max-width:640px){.page{padding-left:46px;padding-right:12px}.cols{grid-template-columns:1fr}body{font-size:18px}}
+
+/* Study Hub navigation */
+.study-nav{font-family:Arial,sans-serif;font-size:13px;line-height:1.4;margin:0 0 18px;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--box);display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.study-nav a{color:var(--ink);text-decoration:none;font-weight:600}
+.study-nav a:hover{text-decoration:underline}
+.study-nav .sep{opacity:.55}
+.study-footer{font-family:Arial,sans-serif;font-size:13px;line-height:1.5;margin:24px 0 0;padding:14px 0 0;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.study-footer a{color:var(--ink);text-decoration:none;font-weight:600}
+.study-footer a:hover{text-decoration:underline}
 </style>
 </head>
 <body>
 <div class="page">
-<h1>Computer Architecture ★ Chapter 2</h1>
-<p class="sub">Overview of Computer Architecture: Definition, History and Evolution | FCA – Module I | 25-922-0104</p>
+<nav class="study-nav" aria-label="Study Hub navigation">
+  <a href="../../index.html">Home</a><span class="sep">›</span>
+  <a href="../index.html">Semester 1</a><span class="sep">›</span>
+  <a href="index.html">Fundamentals of Computer Architecture</a><span class="sep">›</span>
+  <span>Module 2</span>
+</nav>
 
-<h2>2.1 Definition of Computer Architecture</h2>
+<h1>FCA ★ Module II</h1>
+<p class="sub">Number Systems and Data Representation | Ch 5 Number systems | Ch 6 Conversions | Ch 7 Data representation | Ch 8 Negative numbers | 25-922-0104</p>
+
+<h2>Chapter 5 : Number Systems</h2>
 <ul class="t">
-<li><mark>Computer architecture</mark> = the <b>design and structure</b> of a computer system – what its parts are and how they work together</li>
-<li>Covers: <b>instruction set</b>, CPU design, memory and I/O</li>
-<li>It decides <b>what</b> the computer can do and what the programmer can use</li>
+<li><mark>Number system</mark> = a consistent method to represent numbers using <b>digits or symbols</b></li>
+<li>Defined by a <b>base (radix)</b>. Each digit’s value depends on its <b>position</b> and the base</li>
+<li>Gives unique representation and allows maths operations. Essential for data encoding, processing and storage</li>
+<li><mark>Radix</mark> = base = number of <b>distinct digits</b> (including 0) used in positional notation</li>
 </ul>
-
-<h3>Architecture vs Organization</h3>
 <div class="wrap"><table>
-<tr><th></th><th>Computer Architecture</th><th>Computer Organization</th></tr>
-<tr><td>Meaning</td><td>Attributes <b>visible to the programmer</b>. Affects how a program runs logically</td><td>How the architecture is <b>built</b> – the hardware units and their connections</td></tr>
-<tr><td>Question</td><td><b>“What</b> does the computer do?”</td><td><b>“How</b> does it do it?”</td></tr>
-<tr><td>Examples</td><td>Instruction set, number of bits for data types, I/O mechanism, addressing techniques</td><td>Control signals, interfaces to peripherals, memory technology used</td></tr>
+<tr><th>System</th><th>Base</th><th>Digits</th><th>Key points</th></tr>
+<tr><td><b>Binary</b></td><td>2</td><td>0, 1</td><td>“bi” = two. Basis of how computers store and process everything. Each digit = <b>bit</b> (binary digit). Bits grouped to encode letters, numbers, colours</td></tr>
+<tr><td><b>Octal</b></td><td>8</td><td>0–7</td><td>E.g. 22₈, 13₈, 17₈. Each digit is a power of 8. <b>1 octal digit = 3 bits</b> (octal 7 = 111). Compact form of binary</td></tr>
+<tr><td><b>Decimal</b></td><td>10</td><td>0–9</td><td>Used in daily life. 134₁₀ = 1×10² + 3×10¹ + 4×10⁰. 24.5 = 2×10¹ + 4×10⁰ + 5×10⁻¹</td></tr>
+<tr><td><b>Hexadecimal</b></td><td>16</td><td>0–9, A–F</td><td>A–F = 10–15. E.g. 7B3₁₆, 6F₁₆, 4B2A₁₆. <b>1 hex digit = 4 bits</b> (F = 1111). Used in memory addressing, colour coding (web), low-level programming</td></tr>
 </table></div>
-<div class="box"><b>Example:</b> Does the computer have a <b>multiply instruction</b>? → <mark>Architecture</mark> decision.<br>Is it done by a <b>special multiply unit</b> or by <b>repeated addition</b>? → <mark>Organization</mark> decision.</div>
-<ul class="t">
-<li>★ <b>Same architecture</b> can have <b>different organizations</b> → programs still run on all of them (software compatibility)</li>
-<li>A new organization can give better speed or lower cost, while the architecture stays the same</li>
-</ul>
 
-<h2>2.2 History of Computers</h2>
-<div class="flow"><span class="n">Abacus</span><span class="a">→</span><span class="n">Pascaline<br>1642</span><span class="a">→</span><span class="n">Babbage<br>1822 / 1837</span><span class="a">→</span><span class="n">ENIAC<br>1945–46</span><span class="a">→</span><span class="n">Stored program<br>1945</span><span class="a">→</span><span class="n">Transistor<br>1947</span><span class="a">→</span><span class="n">IC<br>1958</span><span class="a">→</span><span class="n">Microprocessor<br>1971</span></div>
-
-<h3>Early (mechanical) era</h3>
-<ul class="t">
-<li><b>Abacus</b> – ancient counting tool, the earliest calculating device</li>
-<li><b>Pascaline (1642)</b> – mechanical adding machine by <b>Blaise Pascal</b></li>
-<li><b>Charles Babbage</b> – “<mark>Father of the Computer</mark>”
-<br>&nbsp;&nbsp;★ <b>Difference Engine</b> (designed 1822) – calculates tables of numbers
-<br>&nbsp;&nbsp;★ <b>Analytical Engine</b> (proposed 1837) – first design of a <b>general-purpose</b> computer. Had a <b>Store</b> (memory), a <b>Mill</b> (processing unit) and used <b>punched cards</b></li>
-<li><b>Ada Lovelace</b> – wrote programs for the Analytical Engine (1843). Called the <b>first programmer</b></li>
-</ul>
-
-<h3>Electronic era</h3>
-<ul class="t">
-<li><b>ENIAC</b> (built 1943–45, unveiled 1946) – first general-purpose <b>electronic</b> digital computer. Used over <b>17,000 vacuum tubes</b></li>
-<li>ENIAC was <b>programmed by rewiring</b> switches and cables – <b>not</b> a stored-program computer</li>
-<li>★ <mark>Stored-program concept</mark> (<b>John von Neumann</b>, 1945) → <b>program and data are kept together in memory</b>. Basis of modern computers (Von Neumann architecture – Chapter 3)</li>
-</ul>
-
-<h2>2.3 Generations of Computers</h2>
-<div class="wrap"><table>
-<tr><th>Generation</th><th>Period</th><th>Main technology</th><th>Programming</th><th>Examples</th></tr>
-<tr><td><b>1st</b></td><td>1940–1956</td><td><mark>Vacuum tubes</mark></td><td>Machine language</td><td>ENIAC, EDVAC, UNIVAC I</td></tr>
-<tr><td><b>2nd</b></td><td>1956–1963</td><td><mark>Transistors</mark></td><td>Assembly language, early high-level (FORTRAN, COBOL)</td><td>IBM 1401, IBM 7090</td></tr>
-<tr><td><b>3rd</b></td><td>1964–1971</td><td><mark>Integrated Circuits (IC)</mark></td><td>High-level languages, operating systems</td><td>IBM System/360</td></tr>
-<tr><td><b>4th</b></td><td>1971–present</td><td><mark>Microprocessor</mark> (VLSI)</td><td>High-level languages, GUI</td><td>Intel 4004, IBM PC, laptops</td></tr>
-<tr><td><b>5th</b></td><td>Present and future</td><td>ULSI, parallel processing</td><td>Artificial intelligence</td><td>AI systems (still developing)</td></tr>
+<h3>Binary 1 to 20</h3>
+<div class="wrap"><table class="c">
+<tr><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th></tr>
+<tr><td>1</td><td>10</td><td>11</td><td>100</td><td>101</td><td>110</td><td>111</td><td>1000</td><td>1001</td><td>1010</td></tr>
+<tr><th>11</th><th>12</th><th>13</th><th>14</th><th>15</th><th>16</th><th>17</th><th>18</th><th>19</th><th>20</th></tr>
+<tr><td>1011</td><td>1100</td><td>1101</td><td>1110</td><td>1111</td><td>10000</td><td>10001</td><td>10010</td><td>10011</td><td>10100</td></tr>
 </table></div>
-<p class="sub">Note: year ranges differ a little between books. Learn the technology of each generation – it is asked most.</p>
-
-<h3>Generation features</h3>
 <div class="cols">
-<div class="box"><h3>1st – Vacuum tubes</h3><ul class="t"><li>Very large and costly</li><li>Produced much heat</li><li>Unreliable, slow</li><li>Input: punched cards</li></ul></div>
-<div class="box"><h3>2nd – Transistors</h3><ul class="t"><li>Smaller, faster, cheaper</li><li>Less heat, more reliable</li><li>Magnetic core memory</li><li>Transistor invented <b>1947</b> (Bell Labs)</li></ul></div>
-<div class="box"><h3>3rd – ICs</h3><ul class="t"><li>Many transistors on <b>one chip</b></li><li>IC by <b>Jack Kilby</b> (1958)</li><li>Smaller, low power</li><li>Keyboard and monitor used</li></ul></div>
-<div class="box"><h3>4th – Microprocessor</h3><ul class="t"><li><b>Whole CPU on one chip</b></li><li>Personal computers</li><li>Networks, Internet</li><li>First: <b>Intel 4004 (1971)</b></li></ul></div>
+<div class="wrap"><table class="c"><tr><th>Octal</th><th>Binary</th></tr>
+<tr><td>0</td><td>000</td></tr><tr><td>1</td><td>001</td></tr><tr><td>2</td><td>010</td></tr><tr><td>3</td><td>011</td></tr>
+<tr><td>4</td><td>100</td></tr><tr><td>5</td><td>101</td></tr><tr><td>6</td><td>110</td></tr><tr><td>7</td><td>111</td></tr></table></div>
+<div class="wrap"><table class="c"><tr><th>Hex</th><th>Dec</th><th>Binary</th><th>Hex</th><th>Dec</th><th>Binary</th></tr>
+<tr><td>0–7</td><td>0–7</td><td>0000–0111</td><td>A</td><td>10</td><td>1010</td></tr>
+<tr><td>8</td><td>8</td><td>1000</td><td>B</td><td>11</td><td>1011</td></tr>
+<tr><td>9</td><td>9</td><td>1001</td><td>C</td><td>12</td><td>1100</td></tr>
+<tr><td></td><td></td><td></td><td>D, E, F</td><td>13, 14, 15</td><td>1101, 1110, 1111</td></tr></table></div>
 </div>
-
-<h2>2.4 Evolution of Computer Architecture</h2>
-<div class="flow"><span class="n">Vacuum tube</span><span class="a">→</span><span class="n">Transistor</span><span class="a">→</span><span class="n">IC</span><span class="a">→</span><span class="n">Microprocessor</span><span class="a">⇒ smaller, faster, cheaper</span></div>
+<h3>Basic calculations (powers)</h3>
 <ul class="t">
-<li>Each new technology made computers <b>smaller</b>, <b>faster</b>, <b>cheaper</b>, <b>more reliable</b> and <b>power-saving</b></li>
-<li>Computers moved from <b>room-sized</b> machines to desktops, laptops, phones and embedded devices</li>
-<li>Processors moved from <b>single core</b> to <b>multi-core</b> for more performance</li>
+<li>Any number to the power 0 = <b>1</b> (2⁰ = 1, 8⁰ = 1, X⁰ = 1). Power 1 = the number itself (2¹ = 2, 8¹ = 8, X¹ = X)</li>
+<li>Negative powers of 8: 8⁻¹ = <b>0.125</b>, 8⁻² = <b>0.015625</b>, 8⁻³ = <b>0.001953125</b>, 8⁻⁴ = <b>0.000244140625</b>, 8⁻⁵ = <b>0.000030517578125</b></li>
 </ul>
-<div class="box star"><h3 style="color:var(--red)">★ Moore’s Law</h3>
-<ul class="t"><li>Number of <b>transistors on a chip doubles about every two years</b></li>
-<li>Given by <b>Gordon Moore</b> (1965). It is an <b>observation</b>, not a law of nature</li></ul></div>
+
+<h2>Chapter 6 : Conversions between Number Systems</h2>
+<div class="wrap"><table>
+<tr><th>Conversion</th><th>Method</th></tr>
+<tr><td><b>Decimal → other</b> (binary 2, octal 8, hex 16)</td><td><b>Whole part</b>: divide repeatedly by the base; write remainders <b>bottom to top</b>. <b>Fraction part</b>: multiply repeatedly by the base; write the whole-number parts <b>top to bottom</b></td></tr>
+<tr><td><b>Any → decimal</b></td><td>Multiply each digit by <b>base^position</b> and add. Positions: …3, 2, 1, 0 . −1, −2, −3…</td></tr>
+<tr><td><b>Binary → octal</b></td><td>Group bits in <b>3s</b> from the radix point (both sides), write each group as an octal digit</td></tr>
+<tr><td><b>Binary → hex</b></td><td>Group bits in <b>4s</b>, write each group as a hex digit</td></tr>
+<tr><td><b>Octal → binary</b></td><td>Replace each octal digit by <b>3 bits</b></td></tr>
+<tr><td><b>Hex → binary</b></td><td>Replace each hex digit by <b>4 bits</b></td></tr>
+<tr><td><b>Octal ↔ hex</b></td><td>Go through <b>binary</b>: octal → binary → hex, or hex → binary → octal</td></tr>
+</table></div>
+
+<h3>Decimal to other systems – examples</h3>
+<div class="wrap"><table>
+<tr><th>Example</th><th>Result</th></tr>
+<tr><td>243 → binary (÷2: remainders 1,1,0,0,1,1,1,1 read upward)</td><td><b>11110011</b>₂</td></tr>
+<tr><td>243 → octal (÷8: 243 = 8×30 + 3; 30 = 8×3 + 6; 3)</td><td><b>363</b>₈</td></tr>
+<tr><td>243 → hex (÷16: 243 = 16×15 + 3)</td><td><b>F3</b>₁₆ (15 → F)</td></tr>
+<tr><td>243.342 → binary (whole 11110011; fraction 0.342 × 2 repeatedly)</td><td><b>11110011.0101011</b>₂</td></tr>
+<tr><td>243.45 → octal (fraction 0.45 × 8 repeatedly)</td><td><b>363.34631</b>₈</td></tr>
+<tr><td>243.45 → hex (fraction 0.45 × 16 repeatedly)</td><td><b>F3.733…</b>₁₆</td></tr>
+</table></div>
+<h3>From binary, octal, hex – examples</h3>
+<div class="wrap"><table>
+<tr><th>Example</th><th>Working</th><th>Result</th></tr>
+<tr><td>11101011₂ → decimal</td><td>128 + 64 + 32 + 0 + 8 + 0 + 2 + 1</td><td><b>235</b>₁₀</td></tr>
+<tr><td>11101011₂ → octal</td><td>011 | 101 | 011 → 3 5 3</td><td><b>353</b>₈</td></tr>
+<tr><td>1110101101101₂ → hex</td><td>0001 | 1101 | 0110 | 1101 → 1 D 6 D</td><td><b>1D6D</b>₁₆</td></tr>
+<tr><td>247₈ → decimal</td><td>2×8² + 4×8¹ + 7×8⁰ = 128 + 32 + 7</td><td><b>167</b>₁₀</td></tr>
+<tr><td>247₈ → binary</td><td>2→010, 4→100, 7→111</td><td><b>010100111</b>₂</td></tr>
+<tr><td>5456₈ → hex</td><td>101 100 101 110 → 1011 | 0010 | 1110 → B 2 E</td><td><b>B2E</b>₁₆</td></tr>
+<tr><td>8EB4₁₆ → decimal</td><td>8×16³ + 14×16² + 11×16¹ + 4 = 32768 + 3584 + 176 + 4</td><td><b>36532</b>₁₀</td></tr>
+<tr><td>B2E₁₆ → binary</td><td>B=1011, 2=0010, E=1110</td><td><b>101100101110</b>₂</td></tr>
+<tr><td>B2E₁₆ → octal</td><td>101 100 101 110 → 5 4 5 6</td><td><b>5456</b>₈</td></tr>
+</table></div>
+<h3>With fractions – examples</h3>
+<div class="wrap"><table>
+<tr><th>Example</th><th>Working</th><th>Result</th></tr>
+<tr><td>111010.1001₂ → octal</td><td>111 010 . 100 100 → 7 2 . 4 4</td><td><b>72.44</b>₈</td></tr>
+<tr><td>110.101₂ → decimal</td><td>Integer: 4 + 2 + 0 = 6. Fraction: 0.5 + 0 + 0.125 = 0.625</td><td><b>6.625</b>₁₀</td></tr>
+<tr><td>47.25₈ → decimal</td><td>Integer: 4×8 + 7 = 39. Fraction: 2×8⁻¹ + 5×8⁻² = 0.328125</td><td><b>39.328125</b>₁₀</td></tr>
+<tr><td>47.25₈ → binary</td><td>4→100, 7→111 . 2→010, 5→101</td><td><b>100111.010101</b>₂</td></tr>
+<tr><td>47.25₈ → hex</td><td>Binary 100111.010101 → 0010 0111 . 0101 0100</td><td><b>27.54</b>₁₆</td></tr>
+<tr><td>2F.A₁₆ → decimal</td><td>2×16 + 15 = 47. Fraction: 10×16⁻¹ = 0.625</td><td><b>47.625</b>₁₀</td></tr>
+<tr><td>2F.A₁₆ → binary</td><td>2→0010, F→1111 . A→1010</td><td><b>00101111.1010</b>₂</td></tr>
+<tr><td>2F.A₁₆ → octal</td><td>Binary 101111.101 → 101 111 . 101 000</td><td><b>57.5</b>₈</td></tr>
+</table></div>
+<p class="sub">Teacher’s slide 16 gives (1011110.1011)₂ = (17C.B)₁₆. Working: 0101 1110 . 1011 → <b>5E.B</b>₁₆. 17C.B is the answer for 101111100.1011₂ – probably a typing slip.</p>
+
+<h3>Practice questions with answers</h3>
+<div class="wrap"><table>
+<tr><th>Question (slide 21)</th><th>Answer</th></tr>
+<tr><td>1. (1101.101)₂ → decimal</td><td>8+4+0+1 = 13; 0.5+0+0.125 → <b>13.625</b></td></tr>
+<tr><td>2. 156₁₀ → binary</td><td>÷2 remainders: 0,0,1,1,1,0,0,1 → <b>10011100</b>₂</td></tr>
+<tr><td>3. 7A₁₆ → decimal</td><td>7×16 + 10 = <b>122</b></td></tr>
+<tr><td>4. 345₈ → binary</td><td>011 100 101 → <b>11100101</b>₂</td></tr>
+<tr><td>5. 101011.11₂ → octal</td><td>101 011 . 110 → <b>53.6</b>₈</td></tr>
+<tr><td>6. 255₁₀ → hex</td><td>255 = 16×15 + 15 → <b>FF</b>₁₆</td></tr>
+<tr><td>7. 3C.8₁₆ → binary</td><td>0011 1100 . 1000 → <b>111100.1</b>₂</td></tr>
+<tr><td>8. 72₈ → decimal</td><td>7×8 + 2 = <b>58</b></td></tr>
+<tr><td>9. 110111₂ → hex</td><td>0011 0111 → <b>37</b>₁₆</td></tr>
+<tr><td>10. 45.625₁₀ → octal</td><td>45 = 55₈; 0.625×8 = 5.0 → <b>55.5</b>₈</td></tr>
+</table></div>
+<div class="wrap"><table>
+<tr><th>Question (slide 14)</th><th>Answer</th></tr>
+<tr><td>155₁₀ / 375₁₀ / 278₁₀ / 180₁₀ → binary</td><td><b>10011011</b> / <b>101110111</b> / <b>100010110</b> / <b>10110100</b></td></tr>
+<tr><td>543.625₁₀ → binary</td><td><b>1000011111.101</b>₂</td></tr>
+<tr><td>973₁₀ / 2028₁₀ → octal</td><td><b>1715</b>₈ / <b>3754</b>₈</td></tr>
+<tr><td>1973₁₀ / 560046₁₀ → hex</td><td><b>7B5</b>₁₆ / <b>88BAE</b>₁₆</td></tr>
+</table></div>
+
+<h2>Chapter 7 : Representation of Data in Computers</h2>
+<ul class="t">
+<li>= how information is <b>stored and processed</b> inside the computer using <b>0s and 1s</b></li>
+<li>Computers cannot understand human language, numbers or pictures directly – only the <b>binary system</b></li>
+<li>Each 0 or 1 = <b>bit</b>. Group of <b>8 bits = 1 byte</b>. Numbers, letters, symbols, images, sounds are all patterns of bits</li>
+<li><b>Why important</b>: computer works only with binary; correct representation stores / reads data properly; different devices and programs read the same data the same way</li>
+</ul>
+<div class="flow"><span class="n">Integer<br>(10, −25)</span><span class="a">|</span><span class="n">Floating-point<br>(3.14, −2.5)</span><span class="a">|</span><span class="n">Character<br>(A, 9, @)</span><span class="a">|</span><span class="n">String<br>(“HELLO”)</span></div>
+
+<h3>7.1 Integers</h3>
+<ul class="t">
+<li>Whole numbers, no fraction: 0, 5, −10, 200. Also called <b>fixed-point numbers</b> (radix point fixed)</li>
+<li>Stored in a <b>fixed number of bits</b> – 8, 16, 32, 64. Bit length decides the <b>range</b></li>
+</ul>
+<div class="wrap"><table>
+<tr><th>Unsigned (zero and positive only)</th><th>Range</th></tr>
+<tr><td>8-bit</td><td>0 to 2⁸ − 1 = <b>0 to 255</b></td></tr>
+<tr><td>16-bit</td><td>0 to 2¹⁶ − 1 = <b>0 to 65,535</b></td></tr>
+<tr><td>32-bit</td><td>0 to 2³² − 1 = <b>0 to 4,294,967,295</b></td></tr>
+<tr><td>64-bit</td><td>0 to 2⁶⁴ − 1 = <b>0 to 18,446,744,073,709,551,615</b></td></tr>
+</table></div>
+<ul class="t">
+<li>Examples: 8-bit <code>0100 0001</code> = 2⁶ + 2⁰ = <b>65</b>. 16-bit <code>0001 0000 0000 1000</code> = 2¹² + 2³ = <b>4104</b>. All zeros = 0</li>
+<li><b>Signed integers</b> – zero, positive and negative. <mark>MSB</mark> (most significant bit) = <b>sign bit</b>: <b>0 = positive, 1 = negative</b>. Remaining bits = magnitude</li>
+</ul>
+
+<h3>7.2 Floating-point numbers</h3>
+<ul class="t">
+<li>Encode <b>very large and very small</b> values. Based on scientific notation: <b>fraction × exponent</b>. Trade-off between <b>range and precision</b></li>
+</ul>
+<div class="wrap"><table>
+<tr><td><b>Sign bit</b></td><td>0 = positive, 1 = negative</td></tr>
+<tr><td><b>Exponent</b></td><td>Decides the scale of the number</td></tr>
+<tr><td><b>Mantissa</b></td><td>Stores the significant digits</td></tr>
+</table></div>
+<ul class="t">
+<li>Importance: <b>range</b> (huge and tiny numbers), <b>precision</b> (balances accuracy and range), <b>flexibility</b> (different scales)</li>
+<li>Applications: scientific computing, graphics, engineering calculations</li>
+<li>Standard format: <b>IEEE 754</b> (textbook: 32-bit = 1 sign + 8 exponent + 23 mantissa; 64-bit = 1 + 11 + 52)</li>
+</ul>
+
+<h3>7.3 Characters</h3>
+<ul class="t">
+<li>Letters, digits, symbols stored as <b>binary codes</b></li>
+<li><mark>ASCII</mark> (American Standard Code for Information Interchange) – each character <b>1 byte</b>; <b>128 characters</b> (A–Z, a–z, 0–9, symbols); same meaning on all computers</li>
+<li><b>Extended ASCII</b> – 8 bits, <b>256 characters</b>, extra symbols and graphics</li>
+<li><mark>Unicode</mark> – characters of <b>all languages</b>; <b>2 bytes or more</b> per character; <b>backward compatible</b> with ASCII; needed for multilingual computing</li>
+</ul>
+<div class="wrap"><table class="c">
+<tr><th>Character</th><th>ASCII (decimal)</th><th>Binary</th></tr>
+<tr><td>A</td><td>65</td><td>01000001</td></tr><tr><td>a</td><td>97</td><td>01100001</td></tr><tr><td>0</td><td>48</td><td>00110000</td></tr>
+</table></div>
+
+<h3>7.4 Strings</h3>
+<ul class="t">
+<li>String = <b>sequence of characters</b>. Each character is stored as its ASCII / Unicode code in <b>consecutive memory locations</b></li>
+<li>A <b>null character (\0)</b> is usually added at the end to mark termination (e.g. in C)</li>
+</ul>
+<div class="wrap"><table class="c">
+<tr><th colspan="5">“HELLO” = 01001000 01000101 01001100 01001100 01001111</th></tr>
+<tr><td>H = 72</td><td>E = 69</td><td>L = 76</td><td>L = 76</td><td>O = 79</td></tr>
+</table></div>
+
+<h2>Chapter 8 : Representation of Negative Numbers</h2>
+<div class="wrap"><table>
+<tr><th></th><th>Sign-magnitude</th><th>1’s complement</th><th>2’s complement</th></tr>
+<tr><td><b>Rule</b></td><td>MSB = sign (0 +, 1 −). Rest = magnitude</td><td>MSB = sign. Positive = same as magnitude. Negative = <b>invert all bits</b> of the positive number</td><td>MSB = sign. Positive = same. Negative = <b>invert all bits + 1</b></td></tr>
+<tr><td><b>Example (8-bit)</b></td><td><code>0 1000001</code> = +65<br><code>1 0000001</code> = −1<br><code>0 0000000</code> = +0<br><code>1 0000000</code> = −0</td><td><code>0 1000001</code> = +65<br><code>1 0000001</code> = −126 (invert all bits → 01111110 = 126)<br><code>0 0000000</code> = +0<br><code>1 1111111</code> = −0</td><td><code>0 1000001</code> = +65<br><code>1 0000001</code> = −127<br><code>0 0000000</code> = +0<br><code>1 1111111</code> = −1</td></tr>
+<tr><td><b>−65 in 8-bit</b> (textbook example)</td><td>1 1000001</td><td>01000001 → invert → <b>10111110</b></td><td>10111110 + 1 → <b>10111111</b></td></tr>
+<tr><td><b>Drawbacks</b></td><td><b>Two zeros</b> (+0, −0) – confusion. Positive and negative numbers processed separately</td><td><b>Two zeros</b> (+0, −0). Arithmetic more complex</td><td>—</td></tr>
+<tr><td><b>Advantages</b></td><td>Simple to understand</td><td>—</td><td><b>Only one zero</b>. Addition and subtraction use the <b>same logic</b>. <mark>Most modern computers use 2’s complement</mark></td></tr>
+<tr><td><b>8-bit range</b> (textbook)</td><td>−127 to +127</td><td>−127 to +127</td><td>−128 to +127</td></tr>
+</table></div>
+<p class="sub">The teacher’s slide says “invert all bits of magnitude”. To find −x, invert <b>all bits of +x</b> (the 65 example above). The slide’s examples show what each bit pattern <b>means</b>.</p>
 
 <h2>★ Key Observations</h2>
 <ul class="t">
-<li>Architecture = what the programmer <b>sees</b>. Organization = <b>hidden</b> hardware details</li>
-<li>Same architecture + different organization → <b>same software works</b></li>
-<li>Each generation is defined by its <b>hardware technology</b></li>
-<li>Stored-program idea: <b>program and data in the same memory</b></li>
-<li>ENIAC was electronic but <b>not stored-program</b></li>
-<li>Technology change: tubes → transistors → ICs → microprocessor</li>
+<li><b>1 octal digit = 3 bits. 1 hex digit = 4 bits</b> – that is why grouping works</li>
+<li>Decimal → other: <b>divide</b> for whole part (read remainders upward), <b>multiply</b> for fraction (read downward)</li>
+<li>Octal ↔ hex: always go through <b>binary</b></li>
+<li>n-bit unsigned range: <b>0 to 2ⁿ − 1</b></li>
+<li>Sign bit: <b>0 positive, 1 negative</b></li>
+<li>Sign-magnitude and 1’s complement have <b>two zeros</b>; 2’s complement has <b>one</b></li>
+<li>ASCII = 128 characters (1 byte); Unicode = all languages, 2 bytes or more</li>
 </ul>
 
 <h2>Real-Life Applications</h2>
 <ul class="t">
-<li><b>Software compatibility</b> – old programs run on new computers of the same architecture</li>
-<li><b>Choosing a computer</b> – knowing processor, memory and speed helps in buying the right laptop or phone</li>
-<li><b>Chip design</b> – companies design faster processors using the same architecture</li>
-<li><b>Programmers</b> – write better programs when they know how the hardware works</li>
+<li><b>Hex</b> – colour codes in web design, memory addresses</li>
+<li><b>Binary</b> – all data inside computers</li>
+<li><b>Floating-point</b> – scientific computing, graphics, engineering calculations</li>
+<li><b>Unicode</b> – messages and websites in many languages</li>
+<li><b>2’s complement</b> – how processors do signed integer maths</li>
 </ul>
 
 <h2>Important Terms</h2>
 <div class="wrap"><table>
-<tr><th>Term</th><th>Meaning</th></tr>
-<tr><td>Computer architecture</td><td>Design of a computer as seen by the programmer</td></tr>
-<tr><td>Computer organization</td><td>Hardware units and their connections that realise the architecture</td></tr>
-<tr><td>Instruction set</td><td>Set of instructions a processor can understand</td></tr>
-<tr><td>Stored-program concept</td><td>Program and data kept together in memory</td></tr>
-<tr><td>Vacuum tube</td><td>Glass electronic switch used in 1st generation</td></tr>
-<tr><td>Transistor</td><td>Small solid-state switch that replaced vacuum tubes</td></tr>
-<tr><td>Integrated Circuit (IC)</td><td>Many transistors on one chip</td></tr>
-<tr><td>Microprocessor</td><td>Complete CPU on a single chip</td></tr>
-<tr><td>VLSI</td><td>Very Large Scale Integration – very many components on a chip</td></tr>
-<tr><td>Moore’s Law</td><td>Transistors on a chip double about every two years</td></tr>
+<tr><td><b>Radix</b></td><td>Base of a number system</td></tr>
+<tr><td><b>Bit / Byte</b></td><td>One binary digit / 8 bits</td></tr>
+<tr><td><b>MSB</b></td><td>Most significant bit – the sign bit in signed numbers</td></tr>
+<tr><td><b>Mantissa</b></td><td>Significant digits of a floating-point number</td></tr>
+<tr><td><b>Exponent</b></td><td>Scale of a floating-point number</td></tr>
+<tr><td><b>ASCII / Unicode</b></td><td>Character codes</td></tr>
+<tr><td><b>Null character</b></td><td>\0 – marks end of a string</td></tr>
+<tr><td><b>Complement</b></td><td>1’s: invert bits. 2’s: invert bits and add 1</td></tr>
 </table></div>
 
 <div class="box star">
 <h3 style="color:var(--red)">★ Exam Points ★</h3>
 <ul class="t">
-<li><b>Architecture</b> = visible to programmer (<b>what</b>). <b>Organization</b> = hardware implementation (<b>how</b>)</li>
-<li>Architecture examples: <b>instruction set, data type bits, I/O mechanism, addressing</b></li>
-<li>Organization examples: <b>control signals, interfaces, memory technology</b></li>
-<li><b>Charles Babbage</b> – Father of the Computer. <b>Analytical Engine</b> (1837) – first general-purpose design</li>
-<li><b>Ada Lovelace</b> – first programmer</li>
-<li><b>ENIAC</b> – first general-purpose electronic digital computer, vacuum tubes</li>
-<li><b>Stored-program concept</b> – John von Neumann, 1945</li>
-<li>Generations: <b>1st vacuum tube, 2nd transistor, 3rd IC, 4th microprocessor, 5th AI</b></li>
-<li>Transistor – <b>1947</b>. IC – <b>1958</b>. Microprocessor (Intel 4004) – <b>1971</b></li>
-<li><b>Moore’s Law</b> – transistors double about every <b>2 years</b></li>
+<li>Bases: <b>binary 2, octal 8, decimal 10, hexadecimal 16</b>. Hex digits <b>A–F = 10–15</b></li>
+<li>Octal digit = <b>3 bits</b>; hex digit = <b>4 bits</b>; byte = <b>8 bits</b></li>
+<li>Decimal → other: divide (whole) and multiply (fraction). Other → decimal: <b>digit × base^position</b></li>
+<li>Key answers: <b>243₁₀ = 11110011₂ = 363₈ = F3₁₆</b>; <b>11101011₂ = 235₁₀</b></li>
+<li>Data types: <b>integer, floating-point, character, string</b></li>
+<li>8-bit unsigned: <b>0–255</b>; 16-bit: <b>0–65,535</b></li>
+<li>Floating-point parts: <b>sign, exponent, mantissa</b></li>
+<li>ASCII: <b>A = 65, a = 97, 0 = 48</b></li>
+<li>Negative numbers: <b>sign-magnitude, 1’s complement, 2’s complement</b>; 2’s complement – <b>one zero</b>, widely used</li>
 </ul>
 </div>
+
+<footer class="study-footer">
+  <a href="Module1.html">← Module 1</a>
+  <span>Fundamentals of Computer Architecture · Semester 1</span>
+  <a href="module3.html">Module 3 →</a>
+</footer>
 </div>
 </body>
 </html>
