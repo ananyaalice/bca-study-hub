@@ -1,31 +1,302 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#f5f7f9">
-<title>Fundamentals of Computer Architecture | Module 4</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>FCA – Module IV: Memory Hierarchy and Storage</title>
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
 <style>
-:root{color-scheme:light;--text:#202936;--muted:#5f6b7a;--line:#dce2e8;--paper:#fff;--page:#f5f7f9;--link:#245f9e;--soft:#edf3f8;}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--page);color:var(--text);font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
-a{color:var(--link);text-underline-offset:3px}a:hover{color:#123f6d}a:focus-visible{outline:3px solid #8db9e7;outline-offset:3px;border-radius:4px}
-.site-header{background:var(--paper);border-bottom:1px solid var(--line)}.header-inner{max-width:960px;margin:auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px}.site-name{font-size:18px;font-weight:750;text-decoration:none;color:var(--text)}.home-link{font-size:14px;white-space:nowrap}
-main{width:min(960px,calc(100% - 32px));margin:0 auto;padding:24px 0 36px}.breadcrumbs{display:flex;flex-wrap:wrap;gap:7px;align-items:center;font-size:13px;color:var(--muted);margin:0 0 18px}.breadcrumbs a{color:var(--link)}.crumb-sep{color:#9aa3ad}
-h1{font-size:clamp(25px,4vw,34px);line-height:1.2;letter-spacing:-.025em;margin:0 0 8px}h2{font-size:20px;line-height:1.3;margin:28px 0 12px}h3{font-size:17px;margin:0 0 6px}.subtitle{color:var(--muted);margin:0 0 20px}.metadata{display:flex;flex-wrap:wrap;gap:8px 18px;margin:12px 0 22px;color:var(--muted);font-size:14px}.metadata strong{color:var(--text)}
-.card-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.nav-card{display:block;padding:16px;border:1px solid var(--line);border-radius:10px;background:var(--paper);color:var(--text);text-decoration:none;min-width:0}.nav-card:hover{border-color:#a9c2da;background:#fbfdff}.nav-card .eyebrow{font-size:12px;color:var(--muted);margin-bottom:4px}.nav-card .card-title{font-weight:700;line-height:1.4}.nav-card .card-detail{font-size:13px;color:var(--muted);margin-top:5px}.nav-card .card-link{font-size:13px;color:var(--link);margin-top:10px;font-weight:650}.nav-card.disabled{background:#f0f2f4;color:#687382}.nav-card.disabled .card-link{color:#687382}.list-links{padding:0;margin:0;list-style:none;display:grid;gap:8px}.list-links li{margin:0}.list-link{display:flex;align-items:center;justify-content:space-between;gap:14px;background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:12px 14px;text-decoration:none;color:var(--text)}.list-link:hover{border-color:#a9c2da;background:#fbfdff}.list-link span:first-child{min-width:0}.arrow{color:var(--link);font-size:19px;flex:0 0 auto}.section-note{font-size:14px;color:var(--muted);margin:0 0 12px}
-.callout{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:16px}.page-nav{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;border-top:1px solid var(--line);margin-top:30px;padding-top:16px}.nav-button{display:inline-block;border:1px solid var(--line);background:var(--paper);color:var(--link);text-decoration:none;border-radius:7px;padding:9px 12px;font-size:14px;font-weight:600}.nav-button:hover{background:var(--soft)}.site-footer{max-width:960px;margin:0 auto;padding:0 16px 24px;color:var(--muted);font-size:12px}
-@media(max-width:600px){.header-inner{padding:12px 16px}.site-name{font-size:17px}.home-link{font-size:13px}main{width:calc(100% - 28px);padding:19px 0 28px}.card-grid{grid-template-columns:1fr}.nav-card{padding:14px}.metadata{display:grid;gap:5px}.page-nav{display:grid;grid-template-columns:1fr}.nav-button{text-align:center}.breadcrumbs{margin-bottom:14px}}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+:root{--paper:#fdfcf4;--desk:#e9e4d6;--line:#cfe2ee;--margin:#e8798a;--ink:#1d3a8c;--red:#c0262d;--green:#1b7a3d;--hl:#fff08a;--box:#f4f8ff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#20232f;--desk:#14161d;--line:#2d3345;--margin:#a8465a;--ink:#b7c8ff;--red:#ff8a8f;--green:#7fdc9c;--hl:#5a5320;--box:#272b3a}}
+:root[data-theme="dark"]{--paper:#20232f;--desk:#14161d;--line:#2d3345;--margin:#a8465a;--ink:#b7c8ff;--red:#ff8a8f;--green:#7fdc9c;--hl:#5a5320;--box:#272b3a}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--desk);font-family:"Patrick Hand","Comic Sans MS",cursive;color:var(--ink);font-size:19px;line-height:28px}
+.page{max-width:860px;margin:18px auto;padding:20px 20px 28px 64px;background:var(--paper) repeating-linear-gradient(transparent,transparent 27px,var(--line) 27px,var(--line) 28px);border-left:3px double var(--margin);box-shadow:0 2px 14px rgba(0,0,0,.25)}
+h1,h2,h3{font-family:"Caveat","Patrick Hand",cursive;margin:0;line-height:28px}
+h1{font-size:40px;line-height:42px;color:var(--red)}
+h2{font-size:30px;margin:28px 0 8px;color:var(--red);border-bottom:3px wavy var(--red);display:inline-block;line-height:36px}
+h3{font-size:25px;margin:14px 0 2px;text-decoration:underline}
+p,ul,ol{margin:0 0 8px}ul,ol{padding-left:22px}
+ul.t{list-style:none;padding-left:4px}ul.t li:before{content:"→ ";color:var(--red)}
+.sub{color:var(--green);font-size:18px}
+mark{background:linear-gradient(transparent 20%,var(--hl) 20%,var(--hl) 90%,transparent 90%);color:inherit;padding:0 3px}
+b{color:var(--red);font-weight:400;text-decoration:underline wavy 1px}
+code{font-family:ui-monospace,Consolas,monospace;font-size:15px;background:var(--box);padding:0 4px;border-radius:3px}
+.box{border:2px solid var(--ink);border-radius:8px 14px 10px 16px;background:var(--box);padding:8px 14px;margin:8px 0 12px}
+.box.star{border-color:var(--red)}.box h3{margin-top:0;text-decoration:none}
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:8px 0 12px}
+.flow span.n{border:2px solid var(--ink);border-radius:8px;background:var(--box);padding:2px 10px;line-height:24px;text-align:center}
+.flow span.a{color:var(--red);font-size:22px}
+.wrap{overflow-x:auto;margin:6px 0 12px}
+table{border-collapse:collapse;min-width:100%;background:var(--box)}
+th,td{border:1.5px solid var(--ink);padding:3px 8px;text-align:left;line-height:24px;vertical-align:top}
+th{color:var(--red);font-weight:400;background:var(--paper)}
+.pyr{display:flex;flex-direction:column;align-items:center;gap:3px;margin:8px 0 12px}
+.pyr div{border:2px solid var(--ink);background:var(--box);text-align:center;line-height:24px;padding:1px 6px}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:0 24px}
+@media(max-width:640px){.page{padding-left:46px;padding-right:12px}.cols{grid-template-columns:1fr}body{font-size:18px}}
+
+/* Study Hub navigation */
+.study-nav{font-family:Arial,sans-serif;font-size:13px;line-height:1.4;margin:0 0 18px;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--box);display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.study-nav a{color:var(--ink);text-decoration:none;font-weight:600}
+.study-nav a:hover{text-decoration:underline}
+.study-nav .sep{opacity:.55}
+.study-footer{font-family:Arial,sans-serif;font-size:13px;line-height:1.5;margin:24px 0 0;padding:14px 0 0;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.study-footer a{color:var(--ink);text-decoration:none;font-weight:600}
+.study-footer a:hover{text-decoration:underline}
 </style>
 </head>
 <body>
-<header class="site-header"><div class="header-inner"><a class="site-name" href="../../index.html">BCA Study Hub</a><a class="home-link" href="../../index.html">Home</a></div></header>
-<main>
-<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../../index.html">Home</a><span class="crumb-sep">›</span><a href="../index.html">Semester 1</a><span class="crumb-sep">›</span><a href="index.html">Fundamentals of Computer Architecture</a><span class="crumb-sep">›</span><span>Module 4</span></nav>
-<h1>Memory Hierarchy and Storage</h1><p class="subtitle">Fundamentals of Computer Architecture · Module 4</p>
-<section class="callout"><h2 style="margin-top:0">Study Content</h2><p><strong>Content placeholder:</strong> Insert the existing HTML study content for this module here.</p><p style="margin-bottom:0;font-size:14px;color:var(--muted)">Keep this filename as <code>module4.html</code> so subject navigation continues to work.</p></section>
-<div class="page-nav"><a class="nav-button" href="module3.html">← Module 3</a><a class="nav-button" href="module5.html">Module 5 →</a></div><p style="margin-top:12px;font-size:14px"><a href="index.html">Subject contents</a> · <a href="../index.html">Semester 1</a> · <a href="../../index.html">Home</a></p>
-</main>
-<div class="site-footer">BCA Study Hub</div>
+<div class="page">
+<nav class="study-nav" aria-label="Study Hub navigation">
+  <a href="../../index.html">Home</a><span class="sep">›</span>
+  <a href="../index.html">Semester 1</a><span class="sep">›</span>
+  <a href="index.html">Fundamentals of Computer Architecture</a><span class="sep">›</span>
+  <span>Module 4</span>
+</nav>
+
+<h1>FCA ★ Module IV</h1>
+<p class="sub">Memory Hierarchy and Storage | Ch 14 Types of memory | Ch 15 Memory hierarchy | Ch 16 Addressing modes | Ch 17 Memory management | 25-922-0104</p>
+
+<h2>Chapter 14 : Types of Memory</h2>
+<ul class="t">
+<li><mark>Memory hierarchy</mark> = arrangement of memory components by <b>speed, cost and size</b></li>
+<li>Top to bottom: <b>Registers → Cache → RAM → Secondary storage (HDD / SSD)</b></li>
+<li>Goal: <b>high speed at low cost</b></li>
+</ul>
+<div class="pyr">
+<div style="width:30%">Registers</div><div style="width:45%">Cache</div><div style="width:60%">RAM</div><div style="width:75%">HDD / SSD</div>
+</div>
+<p class="sub">Top: fastest and smallest (registers, cache) → bottom: slowest and largest (RAM, HDD / SSD)</p>
+<h3>Why a hierarchy?</h3>
+<ul class="t">
+<li>CPU is <b>very fast</b>; memory is <b>slower</b></li>
+<li>Direct access to slow memory reduces performance</li>
+<li>Solution: <b>multiple levels</b> of memory – balance speed, capacity and cost</li>
+</ul>
+<div class="flow"><span class="n">Types of memory</span><span class="a">→</span><span class="n">1 Primary: RAM, ROM</span><span class="a">|</span><span class="n">2 Cache memory</span><span class="a">|</span><span class="n">3 Secondary storage: HDD, SSD</span></div>
+
+<h3>14.1 RAM (Random Access Memory)</h3>
+<ul class="t">
+<li><mark>Volatile</mark> – data lost when power is off. Temporary storage for programs and data. Used by CPU for quick access</li>
+<li><b>DRAM</b> (Dynamic RAM) – slower, cheaper. <b>SRAM</b> (Static RAM) – faster, costlier, <b>used in cache</b></li>
+<li>Features: read / write capability; faster than secondary memory; more RAM → better system performance; e.g. 4 GB, 8 GB, 16 GB</li>
+</ul>
+<h3>14.2 ROM (Read-Only Memory)</h3>
+<ul class="t">
+<li><mark>Non-volatile</mark> – keeps data after power off. Holds permanent instructions used during <b>booting</b>. Cannot be easily modified</li>
+</ul>
+<div class="wrap"><table>
+<tr><td><b>PROM</b></td><td>Programmable <b>once</b></td></tr>
+<tr><td><b>EPROM</b></td><td>Erasable using <b>UV light</b></td></tr>
+<tr><td><b>EEPROM</b></td><td><b>Electrically</b> erasable</td></tr>
+<tr><td><b>Flash ROM</b></td><td>Used in <b>pen drives, BIOS</b></td></tr>
+</table></div>
+<h3>14.3 Cache memory</h3>
+<ul class="t">
+<li>Very fast memory located <b>inside the CPU</b>. Stores <b>frequently used</b> data and instructions. Reduces CPU waiting time. Uses <b>SRAM</b></li>
+</ul>
+<div class="wrap"><table>
+<tr><td><b>L1</b></td><td>Fastest, smallest, inside the CPU</td></tr>
+<tr><td><b>L2</b></td><td>Larger, slower than L1</td></tr>
+<tr><td><b>L3</b></td><td>Shared across cores, larger</td></tr>
+</table></div>
+<h3>14.4 Registers</h3>
+<ul class="t">
+<li>Smallest and fastest memory, <b>inside the CPU</b>. Hold data / instructions being processed</li>
+<li>Size: few bytes to few KB. Access time: <b>less than a nanosecond</b></li>
+<li>Examples: <b>Program Counter (PC), Accumulator, Instruction Register (IR)</b></li>
+</ul>
+<h3>14.5 Main memory (RAM)</h3>
+<ul class="t">
+<li>Also called <b>primary memory</b>. Stores data and programs currently in use</li>
+<li>Faster than secondary storage, slower than cache and registers. <b>Volatile</b>. Common sizes: 4 GB – 32 GB</li>
+</ul>
+
+<h3>14.6 Secondary storage</h3>
+<ul class="t"><li>For <b>long-term</b> data storage. Two types: <b>HDD</b> and <b>SSD</b></li></ul>
+<h3>HDD (Hard Disk Drive)</h3>
+<ul class="t">
+<li>Fixed secondary storage device inside computers. Uses <b>magnetic technology</b>. <b>Non-volatile</b>. Stores OS, applications, files, documents</li>
+<li>Data stored in <b>sectors</b> on rotating <b>platters</b>. <b>Read/write head</b> moves over the spinning platters. Correct head positioning decides access speed</li>
+<li>Outer and inner tracks hold the <b>same number of sectors</b> (storage density differs)</li>
+</ul>
+<div class="wrap"><table>
+<tr><th>HDD part</th><th>Work</th></tr>
+<tr><td><b>Platters</b></td><td>Glass / aluminium disks coated with magnetic material</td></tr>
+<tr><td><b>Spindle</b></td><td>Holds and rotates the platters (<b>5400–15000 RPM</b>)</td></tr>
+<tr><td><b>Actuator arm</b></td><td>Moves the read/write heads precisely</td></tr>
+<tr><td><b>Read/write head</b></td><td>Does the actual reading and writing</td></tr>
+<tr><td><b>Controller board</b></td><td>Manages data flow between drive and computer</td></tr>
+</table></div>
+<ul class="t">
+<li><b>Features</b>: non-volatile; <b>high capacity</b> (up to 36 TB); mechanical (moving parts); relatively slow (access time in <b>milliseconds</b>); cost-effective (cheaper than SSD); reliable, widely used in enterprise storage</li>
+<li><b>How HDD works</b>: platters spin (5400–15000 RPM) → heads move to the correct track → magnetic signals read / written as platters rotate → disk controller transfers data to the computer → heads and platters keep moving to access data</li>
+</ul>
+<h3>SSD (Solid State Drive)</h3>
+<ul class="t">
+<li>Stores data using <mark>NAND flash memory</mark>. <b>No spinning disks, no mechanical heads</b></li>
+<li>Faster, more durable, quieter than HDD → faster boot, file loading and applications</li>
+<li><b>How SSDs work</b> (data stored in cells, pages and blocks):</li>
+</ul>
+<div class="wrap"><table>
+<tr><td><b>Controller chip</b></td><td>Manages how data is stored, retrieved and optimised</td></tr>
+<tr><td><b>Wear leveling</b></td><td>Spreads write / erase cycles evenly over blocks → longer life</td></tr>
+<tr><td><b>Garbage collection</b></td><td>Consolidates empty blocks to keep performance high</td></tr>
+<tr><td><b>TRIM command</b></td><td>Tells SSD which blocks are no longer needed → faster, fewer unnecessary writes</td></tr>
+<tr><td><b>Error correction (ECC)</b></td><td>Detects and fixes errors → data accuracy</td></tr>
+<tr><td><b>Data compression</b></td><td>Saves space and boosts performance</td></tr>
+</table></div>
+<ul class="t">
+<li><b>Features of SSD</b>: fast start-up; quick access (low read latency, fast random access); speed about <b>100–600 MB/s</b>; no fragmentation; silent; reliable (less wear); wide temperature support; shock resistant (good for laptops); faster boot / load; better security (hardware encryption, secure erase)</li>
+</ul>
+<h3>Types of SSD</h3>
+<div class="wrap"><table>
+<tr><td><b>PCIe-based SSD</b></td><td>Uses PCIe; very fast read / write, low latency</td></tr>
+<tr><td><b>NVMe SSD</b></td><td>NVMe protocol over PCIe; ultra-fast (<b>3000+ MB/s</b>); gaming and performance tasks</td></tr>
+<tr><td><b>Flash DIMMs</b></td><td>SSD in DIMM (RAM-like) form; faster than PCIe SSD; needs special drivers and motherboard support</td></tr>
+<tr><td><b>Hybrid DRAM–Flash</b></td><td>Flash + DRAM; balanced speed, performance, capacity</td></tr>
+</table></div>
+<h3>HDD vs SSD</h3>
+<div class="wrap"><table>
+<tr><th>Parameter</th><th>HDD</th><th>SSD</th></tr>
+<tr><td>Long-term storage</td><td>More reliable</td><td>Less reliable – data leaks can occur if kept <b>unpowered for more than a year</b></td></tr>
+<tr><td>Access speed</td><td>Slower</td><td>Much higher</td></tr>
+<tr><td>Performance</td><td>Suffers from <b>fragmentation</b></td><td>No such effect</td></tr>
+<tr><td>Suitable for</td><td>Extensive, long-term storage</td><td>Fast data retrieval; laptops / desktops (low power, small size)</td></tr>
+</table></div>
+
+<h2>Chapter 15 : Memory Hierarchy and Virtual Memory</h2>
+<div class="wrap"><table>
+<tr><th>Level</th><th>Speed</th><th>Size</th><th>Volatile?</th></tr>
+<tr><td>Registers (inside CPU)</td><td>Fastest (&lt; 1 ns)</td><td>Few bytes – KB</td><td>Yes</td></tr>
+<tr><td>Cache (L1, L2, L3, SRAM)</td><td>Very fast</td><td>Small</td><td>Yes</td></tr>
+<tr><td>Main memory (RAM, DRAM)</td><td>Moderate</td><td>4–32 GB</td><td>Yes</td></tr>
+<tr><td>Virtual memory</td><td>Slower than RAM</td><td>Uses part of disk</td><td>—</td></tr>
+<tr><td>Secondary (HDD / SSD)</td><td>Slowest</td><td>Very large</td><td>No</td></tr>
+</table></div>
+<h3>Virtual memory (overview)</h3>
+<ul class="t">
+<li>Technique that <b>extends RAM using part of the hard disk / SSD</b>. Lets large programs run even if RAM is full</li>
+<li>Implemented using <b>paging</b>. Slower than RAM (storage is slower). Prevents freezing or crashing when RAM is short</li>
+</ul>
+
+<h2>Chapter 16 : Addressing Modes</h2>
+<ul class="t">
+<li><mark>Addressing modes</mark> = how the CPU finds the <b>location of operands (data)</b> during instruction execution</li>
+<li>Important for: <b>flexible programming, efficient memory access, compact instructions</b></li>
+</ul>
+<div class="wrap"><table>
+<tr><th>Mode</th><th>Meaning</th><th>Example</th><th>Features / use</th></tr>
+<tr><td><b>Direct</b></td><td>Address of the data is given <b>in the instruction</b></td><td><code>LOAD 5000</code> → load data from location 5000</td><td>Simple, faster than indirect. Limited by memory address size</td></tr>
+<tr><td><b>Indirect</b></td><td>Instruction gives an address that <b>holds the address of the data</b></td><td><code>LOAD (5000)</code>: Memory[5000] = 8000 → load from 8000</td><td>Access to large memory, more flexible. <b>Slower</b> – two memory accesses</td></tr>
+<tr><td><b>Indexed</b></td><td>Base address + <b>index register</b><br>Final address = Base + Index value</td><td><code>LOAD 2000(X)</code>, X = 5 → 2000 + 5 = <b>2005</b></td><td>Arrays, tables, sequential data. Excellent for iterative access; fast for arrays</td></tr>
+<tr><td><b>Relative</b></td><td>Effective address = <b>PC + offset</b></td><td><code>JUMP +20</code> → 20 bytes ahead of current PC</td><td>Branching, loop control, <b>position-independent code</b></td></tr>
+</table></div>
+
+<h2>Chapter 17 : Memory Management and the MMU</h2>
+<h3>17.1 Memory management</h3>
+<ul class="t">
+<li>= controlling and coordinating the computer’s memory (RAM). Ensures programs get memory when needed; do not use others’ memory; memory used efficiently; no crash from memory problems</li>
+<li><b>Why needed</b>: run many processes at once (multitasking); avoid wastage; keep each process safe; improve performance</li>
+</ul>
+<div class="wrap"><table>
+<tr><th>Activity</th><th>Meaning</th></tr>
+<tr><td><b>Allocation</b></td><td>Giving memory to processes when they ask</td></tr>
+<tr><td><b>Deallocation</b></td><td>Freeing memory after a process finishes</td></tr>
+<tr><td><b>Protection</b></td><td>One program cannot access another’s memory</td></tr>
+<tr><td><b>Address translation</b></td><td>Logical address → physical address</td></tr>
+</table></div>
+<div class="cols">
+<div class="box"><b>Logical address</b><ul class="t"><li>Generated by the <b>CPU</b></li><li>Not the real memory location</li><li>Also called <b>virtual address</b></li></ul></div>
+<div class="box"><b>Physical address</b><ul class="t"><li>Actual location in <b>RAM</b></li><li>Used by hardware</li></ul></div>
+</div>
+<div class="flow"><span class="n">CPU<br>(logical address)</span><span class="a">→</span><span class="n">MMU converts</span><span class="a">→</span><span class="n">Physical address<br>(RAM)</span></div>
+<h3>Memory allocation techniques</h3>
+<div class="wrap"><table>
+<tr><td><b>Contiguous</b></td><td>Memory given in <b>one continuous block</b>. Advantages: simple, fast. Disadvantage: <b>fragmentation</b></td></tr>
+<tr><td><b>Non-contiguous</b></td><td>Program divided into parts, stored in <b>different locations</b>: <b>Paging</b>, <b>Segmentation</b>, <b>Paging + Segmentation</b>. These support virtual memory</td></tr>
+</table></div>
+<h3>17.2 Virtual memory</h3>
+<ul class="t">
+<li>Lets programs use <b>more memory than the physical RAM</b></li>
+<li>Benefits: run large programs on small RAM; multitasking; memory protection; prevents system crashes</li>
+<li>Works: program divided into fixed-size <b>pages</b>; RAM divided into <b>frames</b>; only <b>required pages</b> kept in RAM; rest stay on disk</li>
+<li><mark>Page fault</mark> = required page is <b>not in RAM</b> → OS loads it from disk</li>
+</ul>
+<div class="cols">
+<div class="box"><h3>Paging</h3><ul class="t"><li>Memory divided into <b>frames</b> (fixed size)</li><li>Process divided into <b>pages</b> (same size)</li><li>Pages can go into <b>any free frames</b></li><li>MMU keeps a <b>page table</b></li><li>✔ No external fragmentation ✔ Efficient use of memory</li></ul></div>
+<div class="box"><h3>Segmentation</h3><ul class="t"><li>Memory divided by <b>logical divisions</b> – code, data, stack, heap</li><li>Each segment has <b>variable size</b></li><li>E.g. Segment 0 = Code, Segment 1 = Data, Segment 2 = Stack</li></ul></div>
+</div>
+<h3>17.3 Memory Management Unit (MMU)</h3>
+<ul class="t"><li>Hardware component <b>between the CPU and RAM</b>. Does address translation and memory protection</li></ul>
+<div class="wrap"><table>
+<tr><th>Function</th><th>Meaning</th></tr>
+<tr><td><b>1 Address translation</b></td><td>Logical (virtual) → physical address using <b>page tables</b></td></tr>
+<tr><td><b>2 Memory protection</b></td><td>Stops one process using another’s memory. If process A tries to access process B’s memory → MMU <b>blocks</b> it</td></tr>
+<tr><td><b>3 Paging and segmentation support</b></td><td>Uses <b>page tables</b> and <b>segment tables</b></td></tr>
+<tr><td><b>4 Caching control</b></td><td>Decides which data can be cached for faster access</td></tr>
+<tr><td><b>5 Handling page faults</b> (with OS)</td><td>Page missing from RAM → MMU <b>notifies the OS</b></td></tr>
+</table></div>
+
+<h2>★ Key Observations</h2>
+<ul class="t">
+<li>Higher in the hierarchy = <b>faster, smaller, costlier</b>. Lower = <b>slower, larger, cheaper</b></li>
+<li>RAM and cache are <b>volatile</b>; ROM, HDD, SSD are <b>non-volatile</b></li>
+<li>Cache uses <b>SRAM</b>; main memory uses <b>DRAM</b></li>
+<li>HDD = moving parts, cheap, large. SSD = no moving parts, fast, quiet, shock resistant</li>
+<li>Indirect addressing needs <b>two memory accesses</b></li>
+<li>Paging → fixed-size pages and frames. Segmentation → variable-size logical parts</li>
+<li>CPU makes <b>logical</b> addresses; RAM uses <b>physical</b> addresses; MMU converts</li>
+</ul>
+
+<h2>Real-Life Applications</h2>
+<ul class="t">
+<li><b>More RAM</b> → smoother multitasking. <b>SSD</b> → faster boot and app loading</li>
+<li><b>Flash ROM / BIOS</b> and pen drives; <b>ROM</b> holds boot instructions</li>
+<li><b>HDD</b> – large, cheap backups and archives. <b>NVMe SSD</b> – gaming</li>
+<li><b>Indexed addressing</b> – looping through arrays. <b>Relative</b> – jumps and loops</li>
+<li><b>Virtual memory</b> – running big programs on small RAM</li>
+</ul>
+
+<h2>Important Terms</h2>
+<div class="wrap"><table>
+<tr><td><b>Volatile / Non-volatile</b></td><td>Loses / keeps data without power</td></tr>
+<tr><td><b>SRAM / DRAM</b></td><td>Static RAM (cache) / Dynamic RAM (main memory)</td></tr>
+<tr><td><b>NAND flash</b></td><td>Memory used in SSDs</td></tr>
+<tr><td><b>Wear leveling</b></td><td>Even use of SSD blocks</td></tr>
+<tr><td><b>TRIM</b></td><td>Tells SSD which blocks are unused</td></tr>
+<tr><td><b>Effective address</b></td><td>Final address of the operand</td></tr>
+<tr><td><b>Page / Frame</b></td><td>Fixed-size part of a program / of RAM</td></tr>
+<tr><td><b>Page table</b></td><td>Maps pages to frames</td></tr>
+<tr><td><b>Page fault</b></td><td>Needed page not in RAM</td></tr>
+<tr><td><b>MMU</b></td><td>Memory Management Unit</td></tr>
+<tr><td><b>Fragmentation</b></td><td>Wasted memory space (problem of contiguous allocation)</td></tr>
+</table></div>
+
+<div class="box star">
+<h3 style="color:var(--red)">★ Exam Points ★</h3>
+<ul class="t">
+<li>Hierarchy: <b>Registers → Cache → RAM → Secondary (HDD / SSD)</b>. Goal: speed at low cost</li>
+<li><b>RAM</b> volatile (DRAM, SRAM). <b>ROM</b> non-volatile: <b>PROM, EPROM, EEPROM, Flash</b></li>
+<li><b>Cache</b>: SRAM; levels <b>L1, L2, L3</b></li>
+<li>HDD parts: <b>platters, spindle, actuator arm, read/write head, controller board</b>; 5400–15000 RPM</li>
+<li>SSD: <b>NAND flash</b>, no moving parts; <b>wear leveling, garbage collection, TRIM, ECC</b></li>
+<li>SSD types: <b>PCIe, NVMe, Flash DIMM, Hybrid DRAM–Flash</b></li>
+<li>Addressing modes: <b>direct, indirect, indexed, relative</b>. Indexed: <b>Base + Index</b>. Relative: <b>PC + Offset</b></li>
+<li>Memory management: <b>allocation, deallocation, protection, address translation</b></li>
+<li>Allocation: <b>contiguous</b> and <b>non-contiguous (paging, segmentation)</b></li>
+<li>Virtual memory: <b>pages + frames</b>; <b>page fault</b> → OS loads page from disk</li>
+<li>MMU: <b>address translation, protection, paging / segmentation support, caching control, page fault handling</b></li>
+</ul>
+</div>
+
+<footer class="study-footer">
+  <a href="Module3.html">← Module 3</a>
+  <span>Fundamentals of Computer Architecture · Semester 1</span>
+  <a href="module5.html">Module 5 →</a>
+</footer>
+</div>
 </body>
 </html>
