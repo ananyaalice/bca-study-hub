@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f5f7f9">
+<title>Python Programming | Model Questions | Module 5</title>
+<style>
+
+:root{--navy:#1f3864;--ink:#1a1a1a;--muted:#555;--tint:#eaf0f9;--grey:#f3f4f6;--line:#c9d1de;--err:#a61b1b;--ok:#1b5e20}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#fff;color:var(--ink);font-family:Arial,Helvetica,sans-serif;font-size:16.5px;line-height:1.65}
+.wrap{max-width:900px;margin:0 auto;padding:0 18px 60px}
+.cover{border:2px solid var(--navy);margin:28px 0 22px;padding:26px 22px 20px;text-align:center;background:var(--tint)}
+.cover h1{margin:0 0 6px;color:var(--navy);font-size:2rem;letter-spacing:.04em;line-height:1.2}
+.cover .sub{margin:0 0 10px;font-weight:bold;font-size:1.1rem}
+.cover .exam{margin:10px 0 0;color:var(--muted);font-size:.92rem;line-height:1.5}
+.how{border-left:5px solid var(--navy);background:var(--grey);padding:10px 16px;margin:0 0 26px;font-size:.97rem}
+.toc{margin:0 0 30px}
+.toc h2{color:var(--navy);border-bottom:2px solid var(--navy);padding-bottom:4px;margin:0 0 14px;font-size:1.35rem}
+.tocpart h3{margin:14px 0 6px;font-size:1.05rem;color:var(--navy)}
+.tocpart ul{list-style:none;margin:0;padding:0;columns:2;column-gap:28px}
+.tocpart li{break-inside:avoid;margin:0 0 5px;font-size:.93rem;line-height:1.4}
+.tocpart a{color:var(--ink);text-decoration:none;display:block;padding:3px 6px;border-radius:4px}
+.tocpart a:hover{background:var(--tint)}
+.tn{display:inline-block;min-width:54px;font-weight:bold;color:var(--navy)}
+.part{margin:44px 0 8px;border-bottom:3px solid var(--navy)}
+.part h2{margin:0;color:var(--navy);font-size:1.6rem}
+.part p{margin:2px 0 8px;color:var(--muted)}
+h3.group{margin:30px 0 4px;color:var(--navy);font-size:1.15rem;text-transform:uppercase;letter-spacing:.05em}
+.q{margin:20px 0 6px;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:#fff}
+.qhead{display:flex;gap:14px;align-items:flex-start;background:var(--tint);border-bottom:1px solid var(--line);padding:12px 16px;border-left:6px solid var(--navy)}
+.qno{flex:none;background:var(--navy);color:#fff;font-weight:bold;padding:2px 10px;border-radius:4px;font-size:.95rem;margin-top:2px;white-space:nowrap}
+.qhead h3{margin:0;font-size:1.08rem;line-height:1.45;color:#111}
+.ans{padding:6px 20px 16px}
+.ans p{margin:10px 0}
+.ans ul,.ans ol{margin:8px 0 10px;padding-left:24px}
+.ans li{margin:4px 0}
+h4.sh{margin:18px 0 4px;color:var(--navy);font-size:1.02rem;border-bottom:1px solid var(--line);padding-bottom:2px}
+.or{text-align:center;margin:18px 0 4px;position:relative}
+.or:before{content:"";position:absolute;left:0;right:0;top:50%;border-top:2px dashed #9aa6bb}
+.or span{position:relative;background:#fff;padding:0 18px;font-weight:bold;color:var(--navy);letter-spacing:.15em}
+code{font-family:Consolas,"Courier New",monospace;background:#eef1f6;padding:1px 5px;border-radius:3px;font-size:.92em}
+.codeblock{margin:12px 0 0;border:1px solid var(--line);border-left:5px solid var(--navy);background:#f8f9fb;border-radius:0 4px 4px 0}
+.codeblock.file{border-left-color:#7a869a;background:#fff}
+.cap{font-size:.74rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:5px 12px 0;font-weight:bold}
+.codeblock pre,.output pre{margin:0;padding:6px 14px 10px;overflow-x:auto;font-family:Consolas,"Courier New",monospace;font-size:.9rem;line-height:1.5;tab-size:4}
+.output{margin:0 0 12px;border:1px solid var(--line);border-top:0;border-left:5px solid #7a869a;background:#fff;border-radius:0 0 4px 4px}
+.codeblock+.codeblock{margin-top:8px}
+.output pre{color:#111}
+.typed{font-weight:bold;color:var(--navy);text-decoration:underline}
+.errline{color:var(--err);font-weight:bold}
+p.after{margin:-4px 0 10px;font-size:.95rem;color:var(--muted)}
+.note{border-left:5px solid #7a869a;background:var(--grey);padding:8px 14px;margin:12px 0;font-size:.97rem}
+.tblwrap{overflow-x:auto;margin:12px 0}
+table{border-collapse:collapse;width:100%;font-size:.93rem}
+th{background:var(--tint);color:var(--navy);text-align:left;border:1px solid #8a97ad;padding:7px 10px}
+td{border:1px solid var(--line);padding:6px 10px;vertical-align:top}
+tbody tr:nth-child(even) td{background:#fafbfc}
+td code{white-space:nowrap}
+.steps{counter-reset:s;list-style:none;padding-left:0!important}
+.steps li{counter-increment:s;position:relative;padding:4px 0 4px 40px;margin:6px 0}
+.steps li:before{content:counter(s);position:absolute;left:0;top:3px;width:27px;height:27px;border-radius:50%;background:var(--navy);color:#fff;font-weight:bold;font-size:.85rem;text-align:center;line-height:27px}
+figure.fig{margin:16px auto;text-align:center;break-inside:avoid}
+figure.fig svg{max-width:100%;height:auto;border:1px solid var(--line);background:#fff;border-radius:4px}
+figcaption{font-size:.85rem;color:var(--muted);margin-top:5px;font-style:italic}
+svg .bx{fill:#fff;stroke:#1f3864;stroke-width:1.6}
+svg .bx2{fill:#eaf0f9;stroke:#1f3864;stroke-width:1.6}
+svg .bx3{fill:#f3f4f6;stroke:#6b778c;stroke-width:1.4}
+svg .bxg{fill:#e6f2e8;stroke:#2e6b3a;stroke-width:1.6}
+svg .bxr{fill:#fbe9e7;stroke:#a61b1b;stroke-width:1.6}
+svg .t{font-family:Arial,Helvetica,sans-serif;font-size:14px;fill:#1a1a1a;text-anchor:middle}
+svg .tl{text-anchor:start}
+svg .tb{font-weight:bold}
+svg .ts{font-size:12px;fill:#555}
+svg .tm{font-family:Consolas,"Courier New",monospace}
+svg .tn2{fill:#1f3864}
+svg .ln{stroke:#1f3864;stroke-width:1.6;fill:none}
+svg .lg{stroke:#8a97ad;stroke-width:1.2;fill:none}
+svg .ar{marker-end:url(#arr)}
+svg .vA{fill:#1f3864;fill-opacity:.35}
+svg .vB{fill:#c0392b;fill-opacity:.30}
+svg .vW{fill:#fff}
+svg .vO{fill:none;stroke:#1f3864;stroke-width:2}
+.foot{margin-top:40px;border-top:2px solid var(--navy);padding-top:10px;color:var(--muted);font-size:.85rem;text-align:center}
+.totop{position:fixed;right:14px;bottom:14px;background:var(--navy);color:#fff;text-decoration:none;padding:7px 12px;border-radius:4px;font-size:.85rem}
+@media (max-width:640px){body{font-size:16px}.tocpart ul{columns:1}.ans{padding:4px 12px 14px}.cover h1{font-size:1.5rem}.qhead{flex-direction:column;gap:6px}}
+@media print{
+ @page{size:A4;margin:13mm 12mm}
+ body{font-size:10.5pt;line-height:1.5;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .wrap{max-width:none;padding:0}
+ .totop{display:none}
+ .cover{margin-top:0}
+ .q{border:1px solid #888;break-inside:auto}
+ .qhead{break-after:avoid}
+ .codeblock,.output,figure.fig,.tblwrap,.note,.steps li{break-inside:avoid}
+ h4.sh{break-after:avoid}
+ .part{break-after:avoid}
+ .toc{break-after:page}
+ .codeblock pre,.output pre{font-size:8.8pt;overflow:visible;white-space:pre-wrap}
+}
+
+pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.code .hll { background-color: #ffffcc }
+.code { background: #f8f8f8; }
+.code .tk-c { color: #3D7B7B; font-style: italic } /* Comment */
+.code .tk-err { border: 1px solid #F00 } /* Error */
+.code .tk-k { color: #008000; font-weight: bold } /* Keyword */
+.code .tk-o { color: #666 } /* Operator */
+.code .tk-ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.code .tk-cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.code .tk-cp { color: #9C6500 } /* Comment.Preproc */
+.code .tk-cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.code .tk-c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.code .tk-cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.code .tk-gd { color: #A00000 } /* Generic.Deleted */
+.code .tk-ge { font-style: italic } /* Generic.Emph */
+.code .tk-ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+.code .tk-gr { color: #E40000 } /* Generic.Error */
+.code .tk-gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.code .tk-gi { color: #008400 } /* Generic.Inserted */
+.code .tk-go { color: #717171 } /* Generic.Output */
+.code .tk-gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.code .tk-gs { font-weight: bold } /* Generic.Strong */
+.code .tk-gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.code .tk-gt { color: #04D } /* Generic.Traceback */
+.code .tk-kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.code .tk-kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.code .tk-kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.code .tk-kp { color: #008000 } /* Keyword.Pseudo */
+.code .tk-kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.code .tk-kt { color: #B00040 } /* Keyword.Type */
+.code .tk-m { color: #666 } /* Literal.Number */
+.code .tk-s { color: #BA2121 } /* Literal.String */
+.code .tk-na { color: #687822 } /* Name.Attribute */
+.code .tk-nb { color: #008000 } /* Name.Builtin */
+.code .tk-nc { color: #00F; font-weight: bold } /* Name.Class */
+.code .tk-no { color: #800 } /* Name.Constant */
+.code .tk-nd { color: #A2F } /* Name.Decorator */
+.code .tk-ni { color: #717171; font-weight: bold } /* Name.Entity */
+.code .tk-ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.code .tk-nf { color: #00F } /* Name.Function */
+.code .tk-nl { color: #767600 } /* Name.Label */
+.code .tk-nn { color: #00F; font-weight: bold } /* Name.Namespace */
+.code .tk-nt { color: #008000; font-weight: bold } /* Name.Tag */
+.code .tk-nv { color: #19177C } /* Name.Variable */
+.code .tk-ow { color: #A2F; font-weight: bold } /* Operator.Word */
+.code .tk-w { color: #BBB } /* Text.Whitespace */
+.code .tk-mb { color: #666 } /* Literal.Number.Bin */
+.code .tk-mf { color: #666 } /* Literal.Number.Float */
+.code .tk-mh { color: #666 } /* Literal.Number.Hex */
+.code .tk-mi { color: #666 } /* Literal.Number.Integer */
+.code .tk-mo { color: #666 } /* Literal.Number.Oct */
+.code .tk-sa { color: #BA2121 } /* Literal.String.Affix */
+.code .tk-sb { color: #BA2121 } /* Literal.String.Backtick */
+.code .tk-sc { color: #BA2121 } /* Literal.String.Char */
+.code .tk-dl { color: #BA2121 } /* Literal.String.Delimiter */
+.code .tk-sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.code .tk-s2 { color: #BA2121 } /* Literal.String.Double */
+.code .tk-se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.code .tk-sh { color: #BA2121 } /* Literal.String.Heredoc */
+.code .tk-si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.code .tk-sx { color: #008000 } /* Literal.String.Other */
+.code .tk-sr { color: #A45A77 } /* Literal.String.Regex */
+.code .tk-s1 { color: #BA2121 } /* Literal.String.Single */
+.code .tk-ss { color: #19177C } /* Literal.String.Symbol */
+.code .tk-bp { color: #008000 } /* Name.Builtin.Pseudo */
+.code .tk-fm { color: #00F } /* Name.Function.Magic */
+.code .tk-vc { color: #19177C } /* Name.Variable.Class */
+.code .tk-vg { color: #19177C } /* Name.Variable.Global */
+.code .tk-vi { color: #19177C } /* Name.Variable.Instance */
+.code .tk-vm { color: #19177C } /* Name.Variable.Magic */
+.code .tk-il { color: #666 } /* Literal.Number.Integer.Long */
+
+.mk{display:inline-block;margin-left:8px;padding:0 8px;border:1px solid var(--navy);border-radius:10px;color:var(--navy);background:#fff;font-size:.74rem;font-weight:bold;white-space:nowrap;vertical-align:middle}
+.frame{border:1px dashed var(--navy);background:var(--tint);padding:8px 14px;margin:14px 0 8px;font-size:.96rem;border-radius:4px}
+.tip{border-left:5px solid #b58105;background:#fff8e1;padding:8px 14px;margin:8px 0;font-size:.96rem}
+.hub-header{background:#fff;border-bottom:1px solid #dce2e8}
+.hub-header-inner{max-width:960px;margin:auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.hub-name{font-size:18px;font-weight:750;text-decoration:none;color:#202936}.hub-home{font-size:14px;white-space:nowrap;color:#245f9e}
+.hub-crumbs{max-width:960px;margin:0 auto;padding:14px 20px 0;display:flex;flex-wrap:wrap;gap:7px;align-items:center;font-size:13px;line-height:1.5;color:#5f6b7a}
+.hub-crumbs a{color:#245f9e}.hub-sep{color:#9aa3ad}
+.hub-pagenav{max-width:960px;margin:0 auto;padding:6px 20px 0;display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;font-size:14px}
+.hub-btn{display:inline-block;border:1px solid #dce2e8;background:#fff;color:#245f9e;text-decoration:none;border-radius:7px;padding:9px 12px;font-weight:600}.hub-btn:hover{background:#edf3f8}
+.hub-footer{max-width:960px;margin:0 auto;padding:14px 20px 28px;color:#5f6b7a;font-size:12px}
+.tocpart a{display:flex;gap:8px;align-items:baseline}.tn{flex:none;min-width:38px!important}
+.chlist{margin:6px 0 0;padding-left:20px;font-size:.93rem}
+.cov{margin-top:34px}.cov h2{color:var(--navy);border-bottom:2px solid var(--navy);padding-bottom:4px;font-size:1.3rem}
+@media(max-width:640px){.hub-header-inner{padding:12px 16px}.hub-name{font-size:17px}.hub-home{font-size:13px}.hub-crumbs,.hub-pagenav,.hub-footer{padding-left:14px;padding-right:14px}.hub-pagenav{display:grid;grid-template-columns:1fr}.hub-btn{text-align:center}.mk{margin-left:0}}
+@media print{.hub-header,.hub-crumbs,.hub-pagenav,.hub-footer{display:none}}
+
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f3864"/></marker>
+</defs></svg>
+<header class="hub-header"><div class="hub-header-inner"><a class="hub-name" href="../../index.html">BCA Study Hub</a><a class="hub-home" href="../../index.html">Home</a></div></header>
+<nav class="hub-crumbs" aria-label="Breadcrumb"><a href="../../index.html">Home</a><span class="hub-sep">&rsaquo;</span><a href="../index.html">Semester 1</a><span class="hub-sep">&rsaquo;</span><a href="index.html">Python Programming</a><span class="hub-sep">&rsaquo;</span><a href="ModelQuestions.html">Model Questions</a><span class="hub-sep">&rsaquo;</span><span aria-current="page">Module 5</span></nav>
+<div class="wrap" id="top">
+<div class="cover">
+<h1>MODULE V</h1>
+<p class="sub">File Handling and Exception Management</p>
+<p class="exam">Python Programming &middot; Model Questions with Exam-ready Answers<br>BCA (Honors) Semester 1 &middot; 25-922-0102 (2025 Scheme)</p>
+</div>
+<div class="how"><b>How to use:</b> Questions go chapter by chapter, following the syllabus notes of this module. Each answer is written in simple sentences that you can write in the exam. After the answer you will find an <b>example</b>, a <b>How to write it</b> box (the answer structure) and an <b>Exam tip</b>. The mark label (2, 3, 5 or 10) shows how long the answer should be. All programs were run and the outputs shown are the real outputs. The last section shows that <b>every topic of the module is covered</b>.</div>
+<nav class="toc"><h2>Questions in this module (21)</h2>
+<div class="tocpart"><h3>Chapter 1 : Working with Files</h3><ul><li><a href="#q-m5-q1"><span class="tn">Q1</span>Why files? Text and binary files</a></li><li><a href="#q-m5-q2"><span class="tn">Q2</span>Modes of file opening</a></li><li><a href="#q-m5-q3"><span class="tn">Q3</span>Closing a file and the with statement</a></li></ul></div>
+<div class="tocpart"><h3>Chapter 2 : Reading from Text Files</h3><ul><li><a href="#q-m5-q4"><span class="tn">Q4</span>read(), readline(), readlines()</a></li><li><a href="#q-m5-q5"><span class="tn">Q5</span>Reading line by line and strip()</a></li></ul></div>
+<div class="tocpart"><h3>Chapter 3 : Writing to Text Files</h3><ul><li><a href="#q-m5-q6"><span class="tn">Q6</span>write() and writelines()</a></li><li><a href="#q-m5-q7"><span class="tn">Q7</span>Program: write and append; w vs a</a></li></ul></div>
+<div class="tocpart"><h3>Chapter 4 : CSV Files</h3><ul><li><a href="#q-m5-q8"><span class="tn">Q8</span>CSV: writer and reader</a></li><li><a href="#q-m5-q9"><span class="tn">Q9</span>csv.DictReader</a></li></ul></div>
+<div class="tocpart"><h3>Chapter 5 : Exception Handling</h3><ul><li><a href="#q-m5-q10"><span class="tn">Q10</span>Syntax error vs exception</a></li><li><a href="#q-m5-q11"><span class="tn">Q11</span>Built-in exceptions</a></li><li><a href="#q-m5-q12"><span class="tn">Q12</span>try, except, else, finally</a></li><li><a href="#q-m5-q13"><span class="tn">Q13</span>Multiple except, as e, bare except</a></li><li><a href="#q-m5-q14"><span class="tn">Q14</span>Program: FileNotFoundError handling</a></li></ul></div>
+<div class="tocpart"><h3>Chapter 6 : Raising Exceptions</h3><ul><li><a href="#q-m5-q15"><span class="tn">Q15</span>raise keyword</a></li><li><a href="#q-m5-q16"><span class="tn">Q16</span>Exception family</a></li><li><a href="#q-m5-q17"><span class="tn">Q17</span>Program: count lines and words</a></li><li><a href="#q-m5-q18"><span class="tn">Q18</span>Essay: exceptions and handling</a></li></ul></div>
+<div class="tocpart"><h3>Revision : Applications, Terms and Key Points</h3><ul><li><a href="#q-m5-q19"><span class="tn">Q19</span>Applications of Module V</a></li><li><a href="#q-m5-q20"><span class="tn">Q20</span>Important terms of Module V</a></li><li><a href="#q-m5-q21"><span class="tn">Q21</span>Rapid revision of Module V</a></li></ul></div>
+</nav>
+<div class="part"><h2>Chapter 1 : Working with Files</h2><p>Why files are needed, opening modes and closing.</p></div>
+<section class="q" id="q-m5-q1"><header class="qhead"><span class="qno">Q1</span><h3>Why do we need files? What are the two kinds of files? <span class="mk">3 marks</span></h3></header><div class="ans"><h4 class="sh">Answer</h4><p>Variables <b>lose their data when the program ends</b>. A <b>file</b> stores data <b>permanently on the disk</b>. There are two kinds of files: <b>text files</b> (readable characters, the default) and <b>binary files</b> (images, audio; opened with mode <code>b</code>). A file is used in three steps: <b>open</b>, then <b>read or write</b>, then <b>close</b>.</p><figure class="fig"><svg viewBox="0 0 750 110" width="750" role="img" aria-label="Fig. Working with a file" xmlns="http://www.w3.org/2000/svg"><rect class="bx2" x="20" y="35" width="190" height="56" rx="6"/><text class="t" x="115.0" y="60.0"><tspan x="115.0" dy="0">open()</tspan><tspan x="115.0" dy="16">open the file</tspan></text><path class="ln ar" d="M214,63 L276,63"/><rect class="bx" x="280" y="35" width="190" height="56" rx="6"/><text class="t" x="375.0" y="60.0"><tspan x="375.0" dy="0">read() / write()</tspan><tspan x="375.0" dy="16">use the file</tspan></text><path class="ln ar" d="M474,63 L536,63"/><rect class="bxg" x="540" y="35" width="190" height="56" rx="6"/><text class="t" x="635.0" y="60.0"><tspan x="635.0" dy="0">close()</tspan><tspan x="635.0" dy="16">close the file</tspan></text></svg><figcaption>Fig. Working with a file</figcaption></figure></div></section>
+<section class="q" id="q-m5-q2"><header class="qhead"><span class="qno">Q2</span><h3>List out the various modes of file opening in Python and their use cases. <span class="mk">5 marks</span></h3></header><div class="ans"><h4 class="sh">Answer</h4><p>A file is opened using <code>open(filename, mode)</code>. The default mode is <code>"r"</code>.</p><div class="tblwrap"><table class=""><thead><tr><th>Mode</th><th>Name</th><th>Meaning</th><th>Use case</th></tr></thead><tbody><tr><td><code>"r"</code></td><td>Read (default)</td><td>Only reading. The file must exist, else <b>FileNotFoundError</b></td><td>Reading an existing file</td></tr><tr><td><code>"w"</code></td><td>Write</td><td>Creates the file if absent. <b>Erases old content</b> if present</td><td>Saving fresh data</td></tr><tr><td><code>"a"</code></td><td>Append</td><td>Creates the file if absent. Adds data at the <b>end</b>; old content stays</td><td>Log files, adding new records</td></tr><tr><td><code>"r+"</code></td><td>Read and write</td><td>The file must exist</td><td>Reading and changing a file</td></tr><tr><td><code>"x"</code></td><td>Create</td><td>Makes a new file. Error if it already exists</td><td>Creating a file safely</td></tr></tbody></table></div><p>Add <code>b</code> for binary files: <code>"rb"</code>, <code>"wb"</code>.</p><div class="codeblock"><div class="cap">Example program</div><pre class="code"><span class="tk-n">f</span> <span class="tk-o">=</span> <span class="tk-nb">open</span><span class="tk-p">(</span><span class="tk-s2">"data.txt"</span><span class="tk-p">,</span> <span class="tk-s2">"w"</span><span class="tk-p">)</span>      <span class="tk-c1"># create and write</span>
+<span class="tk-n">f</span><span class="tk-o">.</span><span class="tk-n">write</span><span class="tk-p">(</span><span class="tk-s2">"Hello</span><span class="tk-se">\n</span><span class="tk-s2">"</span><span class="tk-p">)</span>
+<span class="tk-n">f</span><span class="tk-o">.</span><span class="tk-n">close</span><span class="tk-p">()</span>
+<span class="tk-n">f</span> <span class="tk-o">=</span> <span class="tk-nb">open</span><span class="tk-p">(</span><span class="tk-s2">"data.txt"</span><span class="tk-p">,</span> <span class="tk-s2">"r"</span><span class="tk-p">)</span>      <span class="tk-c1"># read</span>
+<span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-n">f</span><span class="tk-o">.</span><span class="tk-n">read</span><span class="tk-p">())</span>
+<span class="tk-n">f</span><span class="tk-o">.</span><span class="tk-n">close</span><span class="tk-p">()</span>
+<span class="tk-n">f</span> <span class="tk-o">=</span> <span class="tk-nb">open</span><span class="tk-p">(</span><span class="tk-s2">"new.txt"</span><span class="tk-p">,</span> <span class="tk-s2">"x"</span><span class="tk-p">)</span>       <span class="tk-c1"># create a new file</span>
+<span class="tk-n">f</span><span class="tk-o">.</span><span class="tk-n">close</span><span class="tk-p">()</span>
+<span class="tk-k">try</span><span class="tk-p">:</span>
+    <span class="tk-nb">open</span><span class="tk-p">(</span><span class="tk-s2">"new.txt"</span><span class="tk-p">,</span> <span class="tk-s2">"x"</span><span class="tk-p">)</span>       <span class="tk-c1"># file already exists</span>
+<span class="tk-k">except</span> <span class="tk-ne">FileExistsError</span><span class="tk-p">:</span>
+    <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-s2">"x mode gives an error if the file exists"</span><span class="tk-p">)</span></pre></div>
+<div class="output"><div class="cap">Output</div><pre>Hello
+
+x mode gives an error if the file exists</pre></div><div class="tip"><b>Exam tip:</b> Write the five modes in a table. Underline that "w" erases old content and "r" needs an existing file.</div></div></section>
+<section class="q" id="q-m5-q3"><header class="qhead"><span class="qno">Q3</span><h3>Why should a file be closed? Explain the with statement. <span class="mk">3 marks</span></h3></header><div class="ans"><h4 class="sh">Answer</h4><p><code>f.close()</code> saves the data and frees the resources. The <b>with statement</b> closes the file <b>automatically</b>, even if an error occurs. It is the best way to work with files.</p><div class="codeblock file"><div class="cap">File: sample.txt</div><pre>Hello
+Python
+Files</pre></div>
+<div class="codeblock"><div class="cap">Example program</div><pre class="code"><span class="tk-k">with</span> <span class="tk-nb">open</span><span class="tk-p">(</span><span class="tk-s2">"sample.txt"</span><span class="tk-p">,</span> <span class="tk-s2">"r"</span><span class="tk-p">)</span> <span class="tk-k">as</span> <span class="tk-n">f</span><span class="tk-p">:</span>
+    <span class="tk-n">content</span> <span class="tk-o">=</span> <span class="tk-n">f</span><span class="tk-o">.</span><span class="tk-n">read</span><span class="tk-p">()</span>
+<span class="tk-c1"># the file is closed here automatically</span>
+<span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-n">content</span><span class="tk-p">)</span>
+<span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-n">f</span><span class="tk-o">.</span><span class="tk-n">closed</span><span class="tk-p">)</span></pre></div>
+<div class="output"><div class="cap">Output</div><pre>Hello
+Python
+Files
+
+True</pre></div></div></section>
+<div class="part"><h2>Chapter 2 : Reading from Text Files</h2><p>read(), readline(), readlines() and looping.</p></div>
+<section class="q" id="q-m5-q4"><header class="qhead"><span class="qno">Q4</span><h3>Explain the methods used for reading a text file. <span class="mk">5 marks</span></h3></header><div class="ans"><h4 class="sh">Answer</h4><p>Let <code>sample.txt</code> contain three lines: Hello, Python, Files.</p><div class="tblwrap"><table class=""><thead><tr><th>Method</th><th>Work</th><th>Result for sample.txt</th></tr></thead><tbody><tr><td><code>read()</code></td><td>Whole file as one string</td><td><code>'Hello\nPython\nFiles\n'</code></td></tr><tr><td><code>read(n)</code></td><td>First n characters</td><td><code>read(5)</code> gives <code>'Hello'</code></td></tr><tr><td><code>readline()</code></td><td>One line (with \n). Empty string at the end</td><td><code>'Hello\n'</code></td></tr><tr><td><code>readlines()</code></td><td>All lines as a list</td><td><code>['Hello\n', 'Python\n', 'Files\n']</code></td></tr></tbody></table></div><figure class="fig"><svg viewBox="0 0 760 180" width="760" role="img" aria-label="Fig. readline() and readlines()" xmlns="http://www.w3.org/2000/svg"><rect class="bx3" x="20" y="14" width="200" height="150" rx="6"/><text class="t tb tn2" x="120" y="39"><tspan x="120" dy="0">notes.txt</tspan></text><text class="t tm" x="120" y="75"><tspan x="120" dy="0">Line 1</tspan></text><text class="t tm" x="120" y="111"><tspan x="120" dy="0">Line 2</tspan></text><text class="t tm" x="120" y="147"><tspan x="120" dy="0">Line 3</tspan></text><path class="ln ar" d="M222,60 L330,45"/><path class="ln ar" d="M222,120 L330,128"/><text class="t ts tm" x="278" y="35"><tspan x="278" dy="0">readline()</tspan></text><text class="t ts tm" x="280" y="155"><tspan x="280" dy="0">readlines()</tspan></text><rect class="bx2" x="335" y="14" width="410" height="56" rx="6"/><text class="t" x="540.0" y="39.0"><tspan x="540.0" dy="0">'Line 1\n'</tspan><tspan x="540.0" dy="16">only ONE line, as a string</tspan></text><rect class="bxg" x="335" y="100" width="410" height="66" rx="6"/><text class="t" x="540.0" y="130.0"><tspan x="540.0" dy="0">['Line 1\n', 'Line 2\n', 'Line 3\n']</tspan><tspan x="540.0" dy="16">ALL lines, as a list of strings</tspan></text></svg><figcaption>Fig. readline() and readlines()</figcaption></figure><div class="codeblock file"><div class="cap">File: sample.txt</div><pre>Hello
+Python
+Files</pre></div>
+<div class="codeblock"><div class="cap">Example program</div><pre class="code"><span class="tk-n">f</span> <span class="tk-o">=</span> <span class="tk-nb">open</span><span class="tk-p">(</span><span class="tk-s2">"sample.txt"</span><span class="tk-p">)</span>
+<span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-nb">repr</span><span class="tk-p">(</span><span class="tk-n">f</span><span class="tk-o">.</span><span class="tk-n">read</span><span class="tk-p">()))</span>
+<span class="tk-n">f</span><span class="tk-o">.</span><span class="tk-n">close</span><span class="tk-p">()</span>
+<span class="tk-n">f</span> <span class="tk-o">=</span> <span class="tk-nb">open</span><span class="tk-p">(</span><span class="tk-s2">"sample.txt"</span><span class="tk-p">)</span>
+<span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-nb">repr</span><span class="tk-p">(</span><span class="tk-n">f</span><span class="tk-o">.</span><span class="tk-n">read</span><span class="tk-p">(</span><span class="tk-mi">5</span><span class="tk-p">)))</span>
+<span class="tk-n">f</span><span class="tk-o">.</span><span class="tk-n">close</span><span class="tk-p">()</span>
+<span class="tk-n">f</span> <span class="tk-o">=</span> <span class="tk-nb">open</span><span class="tk-p">(</span><span class="tk-s2">"sample.txt"</span><span class="tk-p">)</span>
+<span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-nb">repr</span><span class="tk-p">(</span><span class="tk-n">f</span><span class="tk-o">.</span><span class="tk-n">readline</span><span class="tk-p">()))</span>
+<span class="tk-n">f</span><span class="tk-o">.</span><span class="tk-n">close</span><span class="tk-p">()</span>
+<span class="tk-n">f</span> <span class="tk-o">=</span> <span class="tk-nb">open</span><span class="tk-p">(</span><span class="tk-s2">"sample.txt"</span><span class="tk-p">)</span>
+<span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-n">f</span><span class="tk-o">.</span><span class="tk-n">readlines</span><span class="tk-p">())</span>
+<span class="tk-n">f</span><span class="tk-o">.</span><span class="tk-n">close</span><span class="tk-p">()</span></pre></div>
+<div class="output"><div class="cap">Output</div><pre>'Hello\nPython\nFiles\n'
+'Hello'
+'Hello\n'
+['Hello\n', 'Python\n', 'Files\n']</pre></div></div></section>
+<section class="q" id="q-m5-q5"><header class="qhead"><span class="qno">Q5</span><h3>How can we read a file line by line? Why is strip() used? <span class="mk">3 marks</span></h3></header><div class="ans"><h4 class="sh">Answer</h4><p>A file can be read line by line using a <b>for loop</b> over the file object. Each line ends with <b>\n</b>, so we use <code>strip()</code> to remove it, or <code>print(line, end="")</code>.</p><div class="codeblock file"><div class="cap">File: sample.txt</div><pre>Hello
+Python
+Files</pre></div>
+<div class="codeblock"><div class="cap">Example program</div><pre class="code"><span class="tk-k">with</span> <span class="tk-nb">open</span><span class="tk-p">(</span><span class="tk-s2">"sample.txt"</span><span class="tk-p">,</span> <span class="tk-s2">"r"</span><span class="tk-p">)</span> <span class="tk-k">as</span> <span class="tk-n">f</span><span class="tk-p">:</span>
+    <span class="tk-k">for</span> <span class="tk-n">line</span> <span class="tk-ow">in</span> <span class="tk-n">f</span><span class="tk-p">:</span>
+        <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-n">line</span><span class="tk-o">.</span><span class="tk-n">strip</span><span class="tk-p">())</span></pre></div>
+<div class="output"><div class="cap">Output</div><pre>Hello
+Python
+Files</pre></div></div></section>
+<div class="part"><h2>Chapter 3 : Writing to Text Files</h2><p>write(), writelines() and the modes w and a.</p></div>
+<section class="q" id="q-m5-q6"><header class="qhead"><span class="qno">Q6</span><h3>Explain the methods write() and writelines(). <span class="mk">3 marks</span></h3></header><div class="ans"><h4 class="sh">Answer</h4><ul><li><code>write(string)</code> writes text. It does <b>not add a new line</b>, so we put <code>\n</code> ourselves.</li><li><code>writelines(list)</code> writes many strings (no <code>\n</code> is added).</li><li><b>Only strings</b> can be written. Convert numbers using <code>str()</code>, for example <code>f.write(str(10))</code>.</li></ul><div class="codeblock"><div class="cap">Example program</div><pre class="code"><span class="tk-k">with</span> <span class="tk-nb">open</span><span class="tk-p">(</span><span class="tk-s2">"out.txt"</span><span class="tk-p">,</span> <span class="tk-s2">"w"</span><span class="tk-p">)</span> <span class="tk-k">as</span> <span class="tk-n">f</span><span class="tk-p">:</span>
+    <span class="tk-n">f</span><span class="tk-o">.</span><span class="tk-n">write</span><span class="tk-p">(</span><span class="tk-s2">"Hello</span><span class="tk-se">\n</span><span class="tk-s2">"</span><span class="tk-p">)</span>
+    <span class="tk-n">f</span><span class="tk-o">.</span><span class="tk-n">write</span><span class="tk-p">(</span><span class="tk-nb">str</span><span class="tk-p">(</span><span class="tk-mi">10</span><span class="tk-p">)</span> <span class="tk-o">+</span> <span class="tk-s2">"</span><span class="tk-se">\n</span><span class="tk-s2">"</span><span class="tk-p">)</span>
+    <span class="tk-n">f</span><span class="tk-o">.</span><span class="tk-n">writelines</span><span class="tk-p">([</span><span class="tk-s2">"a</span><span class="tk-se">\n</span><span class="tk-s2">"</span><span class="tk-p">,</span> <span class="tk-s2">"b</span><span class="tk-se">\n</span><span class="tk-s2">"</span><span class="tk-p">])</span>
+<span class="tk-k">with</span> <span class="tk-nb">open</span><span class="tk-p">(</span><span class="tk-s2">"out.txt"</span><span class="tk-p">)</span> <span class="tk-k">as</span> <span class="tk-n">f</span><span class="tk-p">:</span>
+    <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-n">f</span><span class="tk-o">.</span><span class="tk-n">read</span><span class="tk-p">())</span></pre></div>
+<div class="output"><div class="cap">Output</div><pre>Hello
+10
+a
+b</pre></div></div></section>
+<section class="q" id="q-m5-q7"><header class="qhead"><span class="qno">Q7</span><h3>Write a Python program to write content to a file and then add more content. Differentiate between w and a modes. <span class="mk">5 marks</span></h3></header><div class="ans"><h4 class="sh">Answer</h4><p><b>"w"</b> replaces the old content. <b>"a"</b> keeps the old content and adds the new content at the end.</p><div class="codeblock"><div class="cap">Example program</div><pre class="code"><span class="tk-k">with</span> <span class="tk-nb">open</span><span class="tk-p">(</span><span class="tk-s2">"out.txt"</span><span class="tk-p">,</span> <span class="tk-s2">"w"</span><span class="tk-p">)</span> <span class="tk-k">as</span> <span class="tk-n">f</span><span class="tk-p">:</span>        <span class="tk-c1"># write mode</span>
+    <span class="tk-n">f</span><span class="tk-o">.</span><span class="tk-n">write</span><span class="tk-p">(</span><span class="tk-s2">"Hello</span><span class="tk-se">\n</span><span class="tk-s2">"</span><span class="tk-p">)</span>
+    <span class="tk-n">f</span><span class="tk-o">.</span><span class="tk-n">write</span><span class="tk-p">(</span><span class="tk-s2">"Python</span><span class="tk-se">\n</span><span class="tk-s2">"</span><span class="tk-p">)</span>
+
+<span class="tk-k">with</span> <span class="tk-nb">open</span><span class="tk-p">(</span><span class="tk-s2">"out.txt"</span><span class="tk-p">,</span> <span class="tk-s2">"a"</span><span class="tk-p">)</span> <span class="tk-k">as</span> <span class="tk-n">f</span><span class="tk-p">:</span>        <span class="tk-c1"># append mode</span>
+    <span class="tk-n">f</span><span class="tk-o">.</span><span class="tk-n">write</span><span class="tk-p">(</span><span class="tk-s2">"Files</span><span class="tk-se">\n</span><span class="tk-s2">"</span><span class="tk-p">)</span>
+
+<span class="tk-k">with</span> <span class="tk-nb">open</span><span class="tk-p">(</span><span class="tk-s2">"out.txt"</span><span class="tk-p">,</span> <span class="tk-s2">"r"</span><span class="tk-p">)</span> <span class="tk-k">as</span> <span class="tk-n">f</span><span class="tk-p">:</span>
+    <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-n">f</span><span class="tk-o">.</span><span class="tk-n">read</span><span class="tk-p">())</span>
+
+<span class="tk-k">with</span> <span class="tk-nb">open</span><span class="tk-p">(</span><span class="tk-s2">"out.txt"</span><span class="tk-p">,</span> <span class="tk-s2">"w"</span><span class="tk-p">)</span> <span class="tk-k">as</span> <span class="tk-n">f</span><span class="tk-p">:</span>        <span class="tk-c1"># "w" again erases the old content</span>
+    <span class="tk-n">f</span><span class="tk-o">.</span><span class="tk-n">write</span><span class="tk-p">(</span><span class="tk-s2">"New</span><span class="tk-se">\n</span><span class="tk-s2">"</span><span class="tk-p">)</span>
+<span class="tk-k">with</span> <span class="tk-nb">open</span><span class="tk-p">(</span><span class="tk-s2">"out.txt"</span><span class="tk-p">)</span> <span class="tk-k">as</span> <span class="tk-n">f</span><span class="tk-p">:</span>
+    <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-n">f</span><span class="tk-o">.</span><span class="tk-n">read</span><span class="tk-p">())</span></pre></div>
+<div class="output"><div class="cap">Output</div><pre>Hello
+Python
+Files
+
+New</pre></div></div></section>
+<div class="part"><h2>Chapter 4 : CSV Files</h2><p>Reading and writing comma separated files.</p></div>
+<section class="q" id="q-m5-q8"><header class="qhead"><span class="qno">Q8</span><h3>What is a CSV file? Write a program to write and read a CSV file. <span class="mk">5 marks</span></h3></header><div class="ans"><h4 class="sh">Answer</h4><p><b>CSV</b> stands for <b>Comma Separated Values</b>. Each line is a record and the fields are separated by commas. It is used for tables and opens in Excel. It is handled using the <code>csv</code> module (<code>import csv</code>).</p><ul><li><code>csv.writer(f)</code> gives a writer. <code>writerow(list)</code> writes one row. <code>writerows(list of lists)</code> writes many rows.</li><li><code>csv.reader(f)</code> gives each row as a <b>list of strings</b>.</li><li>Use <code>newline=""</code> while writing, to avoid blank lines on Windows.</li></ul><div class="codeblock"><div class="cap">Example program</div><pre class="code"><span class="tk-kn">import</span><span class="tk-w"> </span><span class="tk-nn">csv</span>
+<span class="tk-k">with</span> <span class="tk-nb">open</span><span class="tk-p">(</span><span class="tk-s2">"students.csv"</span><span class="tk-p">,</span> <span class="tk-s2">"w"</span><span class="tk-p">,</span> <span class="tk-n">newline</span><span class="tk-o">=</span><span class="tk-s2">""</span><span class="tk-p">)</span> <span class="tk-k">as</span> <span class="tk-n">f</span><span class="tk-p">:</span>
+    <span class="tk-n">w</span> <span class="tk-o">=</span> <span class="tk-n">csv</span><span class="tk-o">.</span><span class="tk-n">writer</span><span class="tk-p">(</span><span class="tk-n">f</span><span class="tk-p">)</span>
+    <span class="tk-n">w</span><span class="tk-o">.</span><span class="tk-n">writerow</span><span class="tk-p">([</span><span class="tk-s2">"Name"</span><span class="tk-p">,</span> <span class="tk-s2">"Marks"</span><span class="tk-p">])</span>
+    <span class="tk-n">w</span><span class="tk-o">.</span><span class="tk-n">writerow</span><span class="tk-p">([</span><span class="tk-s2">"Ravi"</span><span class="tk-p">,</span> <span class="tk-mi">80</span><span class="tk-p">])</span>
+    <span class="tk-n">w</span><span class="tk-o">.</span><span class="tk-n">writerow</span><span class="tk-p">([</span><span class="tk-s2">"Anu"</span><span class="tk-p">,</span> <span class="tk-mi">90</span><span class="tk-p">])</span>
+
+<span class="tk-k">with</span> <span class="tk-nb">open</span><span class="tk-p">(</span><span class="tk-s2">"students.csv"</span><span class="tk-p">,</span> <span class="tk-s2">"r"</span><span class="tk-p">)</span> <span class="tk-k">as</span> <span class="tk-n">f</span><span class="tk-p">:</span>
+    <span class="tk-n">r</span> <span class="tk-o">=</span> <span class="tk-n">csv</span><span class="tk-o">.</span><span class="tk-n">reader</span><span class="tk-p">(</span><span class="tk-n">f</span><span class="tk-p">)</span>
+    <span class="tk-k">for</span> <span class="tk-n">row</span> <span class="tk-ow">in</span> <span class="tk-n">r</span><span class="tk-p">:</span>
+        <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-n">row</span><span class="tk-p">)</span></pre></div>
+<div class="output"><div class="cap">Output</div><pre>['Name', 'Marks']
+['Ravi', '80']
+['Anu', '90']</pre></div><p>Notice that the numbers come back as <b>strings</b> ('80', '90').</p><div class="tip"><b>Exam tip:</b> Write "numbers are read back as strings". It is a key observation of this module.</div></div></section>
+<section class="q" id="q-m5-q9"><header class="qhead"><span class="qno">Q9</span><h3>What is csv.DictReader? <span class="mk">3 marks</span></h3></header><div class="ans"><h4 class="sh">Answer</h4><p><code>csv.DictReader(f)</code> reads the <b>first row as headings</b>. Every other row comes as a <b>dictionary</b>, so we can use <code>row["Name"]</code>.</p><div class="codeblock file"><div class="cap">File: students.csv</div><pre>Name,Marks
+Ravi,80
+Anu,90</pre></div>
+<div class="codeblock"><div class="cap">Example program</div><pre class="code"><span class="tk-kn">import</span><span class="tk-w"> </span><span class="tk-nn">csv</span>
+<span class="tk-k">with</span> <span class="tk-nb">open</span><span class="tk-p">(</span><span class="tk-s2">"students.csv"</span><span class="tk-p">,</span> <span class="tk-s2">"r"</span><span class="tk-p">)</span> <span class="tk-k">as</span> <span class="tk-n">f</span><span class="tk-p">:</span>
+    <span class="tk-k">for</span> <span class="tk-n">row</span> <span class="tk-ow">in</span> <span class="tk-n">csv</span><span class="tk-o">.</span><span class="tk-n">DictReader</span><span class="tk-p">(</span><span class="tk-n">f</span><span class="tk-p">):</span>
+        <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-n">row</span><span class="tk-p">[</span><span class="tk-s2">"Name"</span><span class="tk-p">],</span> <span class="tk-n">row</span><span class="tk-p">[</span><span class="tk-s2">"Marks"</span><span class="tk-p">])</span></pre></div>
+<div class="output"><div class="cap">Output</div><pre>Ravi 80
+Anu 90</pre></div></div></section>
+<div class="part"><h2>Chapter 5 : Exception Handling</h2><p>Catching run-time errors with try, except, else and finally.</p></div>
+<section class="q" id="q-m5-q10"><header class="qhead"><span class="qno">Q10</span><h3>Differentiate between a syntax error and an exception. <span class="mk">3 marks</span></h3></header><div class="ans"><h4 class="sh">Answer</h4><div class="tblwrap"><table class=""><thead><tr><th>Syntax error</th><th>Exception (run-time error)</th></tr></thead><tbody><tr><td>Wrong grammar. Found <b>before</b> the program runs</td><td>Error <b>while running</b>. Stops the program unless handled</td></tr><tr><td>Example: <code>print("Hi"</code></td><td>Example: <code>10 / 0</code></td></tr></tbody></table></div><p><b>Exception handling</b> means catching errors so that the program does not crash.</p></div></section>
+<section class="q" id="q-m5-q11"><header class="qhead"><span class="qno">Q11</span><h3>Explain the common built-in exceptions with examples. <span class="mk">5 marks</span></h3></header><div class="ans"><h4 class="sh">Answer</h4><div class="tblwrap"><table class=""><thead><tr><th>Exception</th><th>Raised when</th><th>Example</th></tr></thead><tbody><tr><td><code>ZeroDivisionError</code></td><td>Dividing by zero</td><td><code>10 / 0</code></td></tr><tr><td><code>ValueError</code></td><td>Right type, wrong value</td><td><code>int("abc")</code></td></tr><tr><td><code>TypeError</code></td><td>Wrong type used</td><td><code>"5" + 3</code></td></tr><tr><td><code>NameError</code></td><td>Variable not defined</td><td><code>print(x)</code></td></tr><tr><td><code>IndexError</code></td><td>List index out of range</td><td><code>[1, 2][5]</code></td></tr><tr><td><code>KeyError</code></td><td>Dictionary key not found</td><td><code>{"a": 1}["b"]</code></td></tr><tr><td><code>FileNotFoundError</code></td><td>File does not exist</td><td><code>open("none.txt")</code></td></tr><tr><td><code>ModuleNotFoundError</code></td><td>Module cannot be found</td><td><code>import abc123</code></td></tr></tbody></table></div><div class="codeblock"><div class="cap">Example program</div><pre class="code"><span class="tk-n">tests</span> <span class="tk-o">=</span> <span class="tk-p">[</span><span class="tk-k">lambda</span><span class="tk-p">:</span> <span class="tk-mi">10</span> <span class="tk-o">/</span> <span class="tk-mi">0</span><span class="tk-p">,</span> <span class="tk-k">lambda</span><span class="tk-p">:</span> <span class="tk-nb">int</span><span class="tk-p">(</span><span class="tk-s2">"abc"</span><span class="tk-p">),</span> <span class="tk-k">lambda</span><span class="tk-p">:</span> <span class="tk-s2">"5"</span> <span class="tk-o">+</span> <span class="tk-mi">3</span><span class="tk-p">,</span> <span class="tk-k">lambda</span><span class="tk-p">:</span> <span class="tk-p">[</span><span class="tk-mi">1</span><span class="tk-p">,</span> <span class="tk-mi">2</span><span class="tk-p">][</span><span class="tk-mi">5</span><span class="tk-p">],</span>
+         <span class="tk-k">lambda</span><span class="tk-p">:</span> <span class="tk-p">{</span><span class="tk-s2">"a"</span><span class="tk-p">:</span> <span class="tk-mi">1</span><span class="tk-p">}[</span><span class="tk-s2">"b"</span><span class="tk-p">],</span> <span class="tk-k">lambda</span><span class="tk-p">:</span> <span class="tk-nb">open</span><span class="tk-p">(</span><span class="tk-s2">"none.txt"</span><span class="tk-p">),</span> <span class="tk-k">lambda</span><span class="tk-p">:</span> <span class="tk-nb">__import__</span><span class="tk-p">(</span><span class="tk-s2">"abc123"</span><span class="tk-p">)]</span>
+<span class="tk-k">for</span> <span class="tk-n">t</span> <span class="tk-ow">in</span> <span class="tk-n">tests</span><span class="tk-p">:</span>
+    <span class="tk-k">try</span><span class="tk-p">:</span>
+        <span class="tk-n">t</span><span class="tk-p">()</span>
+    <span class="tk-k">except</span> <span class="tk-ne">Exception</span> <span class="tk-k">as</span> <span class="tk-n">e</span><span class="tk-p">:</span>
+        <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-nb">type</span><span class="tk-p">(</span><span class="tk-n">e</span><span class="tk-p">)</span><span class="tk-o">.</span><span class="tk-vm">__name__</span><span class="tk-p">,</span> <span class="tk-s2">"-&gt;"</span><span class="tk-p">,</span> <span class="tk-n">e</span><span class="tk-p">)</span></pre></div>
+<div class="output"><div class="cap">Output</div><pre>ZeroDivisionError -&gt; division by zero
+ValueError -&gt; invalid literal for int() with base 10: 'abc'
+TypeError -&gt; can only concatenate str (not "int") to str
+IndexError -&gt; list index out of range
+KeyError -&gt; 'b'
+FileNotFoundError -&gt; [Errno 2] No such file or directory: 'none.txt'
+ModuleNotFoundError -&gt; No module named 'abc123'</pre></div></div></section>
+<section class="q" id="q-m5-q12"><header class="qhead"><span class="qno">Q12</span><h3>Explain try, except, else and finally with a flowchart and an example. <span class="mk">5 marks</span></h3></header><div class="ans"><h4 class="sh">Answer</h4><div class="tblwrap"><table class=""><thead><tr><th>Block</th><th>Work</th></tr></thead><tbody><tr><td><code>try</code></td><td>Code that may cause an error</td></tr><tr><td><code>except</code></td><td>Runs if an error occurs. It handles the error</td></tr><tr><td><code>else</code></td><td>Runs only if <b>no error</b> occurred</td></tr><tr><td><code>finally</code></td><td>Runs <b>always</b>, error or not (cleanup, for example closing a file)</td></tr></tbody></table></div><figure class="fig"><svg viewBox="0 0 640 430" width="640" role="img" aria-label="Fig. Flow of try, except, else and finally" xmlns="http://www.w3.org/2000/svg"><rect class="bx2" x="230" y="10" width="180" height="50" rx="6"/><text class="t tb" x="320.0" y="32.0"><tspan x="320.0" dy="0">try block</tspan><tspan x="320.0" dy="16">(risky code)</tspan></text><path class="ln ar" d="M320,60 L320,88"/><polygon class="bx3" points="320,88.0 415.0,125 320,162.0 225.0,125"/><text class="t tb" x="320" y="130"><tspan x="320" dy="0">Error occurs?</tspan></text><path class="ln ar" d="M225,125 L135,125 L135,166"/><path class="ln ar" d="M415,125 L505,125 L505,166"/><text class="t tb ts" x="180" y="121"><tspan x="180" dy="0">No</tspan></text><text class="t tb ts" x="460" y="121"><tspan x="460" dy="0">Yes</tspan></text><rect class="bxg" x="35" y="170" width="200" height="56" rx="6"/><text class="t" x="135.0" y="195.0"><tspan x="135.0" dy="0">else block</tspan><tspan x="135.0" dy="16">(runs only if no error)</tspan></text><rect class="bxr" x="405" y="170" width="200" height="56" rx="6"/><text class="t" x="505.0" y="195.0"><tspan x="505.0" dy="0">except block</tspan><tspan x="505.0" dy="16">(handles the error)</tspan></text><path class="ln ar" d="M135,226 L135,318 L208,318"/><path class="ln ar" d="M505,226 L505,318 L432,318"/><rect class="bx2" x="210" y="290" width="220" height="56" rx="6"/><text class="t tb" x="320.0" y="315.0"><tspan x="320.0" dy="0">finally block</tspan><tspan x="320.0" dy="16">(always runs)</tspan></text><path class="ln ar" d="M320,346 L320,378"/><ellipse class="bx3" cx="320" cy="398" rx="90" ry="20"/><text class="t tb" x="320" y="403"><tspan x="320" dy="0">Program continues</tspan></text></svg><figcaption>Fig. Flow of try, except, else and finally</figcaption></figure><div class="codeblock"><div class="cap">Example program</div><pre class="code"><span class="tk-k">try</span><span class="tk-p">:</span>
+    <span class="tk-n">a</span> <span class="tk-o">=</span> <span class="tk-nb">int</span><span class="tk-p">(</span><span class="tk-nb">input</span><span class="tk-p">(</span><span class="tk-s2">"Enter number: "</span><span class="tk-p">))</span>
+    <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-mi">10</span> <span class="tk-o">/</span> <span class="tk-n">a</span><span class="tk-p">)</span>
+<span class="tk-k">except</span> <span class="tk-ne">ZeroDivisionError</span><span class="tk-p">:</span>
+    <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-s2">"Cannot divide by zero"</span><span class="tk-p">)</span>
+<span class="tk-k">except</span> <span class="tk-ne">ValueError</span><span class="tk-p">:</span>
+    <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-s2">"Enter a valid number"</span><span class="tk-p">)</span>
+<span class="tk-k">else</span><span class="tk-p">:</span>
+    <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-s2">"No error"</span><span class="tk-p">)</span>
+<span class="tk-k">finally</span><span class="tk-p">:</span>
+    <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-s2">"Done"</span><span class="tk-p">)</span></pre></div>
+<div class="output"><div class="cap">Output 1 (the user types 5)</div><pre>Enter number: <span class="typed">5</span>
+2.0
+No error
+Done</pre></div><div class="output"><div class="cap">Output 2 (the user types 0)</div><pre>Enter number: <span class="typed">0</span>
+Cannot divide by zero
+Done</pre></div><div class="output"><div class="cap">Output 3 (the user types abc)</div><pre>Enter number: <span class="typed">abc</span>
+Enter a valid number
+Done</pre></div><div class="tip"><b>Exam tip:</b> Write the order: try, except, else, finally. Show the three outputs for the three inputs (5, 0, abc).</div></div></section>
+<section class="q" id="q-m5-q13"><header class="qhead"><span class="qno">Q13</span><h3>Write the important rules of using multiple except blocks. <span class="mk">3 marks</span></h3></header><div class="ans"><h4 class="sh">Answer</h4><ul><li><b>Many except blocks</b> are allowed. Put the <b>specific</b> exceptions first.</li><li>One except can handle many types: <code>except (ValueError, TypeError):</code></li><li>To get the error message use <code>except ZeroDivisionError as e:</code> and <code>print(e)</code>.</li><li><code>except:</code> alone catches <b>every</b> error. It is <b>not good practice</b>.</li><li><code>try</code> needs at least one <code>except</code> or a <code>finally</code>. The order is try, except, else, finally.</li></ul><div class="codeblock"><div class="cap">Example program</div><pre class="code"><span class="tk-k">try</span><span class="tk-p">:</span>
+    <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-mi">10</span> <span class="tk-o">/</span> <span class="tk-mi">0</span><span class="tk-p">)</span>
+<span class="tk-k">except</span> <span class="tk-ne">ZeroDivisionError</span> <span class="tk-k">as</span> <span class="tk-n">e</span><span class="tk-p">:</span>
+    <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-s2">"Error:"</span><span class="tk-p">,</span> <span class="tk-n">e</span><span class="tk-p">)</span>
+
+<span class="tk-k">for</span> <span class="tk-n">value</span> <span class="tk-ow">in</span> <span class="tk-p">[</span><span class="tk-s2">"7"</span><span class="tk-p">,</span> <span class="tk-s2">"x"</span><span class="tk-p">,</span> <span class="tk-kc">None</span><span class="tk-p">]:</span>
+    <span class="tk-k">try</span><span class="tk-p">:</span>
+        <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-nb">int</span><span class="tk-p">(</span><span class="tk-n">value</span><span class="tk-p">))</span>
+    <span class="tk-k">except</span> <span class="tk-p">(</span><span class="tk-ne">ValueError</span><span class="tk-p">,</span> <span class="tk-ne">TypeError</span><span class="tk-p">):</span>
+        <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-s2">"Bad value:"</span><span class="tk-p">,</span> <span class="tk-n">value</span><span class="tk-p">)</span></pre></div>
+<div class="output"><div class="cap">Output</div><pre>Error: division by zero
+7
+Bad value: x
+Bad value: None</pre></div></div></section>
+<section class="q" id="q-m5-q14"><header class="qhead"><span class="qno">Q14</span><h3>Write a Python program to display file content with the help of FileNotFoundError handling. <span class="mk">5 marks</span></h3></header><div class="ans"><h4 class="sh">Answer</h4><ol class="steps"><li>Ask for the file name.</li><li>Open and read the file inside a <b>try</b> block.</li><li>Catch <b>FileNotFoundError</b> in the except block and show a message.</li><li>If the file is present, show its content.</li></ol><div class="codeblock file"><div class="cap">File: sample.txt</div><pre>Hello
+Python
+Files</pre></div>
+<div class="codeblock"><div class="cap">Example program</div><pre class="code"><span class="tk-n">name</span> <span class="tk-o">=</span> <span class="tk-nb">input</span><span class="tk-p">(</span><span class="tk-s2">"Enter the file name: "</span><span class="tk-p">)</span>
+<span class="tk-k">try</span><span class="tk-p">:</span>
+    <span class="tk-k">with</span> <span class="tk-nb">open</span><span class="tk-p">(</span><span class="tk-n">name</span><span class="tk-p">,</span> <span class="tk-s2">"r"</span><span class="tk-p">)</span> <span class="tk-k">as</span> <span class="tk-n">f</span><span class="tk-p">:</span>
+        <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-n">f</span><span class="tk-o">.</span><span class="tk-n">read</span><span class="tk-p">())</span>
+<span class="tk-k">except</span> <span class="tk-ne">FileNotFoundError</span><span class="tk-p">:</span>
+    <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-s2">"File not found"</span><span class="tk-p">)</span></pre></div>
+<div class="output"><div class="cap">Output 1 (file exists)</div><pre>Enter the file name: <span class="typed">sample.txt</span>
+Hello
+Python
+Files</pre></div><div class="output"><div class="cap">Output 2 (file does not exist)</div><pre>Enter the file name: <span class="typed">none.txt</span>
+File not found</pre></div></div></section>
+<div class="part"><h2>Chapter 6 : Raising Exceptions</h2><p>The raise keyword, the exception family and a lab program.</p></div>
+<section class="q" id="q-m5-q15"><header class="qhead"><span class="qno">Q15</span><h3>Explain the raise keyword with an example. <span class="mk">3 marks</span></h3></header><div class="ans"><h4 class="sh">Answer</h4><p><code>raise</code> creates an exception <b>by the programmer</b>. The syntax is <code>raise ExceptionType("message")</code>. It is used to stop wrong data, for example a negative age. A raised exception can be caught with try-except.</p><div class="codeblock"><div class="cap">Example program</div><pre class="code"><span class="tk-k">try</span><span class="tk-p">:</span>
+    <span class="tk-k">raise</span> <span class="tk-ne">ValueError</span><span class="tk-p">(</span><span class="tk-s2">"Bad input"</span><span class="tk-p">)</span>
+<span class="tk-k">except</span> <span class="tk-ne">ValueError</span> <span class="tk-k">as</span> <span class="tk-n">e</span><span class="tk-p">:</span>
+    <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-s2">"Caught:"</span><span class="tk-p">,</span> <span class="tk-n">e</span><span class="tk-p">)</span>
+
+<span class="tk-n">age</span> <span class="tk-o">=</span> <span class="tk-o">-</span><span class="tk-mi">5</span>
+<span class="tk-k">if</span> <span class="tk-n">age</span> <span class="tk-o">&lt;</span> <span class="tk-mi">0</span><span class="tk-p">:</span>
+    <span class="tk-k">raise</span> <span class="tk-ne">ValueError</span><span class="tk-p">(</span><span class="tk-s2">"Age cannot be negative"</span><span class="tk-p">)</span></pre></div>
+<div class="output"><div class="cap">Output</div><pre>Caught: Bad input
+<span class="errline">ValueError: Age cannot be negative</span></pre></div></div></section>
+<section class="q" id="q-m5-q16"><header class="qhead"><span class="qno">Q16</span><h3>Draw the family (hierarchy) of the common exceptions. <span class="mk">3 marks</span></h3></header><div class="ans"><h4 class="sh">Answer</h4><p>Exceptions are arranged in a family. <b>Catching a parent exception also catches its children</b>. For example, <code>except LookupError</code> catches both IndexError and KeyError.</p><figure class="fig"><svg viewBox="0 0 700 290" width="700" role="img" aria-label="Fig. Exception family (some)" xmlns="http://www.w3.org/2000/svg"><rect class="bx2" x="250" y="8" width="200" height="38" rx="6"/><text class="t tb" x="350.0" y="32.0"><tspan x="350.0" dy="0">Exception</tspan></text><path class="ln ar" d="M350,46 L350,62"/><path class="ln" d="M105,62 L615,62"/><path class="ln ar" d="M95,62 L95,78"/><rect class="bx" x="20" y="80" width="150" height="38" rx="6"/><text class="t tb" x="95.0" y="104.0"><tspan x="95.0" dy="0">ArithmeticError</tspan></text><rect class="bxr" x="26" y="140" width="138" height="34" rx="6"/><text class="t tm ts" x="95.0" y="162.0"><tspan x="95.0" dy="0">ZeroDivisionError</tspan></text><path class="lg" d="M95,118 L95,140"/><path class="ln ar" d="M265,62 L265,78"/><rect class="bx" x="190" y="80" width="150" height="38" rx="6"/><text class="t tb" x="265.0" y="104.0"><tspan x="265.0" dy="0">LookupError</tspan></text><rect class="bxr" x="196" y="140" width="138" height="34" rx="6"/><text class="t tm ts" x="265.0" y="162.0"><tspan x="265.0" dy="0">IndexError</tspan></text><path class="lg" d="M265,118 L265,140"/><rect class="bxr" x="196" y="184" width="138" height="34" rx="6"/><text class="t tm ts" x="265.0" y="206.0"><tspan x="265.0" dy="0">KeyError</tspan></text><path class="lg" d="M265,174 L265,184"/><path class="ln ar" d="M435,62 L435,78"/><rect class="bx" x="360" y="80" width="150" height="38" rx="6"/><text class="t tb" x="435.0" y="104.0"><tspan x="435.0" dy="0">OSError</tspan></text><rect class="bxr" x="366" y="140" width="138" height="34" rx="6"/><text class="t tm ts" x="435.0" y="162.0"><tspan x="435.0" dy="0">FileNotFoundError</tspan></text><path class="lg" d="M435,118 L435,140"/><path class="ln ar" d="M605,62 L605,78"/><rect class="bx" x="530" y="80" width="150" height="38" rx="6"/><text class="t ts" x="605.0" y="104.0"><tspan x="605.0" dy="0">Others</tspan></text><rect class="bxr" x="536" y="140" width="138" height="34" rx="6"/><text class="t tm ts" x="605.0" y="162.0"><tspan x="605.0" dy="0">ValueError</tspan></text><path class="lg" d="M605,118 L605,140"/><rect class="bxr" x="536" y="184" width="138" height="34" rx="6"/><text class="t tm ts" x="605.0" y="206.0"><tspan x="605.0" dy="0">TypeError</tspan></text><path class="lg" d="M605,174 L605,184"/><rect class="bxr" x="536" y="228" width="138" height="34" rx="6"/><text class="t tm ts" x="605.0" y="250.0"><tspan x="605.0" dy="0">NameError</tspan></text><path class="lg" d="M605,218 L605,228"/></svg><figcaption>Fig. Exception family (some)</figcaption></figure><div class="codeblock"><div class="cap">Example program</div><pre class="code"><span class="tk-k">try</span><span class="tk-p">:</span>
+    <span class="tk-p">[</span><span class="tk-mi">1</span><span class="tk-p">,</span> <span class="tk-mi">2</span><span class="tk-p">][</span><span class="tk-mi">5</span><span class="tk-p">]</span>
+<span class="tk-k">except</span> <span class="tk-ne">LookupError</span> <span class="tk-k">as</span> <span class="tk-n">e</span><span class="tk-p">:</span>
+    <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-s2">"LookupError caught:"</span><span class="tk-p">,</span> <span class="tk-nb">type</span><span class="tk-p">(</span><span class="tk-n">e</span><span class="tk-p">)</span><span class="tk-o">.</span><span class="tk-vm">__name__</span><span class="tk-p">)</span></pre></div>
+<div class="output"><div class="cap">Output</div><pre>LookupError caught: IndexError</pre></div></div></section>
+<section class="q" id="q-m5-q17"><header class="qhead"><span class="qno">Q17</span><h3>Write a program to count the lines and words in a file safely. <span class="mk">5 marks</span></h3></header><div class="ans"><h4 class="sh">Answer</h4><div class="codeblock file"><div class="cap">File: sample.txt</div><pre>Hello
+Python
+Files</pre></div>
+<div class="codeblock"><div class="cap">Example program</div><pre class="code"><span class="tk-k">try</span><span class="tk-p">:</span>
+    <span class="tk-k">with</span> <span class="tk-nb">open</span><span class="tk-p">(</span><span class="tk-s2">"sample.txt"</span><span class="tk-p">,</span> <span class="tk-s2">"r"</span><span class="tk-p">)</span> <span class="tk-k">as</span> <span class="tk-n">f</span><span class="tk-p">:</span>
+        <span class="tk-n">lines</span> <span class="tk-o">=</span> <span class="tk-n">f</span><span class="tk-o">.</span><span class="tk-n">readlines</span><span class="tk-p">()</span>
+    <span class="tk-n">words</span> <span class="tk-o">=</span> <span class="tk-mi">0</span>
+    <span class="tk-k">for</span> <span class="tk-n">line</span> <span class="tk-ow">in</span> <span class="tk-n">lines</span><span class="tk-p">:</span>
+        <span class="tk-n">words</span> <span class="tk-o">+=</span> <span class="tk-nb">len</span><span class="tk-p">(</span><span class="tk-n">line</span><span class="tk-o">.</span><span class="tk-n">split</span><span class="tk-p">())</span>
+    <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-s2">"Lines:"</span><span class="tk-p">,</span> <span class="tk-nb">len</span><span class="tk-p">(</span><span class="tk-n">lines</span><span class="tk-p">),</span> <span class="tk-s2">"Words:"</span><span class="tk-p">,</span> <span class="tk-n">words</span><span class="tk-p">)</span>
+<span class="tk-k">except</span> <span class="tk-ne">FileNotFoundError</span><span class="tk-p">:</span>
+    <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-s2">"File not found"</span><span class="tk-p">)</span></pre></div>
+<div class="output"><div class="cap">Output</div><pre>Lines: 3 Words: 3</pre></div></div></section>
+<section class="q" id="q-m5-q18"><header class="qhead"><span class="qno">Q18</span><h3>What is an exception? Discuss how exceptions are handled in Python. <span class="mk">10 marks</span></h3></header><div class="ans"><h4 class="sh">Answer</h4><ol class="steps"><li><b>Introduction:</b> An exception is an error that occurs while the program is running. If it is not handled, the program stops. Exception handling catches it so the program can continue.</li><li><b>Common exceptions:</b> ZeroDivisionError, ValueError, TypeError, NameError, IndexError, KeyError, FileNotFoundError.</li><li><b>Handling:</b> try (risky code), except (handles the error), else (no error), finally (always runs).</li><li><b>Many except blocks</b> for different errors, and <code>as e</code> to get the message.</li><li><b>Raising:</b> <code>raise ValueError("message")</code> to create an exception ourselves.</li><li><b>Conclusion:</b> Exception handling makes a program safe and user-friendly.</li></ol><figure class="fig"><svg viewBox="0 0 640 430" width="640" role="img" aria-label="Fig. Exception handling flow" xmlns="http://www.w3.org/2000/svg"><rect class="bx2" x="230" y="10" width="180" height="50" rx="6"/><text class="t tb" x="320.0" y="32.0"><tspan x="320.0" dy="0">try block</tspan><tspan x="320.0" dy="16">(risky code)</tspan></text><path class="ln ar" d="M320,60 L320,88"/><polygon class="bx3" points="320,88.0 415.0,125 320,162.0 225.0,125"/><text class="t tb" x="320" y="130"><tspan x="320" dy="0">Error occurs?</tspan></text><path class="ln ar" d="M225,125 L135,125 L135,166"/><path class="ln ar" d="M415,125 L505,125 L505,166"/><text class="t tb ts" x="180" y="121"><tspan x="180" dy="0">No</tspan></text><text class="t tb ts" x="460" y="121"><tspan x="460" dy="0">Yes</tspan></text><rect class="bxg" x="35" y="170" width="200" height="56" rx="6"/><text class="t" x="135.0" y="195.0"><tspan x="135.0" dy="0">else block</tspan><tspan x="135.0" dy="16">(runs only if no error)</tspan></text><rect class="bxr" x="405" y="170" width="200" height="56" rx="6"/><text class="t" x="505.0" y="195.0"><tspan x="505.0" dy="0">except block</tspan><tspan x="505.0" dy="16">(handles the error)</tspan></text><path class="ln ar" d="M135,226 L135,318 L208,318"/><path class="ln ar" d="M505,226 L505,318 L432,318"/><rect class="bx2" x="210" y="290" width="220" height="56" rx="6"/><text class="t tb" x="320.0" y="315.0"><tspan x="320.0" dy="0">finally block</tspan><tspan x="320.0" dy="16">(always runs)</tspan></text><path class="ln ar" d="M320,346 L320,378"/><ellipse class="bx3" cx="320" cy="398" rx="90" ry="20"/><text class="t tb" x="320" y="403"><tspan x="320" dy="0">Program continues</tspan></text></svg><figcaption>Fig. Exception handling flow</figcaption></figure><div class="codeblock"><div class="cap">Example program</div><pre class="code"><span class="tk-k">def</span><span class="tk-w"> </span><span class="tk-nf">divide</span><span class="tk-p">(</span><span class="tk-n">a</span><span class="tk-p">,</span> <span class="tk-n">b</span><span class="tk-p">):</span>
+    <span class="tk-k">try</span><span class="tk-p">:</span>
+        <span class="tk-k">if</span> <span class="tk-n">b</span> <span class="tk-o">&lt;</span> <span class="tk-mi">0</span><span class="tk-p">:</span>
+            <span class="tk-k">raise</span> <span class="tk-ne">ValueError</span><span class="tk-p">(</span><span class="tk-s2">"b cannot be negative"</span><span class="tk-p">)</span>
+        <span class="tk-n">result</span> <span class="tk-o">=</span> <span class="tk-n">a</span> <span class="tk-o">/</span> <span class="tk-n">b</span>
+    <span class="tk-k">except</span> <span class="tk-ne">ZeroDivisionError</span><span class="tk-p">:</span>
+        <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-s2">"Cannot divide by zero"</span><span class="tk-p">)</span>
+    <span class="tk-k">except</span> <span class="tk-ne">ValueError</span> <span class="tk-k">as</span> <span class="tk-n">e</span><span class="tk-p">:</span>
+        <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-s2">"Error:"</span><span class="tk-p">,</span> <span class="tk-n">e</span><span class="tk-p">)</span>
+    <span class="tk-k">else</span><span class="tk-p">:</span>
+        <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-s2">"Result:"</span><span class="tk-p">,</span> <span class="tk-n">result</span><span class="tk-p">)</span>
+    <span class="tk-k">finally</span><span class="tk-p">:</span>
+        <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-s2">"Done"</span><span class="tk-p">)</span>
+
+<span class="tk-n">divide</span><span class="tk-p">(</span><span class="tk-mi">10</span><span class="tk-p">,</span> <span class="tk-mi">2</span><span class="tk-p">)</span>
+<span class="tk-n">divide</span><span class="tk-p">(</span><span class="tk-mi">10</span><span class="tk-p">,</span> <span class="tk-mi">0</span><span class="tk-p">)</span>
+<span class="tk-n">divide</span><span class="tk-p">(</span><span class="tk-mi">10</span><span class="tk-p">,</span> <span class="tk-o">-</span><span class="tk-mi">1</span><span class="tk-p">)</span></pre></div>
+<div class="output"><div class="cap">Output</div><pre>Result: 5.0
+Done
+Cannot divide by zero
+Done
+Error: b cannot be negative
+Done</pre></div></div></section>
+<div class="part"><h2>Revision : Applications, Terms and Key Points</h2><p>Real-life uses, important terms and one-line answers.</p></div>
+<section class="q" id="q-m5-q19"><header class="qhead"><span class="qno">Q19</span><h3>Give the real-life applications of files, CSV and exception handling. <span class="mk">3 marks</span></h3></header><div class="ans"><h4 class="sh">Answer</h4><ul><li><b>Files:</b> saving student records, log files, reports, settings.</li><li><b>CSV:</b> reading and writing spreadsheet data (Excel), data science datasets.</li><li><b>try-except:</b> stops crashes from wrong user input, missing files, divide by zero.</li><li><b>finally:</b> closing files or connections in every case.</li><li><b>raise:</b> checking rules: age, marks, password length.</li></ul></div></section>
+<section class="q" id="q-m5-q20"><header class="qhead"><span class="qno">Q20</span><h3>Define the following: file object, mode, with statement, CSV, exception, handler, traceback, raise. <span class="mk">5 marks</span></h3></header><div class="ans"><h4 class="sh">Answer</h4><div class="tblwrap"><table class=""><thead><tr><th>Term</th><th>Meaning</th></tr></thead><tbody><tr><td>File object</td><td>Object returned by open() to work with a file</td></tr><tr><td>Mode</td><td>Purpose for opening a file (r, w, a)</td></tr><tr><td>with statement</td><td>Opens a file and closes it automatically</td></tr><tr><td>CSV</td><td>Comma Separated Values file</td></tr><tr><td>Exception</td><td>Run-time error that stops the normal flow</td></tr><tr><td>Handler</td><td>The except block that deals with an exception</td></tr><tr><td>Traceback</td><td>Error report shown by Python</td></tr><tr><td>raise</td><td>Keyword to create an exception manually</td></tr></tbody></table></div></div></section>
+<section class="q" id="q-m5-q21"><header class="qhead"><span class="qno">Q21</span><h3>Answer in one line each (rapid revision of Module V). <span class="mk">5 marks</span></h3></header><div class="ans"><h4 class="sh">Answer</h4><div class="tblwrap"><table class=""><thead><tr><th>Question</th><th>One-line answer</th></tr></thead><tbody><tr><td>Default file mode?</td><td><code>"r"</code></td></tr><tr><td>What does "w" do to old content?</td><td>Erases it</td></tr><tr><td>What does "a" do?</td><td>Adds new data at the end; old content stays</td></tr><tr><td>What happens when "r" is used on a missing file?</td><td>FileNotFoundError</td></tr><tr><td>Why use with?</td><td>It closes the file automatically</td></tr><tr><td>read() vs readline() vs readlines()?</td><td>Whole string / one line / list of lines</td></tr><tr><td>Does write() add a new line?</td><td>No. Add \n yourself</td></tr><tr><td>Can write() take a number?</td><td>No. Convert with str()</td></tr><tr><td>Which module handles CSV?</td><td>csv (reader, writer, writerow, writerows)</td></tr><tr><td>Type of CSV values read back?</td><td>Strings</td></tr><tr><td>Syntax error vs exception?</td><td>Before running / while running</td></tr><tr><td>Which block always runs?</td><td>finally</td></tr><tr><td>Which block runs only when there is no error?</td><td>else</td></tr><tr><td>How to raise an error manually?</td><td><code>raise ValueError("message")</code></td></tr><tr><td>Order of blocks?</td><td>try, except, else, finally</td></tr></tbody></table></div></div></section>
+<section class="cov" id="coverage"><h2>Syllabus coverage check</h2>
+<p>Every topic of Module 5 is listed here with the questions that cover it.</p>
+<div class="tblwrap"><table class=""><thead><tr><th>Syllabus topic</th><th>Covered in</th></tr></thead><tbody><tr><td>Why files; text and binary; open-read/write-close</td><td><a href="#q-m5-q1">Q1</a></td></tr><tr><td>open() function and file modes</td><td><a href="#q-m5-q2">Q2</a></td></tr><tr><td>Closing a file and the with statement</td><td><a href="#q-m5-q3">Q3</a></td></tr><tr><td>read(), read(n), readline(), readlines()</td><td><a href="#q-m5-q4">Q4</a></td></tr><tr><td>Reading line by line and strip()</td><td><a href="#q-m5-q5">Q5</a></td></tr><tr><td>write() and writelines()</td><td><a href="#q-m5-q6">Q6</a></td></tr><tr><td>Write mode vs append mode</td><td><a href="#q-m5-q7">Q7</a></td></tr><tr><td>CSV, csv.writer, writerow, writerows, newline</td><td><a href="#q-m5-q8">Q8</a></td></tr><tr><td>csv.reader and DictReader</td><td><a href="#q-m5-q8">Q8</a> <a href="#q-m5-q9">Q9</a></td></tr><tr><td>Syntax error vs exception, exception handling</td><td><a href="#q-m5-q10">Q10</a> <a href="#q-m5-q18">Q18</a></td></tr><tr><td>Built-in exceptions</td><td><a href="#q-m5-q11">Q11</a> <a href="#q-m5-q18">Q18</a></td></tr><tr><td>try-except-else-finally</td><td><a href="#q-m5-q12">Q12</a> <a href="#q-m5-q18">Q18</a></td></tr><tr><td>Multiple except, except as e, bare except, rules</td><td><a href="#q-m5-q13">Q13</a> <a href="#q-m5-q18">Q18</a></td></tr><tr><td>Handling a file error</td><td><a href="#q-m5-q14">Q14</a></td></tr><tr><td>raise keyword</td><td><a href="#q-m5-q15">Q15</a> <a href="#q-m5-q18">Q18</a></td></tr><tr><td>Exception family (hierarchy)</td><td><a href="#q-m5-q16">Q16</a></td></tr><tr><td>Lab-type program: count lines and words safely</td><td><a href="#q-m5-q17">Q17</a></td></tr><tr><td>Real-life applications of Module V</td><td><a href="#q-m5-q19">Q19</a></td></tr><tr><td>Important terms of Module V</td><td><a href="#q-m5-q20">Q20</a></td></tr><tr><td>Key observations and exam points of Module V</td><td><a href="#q-m5-q21">Q21</a></td></tr></tbody></table></div>
+</section>
+<div class="foot">Python Programming &middot; Model Questions &middot; Module 5</div>
+</div>
+<div class="hub-pagenav"><a class="hub-btn" href="ModelQuestions-Module4.html">&larr; Module 4 Questions</a><a class="hub-btn" href="ModelQuestions.html">All Model Questions</a><a class="hub-btn" href="PreviousQuestions.html">Previous Questions &rarr;</a></div>
+<div class="hub-footer">BCA Study Hub &middot; <a href="../index.html">Semester 1</a> &middot; <a href="../../index.html">Home</a></div>
+<a class="totop" href="#top">&uarr; Top</a>
+</body>
+</html>
