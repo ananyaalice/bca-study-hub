@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f5f7f9">
+<title>Python Programming | Model Questions | Module 2</title>
+<style>
+
+:root{--navy:#1f3864;--ink:#1a1a1a;--muted:#555;--tint:#eaf0f9;--grey:#f3f4f6;--line:#c9d1de;--err:#a61b1b;--ok:#1b5e20}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#fff;color:var(--ink);font-family:Arial,Helvetica,sans-serif;font-size:16.5px;line-height:1.65}
+.wrap{max-width:900px;margin:0 auto;padding:0 18px 60px}
+.cover{border:2px solid var(--navy);margin:28px 0 22px;padding:26px 22px 20px;text-align:center;background:var(--tint)}
+.cover h1{margin:0 0 6px;color:var(--navy);font-size:2rem;letter-spacing:.04em;line-height:1.2}
+.cover .sub{margin:0 0 10px;font-weight:bold;font-size:1.1rem}
+.cover .exam{margin:10px 0 0;color:var(--muted);font-size:.92rem;line-height:1.5}
+.how{border-left:5px solid var(--navy);background:var(--grey);padding:10px 16px;margin:0 0 26px;font-size:.97rem}
+.toc{margin:0 0 30px}
+.toc h2{color:var(--navy);border-bottom:2px solid var(--navy);padding-bottom:4px;margin:0 0 14px;font-size:1.35rem}
+.tocpart h3{margin:14px 0 6px;font-size:1.05rem;color:var(--navy)}
+.tocpart ul{list-style:none;margin:0;padding:0;columns:2;column-gap:28px}
+.tocpart li{break-inside:avoid;margin:0 0 5px;font-size:.93rem;line-height:1.4}
+.tocpart a{color:var(--ink);text-decoration:none;display:block;padding:3px 6px;border-radius:4px}
+.tocpart a:hover{background:var(--tint)}
+.tn{display:inline-block;min-width:54px;font-weight:bold;color:var(--navy)}
+.part{margin:44px 0 8px;border-bottom:3px solid var(--navy)}
+.part h2{margin:0;color:var(--navy);font-size:1.6rem}
+.part p{margin:2px 0 8px;color:var(--muted)}
+h3.group{margin:30px 0 4px;color:var(--navy);font-size:1.15rem;text-transform:uppercase;letter-spacing:.05em}
+.q{margin:20px 0 6px;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:#fff}
+.qhead{display:flex;gap:14px;align-items:flex-start;background:var(--tint);border-bottom:1px solid var(--line);padding:12px 16px;border-left:6px solid var(--navy)}
+.qno{flex:none;background:var(--navy);color:#fff;font-weight:bold;padding:2px 10px;border-radius:4px;font-size:.95rem;margin-top:2px;white-space:nowrap}
+.qhead h3{margin:0;font-size:1.08rem;line-height:1.45;color:#111}
+.ans{padding:6px 20px 16px}
+.ans p{margin:10px 0}
+.ans ul,.ans ol{margin:8px 0 10px;padding-left:24px}
+.ans li{margin:4px 0}
+h4.sh{margin:18px 0 4px;color:var(--navy);font-size:1.02rem;border-bottom:1px solid var(--line);padding-bottom:2px}
+.or{text-align:center;margin:18px 0 4px;position:relative}
+.or:before{content:"";position:absolute;left:0;right:0;top:50%;border-top:2px dashed #9aa6bb}
+.or span{position:relative;background:#fff;padding:0 18px;font-weight:bold;color:var(--navy);letter-spacing:.15em}
+code{font-family:Consolas,"Courier New",monospace;background:#eef1f6;padding:1px 5px;border-radius:3px;font-size:.92em}
+.codeblock{margin:12px 0 0;border:1px solid var(--line);border-left:5px solid var(--navy);background:#f8f9fb;border-radius:0 4px 4px 0}
+.codeblock.file{border-left-color:#7a869a;background:#fff}
+.cap{font-size:.74rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:5px 12px 0;font-weight:bold}
+.codeblock pre,.output pre{margin:0;padding:6px 14px 10px;overflow-x:auto;font-family:Consolas,"Courier New",monospace;font-size:.9rem;line-height:1.5;tab-size:4}
+.output{margin:0 0 12px;border:1px solid var(--line);border-top:0;border-left:5px solid #7a869a;background:#fff;border-radius:0 0 4px 4px}
+.codeblock+.codeblock{margin-top:8px}
+.output pre{color:#111}
+.typed{font-weight:bold;color:var(--navy);text-decoration:underline}
+.errline{color:var(--err);font-weight:bold}
+p.after{margin:-4px 0 10px;font-size:.95rem;color:var(--muted)}
+.note{border-left:5px solid #7a869a;background:var(--grey);padding:8px 14px;margin:12px 0;font-size:.97rem}
+.tblwrap{overflow-x:auto;margin:12px 0}
+table{border-collapse:collapse;width:100%;font-size:.93rem}
+th{background:var(--tint);color:var(--navy);text-align:left;border:1px solid #8a97ad;padding:7px 10px}
+td{border:1px solid var(--line);padding:6px 10px;vertical-align:top}
+tbody tr:nth-child(even) td{background:#fafbfc}
+td code{white-space:nowrap}
+.steps{counter-reset:s;list-style:none;padding-left:0!important}
+.steps li{counter-increment:s;position:relative;padding:4px 0 4px 40px;margin:6px 0}
+.steps li:before{content:counter(s);position:absolute;left:0;top:3px;width:27px;height:27px;border-radius:50%;background:var(--navy);color:#fff;font-weight:bold;font-size:.85rem;text-align:center;line-height:27px}
+figure.fig{margin:16px auto;text-align:center;break-inside:avoid}
+figure.fig svg{max-width:100%;height:auto;border:1px solid var(--line);background:#fff;border-radius:4px}
+figcaption{font-size:.85rem;color:var(--muted);margin-top:5px;font-style:italic}
+svg .bx{fill:#fff;stroke:#1f3864;stroke-width:1.6}
+svg .bx2{fill:#eaf0f9;stroke:#1f3864;stroke-width:1.6}
+svg .bx3{fill:#f3f4f6;stroke:#6b778c;stroke-width:1.4}
+svg .bxg{fill:#e6f2e8;stroke:#2e6b3a;stroke-width:1.6}
+svg .bxr{fill:#fbe9e7;stroke:#a61b1b;stroke-width:1.6}
+svg .t{font-family:Arial,Helvetica,sans-serif;font-size:14px;fill:#1a1a1a;text-anchor:middle}
+svg .tl{text-anchor:start}
+svg .tb{font-weight:bold}
+svg .ts{font-size:12px;fill:#555}
+svg .tm{font-family:Consolas,"Courier New",monospace}
+svg .tn2{fill:#1f3864}
+svg .ln{stroke:#1f3864;stroke-width:1.6;fill:none}
+svg .lg{stroke:#8a97ad;stroke-width:1.2;fill:none}
+svg .ar{marker-end:url(#arr)}
+svg .vA{fill:#1f3864;fill-opacity:.35}
+svg .vB{fill:#c0392b;fill-opacity:.30}
+svg .vW{fill:#fff}
+svg .vO{fill:none;stroke:#1f3864;stroke-width:2}
+.foot{margin-top:40px;border-top:2px solid var(--navy);padding-top:10px;color:var(--muted);font-size:.85rem;text-align:center}
+.totop{position:fixed;right:14px;bottom:14px;background:var(--navy);color:#fff;text-decoration:none;padding:7px 12px;border-radius:4px;font-size:.85rem}
+@media (max-width:640px){body{font-size:16px}.tocpart ul{columns:1}.ans{padding:4px 12px 14px}.cover h1{font-size:1.5rem}.qhead{flex-direction:column;gap:6px}}
+@media print{
+ @page{size:A4;margin:13mm 12mm}
+ body{font-size:10.5pt;line-height:1.5;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .wrap{max-width:none;padding:0}
+ .totop{display:none}
+ .cover{margin-top:0}
+ .q{border:1px solid #888;break-inside:auto}
+ .qhead{break-after:avoid}
+ .codeblock,.output,figure.fig,.tblwrap,.note,.steps li{break-inside:avoid}
+ h4.sh{break-after:avoid}
+ .part{break-after:avoid}
+ .toc{break-after:page}
+ .codeblock pre,.output pre{font-size:8.8pt;overflow:visible;white-space:pre-wrap}
+}
+
+pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.code .hll { background-color: #ffffcc }
+.code { background: #f8f8f8; }
+.code .tk-c { color: #3D7B7B; font-style: italic } /* Comment */
+.code .tk-err { border: 1px solid #F00 } /* Error */
+.code .tk-k { color: #008000; font-weight: bold } /* Keyword */
+.code .tk-o { color: #666 } /* Operator */
+.code .tk-ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.code .tk-cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.code .tk-cp { color: #9C6500 } /* Comment.Preproc */
+.code .tk-cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.code .tk-c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.code .tk-cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.code .tk-gd { color: #A00000 } /* Generic.Deleted */
+.code .tk-ge { font-style: italic } /* Generic.Emph */
+.code .tk-ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+.code .tk-gr { color: #E40000 } /* Generic.Error */
+.code .tk-gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.code .tk-gi { color: #008400 } /* Generic.Inserted */
+.code .tk-go { color: #717171 } /* Generic.Output */
+.code .tk-gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.code .tk-gs { font-weight: bold } /* Generic.Strong */
+.code .tk-gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.code .tk-gt { color: #04D } /* Generic.Traceback */
+.code .tk-kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.code .tk-kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.code .tk-kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.code .tk-kp { color: #008000 } /* Keyword.Pseudo */
+.code .tk-kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.code .tk-kt { color: #B00040 } /* Keyword.Type */
+.code .tk-m { color: #666 } /* Literal.Number */
+.code .tk-s { color: #BA2121 } /* Literal.String */
+.code .tk-na { color: #687822 } /* Name.Attribute */
+.code .tk-nb { color: #008000 } /* Name.Builtin */
+.code .tk-nc { color: #00F; font-weight: bold } /* Name.Class */
+.code .tk-no { color: #800 } /* Name.Constant */
+.code .tk-nd { color: #A2F } /* Name.Decorator */
+.code .tk-ni { color: #717171; font-weight: bold } /* Name.Entity */
+.code .tk-ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.code .tk-nf { color: #00F } /* Name.Function */
+.code .tk-nl { color: #767600 } /* Name.Label */
+.code .tk-nn { color: #00F; font-weight: bold } /* Name.Namespace */
+.code .tk-nt { color: #008000; font-weight: bold } /* Name.Tag */
+.code .tk-nv { color: #19177C } /* Name.Variable */
+.code .tk-ow { color: #A2F; font-weight: bold } /* Operator.Word */
+.code .tk-w { color: #BBB } /* Text.Whitespace */
+.code .tk-mb { color: #666 } /* Literal.Number.Bin */
+.code .tk-mf { color: #666 } /* Literal.Number.Float */
+.code .tk-mh { color: #666 } /* Literal.Number.Hex */
+.code .tk-mi { color: #666 } /* Literal.Number.Integer */
+.code .tk-mo { color: #666 } /* Literal.Number.Oct */
+.code .tk-sa { color: #BA2121 } /* Literal.String.Affix */
+.code .tk-sb { color: #BA2121 } /* Literal.String.Backtick */
+.code .tk-sc { color: #BA2121 } /* Literal.String.Char */
+.code .tk-dl { color: #BA2121 } /* Literal.String.Delimiter */
+.code .tk-sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.code .tk-s2 { color: #BA2121 } /* Literal.String.Double */
+.code .tk-se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.code .tk-sh { color: #BA2121 } /* Literal.String.Heredoc */
+.code .tk-si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.code .tk-sx { color: #008000 } /* Literal.String.Other */
+.code .tk-sr { color: #A45A77 } /* Literal.String.Regex */
+.code .tk-s1 { color: #BA2121 } /* Literal.String.Single */
+.code .tk-ss { color: #19177C } /* Literal.String.Symbol */
+.code .tk-bp { color: #008000 } /* Name.Builtin.Pseudo */
+.code .tk-fm { color: #00F } /* Name.Function.Magic */
+.code .tk-vc { color: #19177C } /* Name.Variable.Class */
+.code .tk-vg { color: #19177C } /* Name.Variable.Global */
+.code .tk-vi { color: #19177C } /* Name.Variable.Instance */
+.code .tk-vm { color: #19177C } /* Name.Variable.Magic */
+.code .tk-il { color: #666 } /* Literal.Number.Integer.Long */
+
+.mk{display:inline-block;margin-left:8px;padding:0 8px;border:1px solid var(--navy);border-radius:10px;color:var(--navy);background:#fff;font-size:.74rem;font-weight:bold;white-space:nowrap;vertical-align:middle}
+.frame{border:1px dashed var(--navy);background:var(--tint);padding:8px 14px;margin:14px 0 8px;font-size:.96rem;border-radius:4px}
+.tip{border-left:5px solid #b58105;background:#fff8e1;padding:8px 14px;margin:8px 0;font-size:.96rem}
+.hub-header{background:#fff;border-bottom:1px solid #dce2e8}
+.hub-header-inner{max-width:960px;margin:auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.hub-name{font-size:18px;font-weight:750;text-decoration:none;color:#202936}.hub-home{font-size:14px;white-space:nowrap;color:#245f9e}
+.hub-crumbs{max-width:960px;margin:0 auto;padding:14px 20px 0;display:flex;flex-wrap:wrap;gap:7px;align-items:center;font-size:13px;line-height:1.5;color:#5f6b7a}
+.hub-crumbs a{color:#245f9e}.hub-sep{color:#9aa3ad}
+.hub-pagenav{max-width:960px;margin:0 auto;padding:6px 20px 0;display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;font-size:14px}
+.hub-btn{display:inline-block;border:1px solid #dce2e8;background:#fff;color:#245f9e;text-decoration:none;border-radius:7px;padding:9px 12px;font-weight:600}.hub-btn:hover{background:#edf3f8}
+.hub-footer{max-width:960px;margin:0 auto;padding:14px 20px 28px;color:#5f6b7a;font-size:12px}
+.tocpart a{display:flex;gap:8px;align-items:baseline}.tn{flex:none;min-width:38px!important}
+.chlist{margin:6px 0 0;padding-left:20px;font-size:.93rem}
+.cov{margin-top:34px}.cov h2{color:var(--navy);border-bottom:2px solid var(--navy);padding-bottom:4px;font-size:1.3rem}
+@media(max-width:640px){.hub-header-inner{padding:12px 16px}.hub-name{font-size:17px}.hub-home{font-size:13px}.hub-crumbs,.hub-pagenav,.hub-footer{padding-left:14px;padding-right:14px}.hub-pagenav{display:grid;grid-template-columns:1fr}.hub-btn{text-align:center}.mk{margin-left:0}}
+@media print{.hub-header,.hub-crumbs,.hub-pagenav,.hub-footer{display:none}}
+
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f3864"/></marker>
+</defs></svg>
+<header class="hub-header"><div class="hub-header-inner"><a class="hub-name" href="../../index.html">BCA Study Hub</a><a class="hub-home" href="../../index.html">Home</a></div></header>
+<nav class="hub-crumbs" aria-label="Breadcrumb"><a href="../../index.html">Home</a><span class="hub-sep">&rsaquo;</span><a href="../index.html">Semester 1</a><span class="hub-sep">&rsaquo;</span><a href="index.html">Python Programming</a><span class="hub-sep">&rsaquo;</span><a href="ModelQuestions.html">Model Questions</a><span class="hub-sep">&rsaquo;</span><span aria-current="page">Module 2</span></nav>
+<div class="wrap" id="top">
+<div class="cover">
+<h1>MODULE II</h1>
+<p class="sub">Data Types, Control Flow and Iteration</p>
+<p class="exam">Python Programming &middot; Model Questions with Exam-ready Answers<br>BCA (Honors) Semester 1 &middot; 25-922-0102 (2025 Scheme)</p>
+</div>
+<div class="how"><b>How to use:</b> Questions go chapter by chapter, following the syllabus notes of this module. Each answer is written in simple sentences that you can write in the exam. After the answer you will find an <b>example</b>, a <b>How to write it</b> box (the answer structure) and an <b>Exam tip</b>. The mark label (2, 3, 5 or 10) shows how long the answer should be. All programs were run and the outputs shown are the real outputs. The last section shows that <b>every topic of the module is covered</b>.</div>
+<nav class="toc"><h2>Questions in this module (31)</h2>
+<div class="tocpart"><h3>Chapter 1 : Built-in Data Types</h3><ul><li><a href="#q-m2-q1"><span class="tn">Q1</span>int, float, complex, bool, str</a></li><li><a href="#q-m2-q2"><span class="tn">Q2</span>bool as subclass of int</a></li><li><a href="#q-m2-q3"><span class="tn">Q3</span>Truthy and falsy values</a></li><li><a href="#q-m2-q4"><span class="tn">Q4</span>String operations and immutability</a></li></ul></div>
+<div class="tocpart"><h3>Chapter 2 : Type Conversion and Casting</h3><ul><li><a href="#q-m2-q5"><span class="tn">Q5</span>Implicit vs explicit conversion</a></li></ul></div>
+<div class="tocpart"><h3>Chapter 3 : Input and Output</h3><ul><li><a href="#q-m2-q6"><span class="tn">Q6</span>input() and a program</a></li><li><a href="#q-m2-q7"><span class="tn">Q7</span>print(), sep, end, f-string</a></li></ul></div>
+<div class="tocpart"><h3>Chapter 4 : Conditional Statements</h3><ul><li><a href="#q-m2-q8"><span class="tn">Q8</span>Conditional statements and four forms</a></li><li><a href="#q-m2-q9"><span class="tn">Q9</span>if statement</a></li><li><a href="#q-m2-q10"><span class="tn">Q10</span>if-else statement</a></li><li><a href="#q-m2-q11"><span class="tn">Q11</span>if-elif-else</a></li><li><a href="#q-m2-q12"><span class="tn">Q12</span>Nested and compound conditions</a></li><li><a href="#q-m2-q13"><span class="tn">Q13</span>if vs if-else</a></li><li><a href="#q-m2-q14"><span class="tn">Q14</span>Essay: conditional statements</a></li></ul></div>
+<div class="tocpart"><h3>Chapter 5 : Loops (Iteration)</h3><ul><li><a href="#q-m2-q15"><span class="tn">Q15</span>Loop and its four parts</a></li><li><a href="#q-m2-q16"><span class="tn">Q16</span>for loop</a></li><li><a href="#q-m2-q17"><span class="tn">Q17</span>range(start, stop, step)</a></li><li><a href="#q-m2-q18"><span class="tn">Q18</span>while loop and infinite loop</a></li><li><a href="#q-m2-q19"><span class="tn">Q19</span>Nested loops</a></li><li><a href="#q-m2-q20"><span class="tn">Q20</span>for vs while</a></li><li><a href="#q-m2-q21"><span class="tn">Q21</span>Natural numbers using loops</a></li><li><a href="#q-m2-q22"><span class="tn">Q22</span>Program: multiplication table</a></li></ul></div>
+<div class="tocpart"><h3>Chapter 6 : Loop Control Statements</h3><ul><li><a href="#q-m2-q23"><span class="tn">Q23</span>break, continue and pass</a></li><li><a href="#q-m2-q24"><span class="tn">Q24</span>else with loops</a></li><li><a href="#q-m2-q25"><span class="tn">Q25</span>Prime check using loop-else</a></li><li><a href="#q-m2-q26"><span class="tn">Q26</span>Search in a list using loop-else</a></li><li><a href="#q-m2-q27"><span class="tn">Q27</span>Summary of loop control statements</a></li><li><a href="#q-m2-q28"><span class="tn">Q28</span>Essay: loop control statements</a></li></ul></div>
+<div class="tocpart"><h3>Revision : Applications, Terms and Key Points</h3><ul><li><a href="#q-m2-q29"><span class="tn">Q29</span>Applications of Module II</a></li><li><a href="#q-m2-q30"><span class="tn">Q30</span>Important terms of Module II</a></li><li><a href="#q-m2-q31"><span class="tn">Q31</span>Rapid revision of Module II</a></li></ul></div>
+</nav>
+<div class="part"><h2>Chapter 1 : Built-in Data Types</h2><p>int, float, complex, bool and str in more detail.</p></div>
+<section class="q" id="q-m2-q1"><header class="qhead"><span class="qno">Q1</span><h3>Explain the basic data types int, float, complex, bool and str with examples and key points. <span class="mk">5 marks</span></h3></header><div class="ans"><h4 class="sh">Answer</h4><p>Python finds the data type of a value automatically (dynamic typing). The type can be checked with <code>type(x)</code>.</p><div class="tblwrap"><table class=""><thead><tr><th>Type</th><th>Meaning and example</th><th>Key points</th></tr></thead><tbody><tr><td><code>int</code></td><td>Whole numbers: 25, -47</td><td>No fractional part. <b>Unlimited size</b>. <code>1_400_000_000</code>: underscore for readability</td></tr><tr><td><code>float</code></td><td>Decimal numbers: 99.99, -3.5</td><td>64-bit double precision. <code>2.5e3</code> = 2500.0. Rounding error: 0.1 + 0.2 = 0.30000000000000004</td></tr><tr><td><code>complex</code></td><td>4 + 5j</td><td>Real part + imaginary part</td></tr><tr><td><code>bool</code></td><td>True, False</td><td>Subclass of int: True = 1, False = 0</td></tr><tr><td><code>str</code></td><td>Text: "Alice"</td><td><b>Immutable</b> sequence of Unicode characters. Quotes: ' ' or " " or """ """ (multi-line)</td></tr></tbody></table></div><div class="codeblock"><div class="cap">Example program</div><pre class="code"><span class="tk-n">big</span> <span class="tk-o">=</span> <span class="tk-mi">1_400_000_000</span>
+<span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-n">big</span> <span class="tk-o">*</span> <span class="tk-n">big</span><span class="tk-p">)</span>             <span class="tk-c1"># int has no size limit</span>
+<span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-mf">2.5e3</span><span class="tk-p">)</span>
+<span class="tk-n">z</span> <span class="tk-o">=</span> <span class="tk-mi">4</span> <span class="tk-o">+</span> <span class="tk-mi">5</span><span class="tk-n">j</span>
+<span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-n">z</span><span class="tk-o">.</span><span class="tk-n">real</span><span class="tk-p">,</span> <span class="tk-n">z</span><span class="tk-o">.</span><span class="tk-n">imag</span><span class="tk-p">)</span>
+<span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-nb">type</span><span class="tk-p">(</span><span class="tk-n">z</span><span class="tk-p">))</span></pre></div>
+<div class="output"><div class="cap">Output</div><pre>1960000000000000000
+2500.0
+4.0 5.0
+&lt;class 'complex'&gt;</pre></div><div class="tip"><b>Exam tip:</b> Write "int has no size limit" and "str is immutable". These two lines are asked again and again.</div></div></section>
+<section class="q" id="q-m2-q2"><header class="qhead"><span class="qno">Q2</span><h3>Why is bool called a subclass of int? How do comparisons give bool values? <span class="mk">3 marks</span></h3></header><div class="ans"><h4 class="sh">Answer</h4><p>In Python, <b>True is equal to 1</b> and <b>False is equal to 0</b>. So a bool value can be used in calculations, and we say that <b>bool is a subclass of int</b>. Every comparison, such as <code>5 &gt; 3</code>, gives a bool value (True or False).</p><div class="codeblock"><div class="cap">Example program</div><pre class="code"><span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-kc">True</span> <span class="tk-o">+</span> <span class="tk-kc">True</span><span class="tk-p">)</span>
+<span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-kc">True</span> <span class="tk-o">*</span> <span class="tk-mi">10</span><span class="tk-p">)</span>
+<span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-mi">5</span> <span class="tk-o">&gt;</span> <span class="tk-mi">3</span><span class="tk-p">)</span>
+<span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-nb">type</span><span class="tk-p">(</span><span class="tk-mi">5</span> <span class="tk-o">&gt;</span> <span class="tk-mi">3</span><span class="tk-p">))</span>
+<span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-nb">int</span><span class="tk-p">(</span><span class="tk-kc">True</span><span class="tk-p">),</span> <span class="tk-nb">int</span><span class="tk-p">(</span><span class="tk-kc">False</span><span class="tk-p">))</span></pre></div>
+<div class="output"><div class="cap">Output</div><pre>2
+10
+True
+&lt;class 'bool'&gt;
+1 0</pre></div></div></section>
+<section class="q" id="q-m2-q3"><header class="qhead"><span class="qno">Q3</span><h3>What are truthy and falsy values? Where are they used? <span class="mk">3 marks</span></h3></header><div class="ans"><h4 class="sh">Answer</h4><p>A value that is treated as <b>False</b> in a condition is called <b>falsy</b>. They are <code>0</code>, <code>0.0</code>, <code>""</code>, <code>[]</code>, <code>()</code>, <code>{}</code> and <code>None</code>. All other values are <b>truthy</b>. They are used in <code>if</code> and <code>while</code> conditions, for example to check whether a list is empty.</p><div class="codeblock"><div class="cap">Example program</div><pre class="code"><span class="tk-n">items</span> <span class="tk-o">=</span> <span class="tk-p">[]</span>
+<span class="tk-k">if</span> <span class="tk-n">items</span><span class="tk-p">:</span>
+    <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-s2">"List has items"</span><span class="tk-p">)</span>
+<span class="tk-k">else</span><span class="tk-p">:</span>
+    <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-s2">"List is empty"</span><span class="tk-p">)</span>
+
+<span class="tk-n">name</span> <span class="tk-o">=</span> <span class="tk-s2">"Anu"</span>
+<span class="tk-k">if</span> <span class="tk-n">name</span><span class="tk-p">:</span>
+    <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-s2">"Name is not empty"</span><span class="tk-p">)</span></pre></div>
+<div class="output"><div class="cap">Output</div><pre>List is empty
+Name is not empty</pre></div></div></section>
+<section class="q" id="q-m2-q4"><header class="qhead"><span class="qno">Q4</span><h3>Explain the operations on strings with examples. Why is a string called immutable? <span class="mk">5 marks</span></h3></header><div class="ans"><h4 class="sh">Answer</h4><p>A string is a sequence of characters. Let <code>name = "Alice"</code>.</p><div class="tblwrap"><table class=""><thead><tr><th>Operation</th><th>Code</th><th>Result</th></tr></thead><tbody><tr><td>Indexing</td><td><code>name[0]</code></td><td>'A'</td></tr><tr><td>Negative indexing</td><td><code>name[-1]</code></td><td>'e'</td></tr><tr><td>Slicing</td><td><code>name[1:3]</code></td><td>'li'</td></tr><tr><td>Concatenation</td><td><code>name + " Smith"</code></td><td>'Alice Smith'</td></tr><tr><td>Repetition</td><td><code>name * 3</code></td><td>'AliceAliceAlice'</td></tr></tbody></table></div><div class="codeblock"><div class="cap">String operations and an attempt to change a character</div><pre class="code"><span class="tk-n">name</span> <span class="tk-o">=</span> <span class="tk-s2">"Alice"</span>
+<span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-n">name</span><span class="tk-p">[</span><span class="tk-mi">0</span><span class="tk-p">],</span> <span class="tk-n">name</span><span class="tk-p">[</span><span class="tk-o">-</span><span class="tk-mi">1</span><span class="tk-p">])</span>
+<span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-n">name</span><span class="tk-p">[</span><span class="tk-mi">1</span><span class="tk-p">:</span><span class="tk-mi">3</span><span class="tk-p">])</span>
+<span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-n">name</span> <span class="tk-o">+</span> <span class="tk-s2">" Smith"</span><span class="tk-p">)</span>
+<span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-n">name</span> <span class="tk-o">*</span> <span class="tk-mi">3</span><span class="tk-p">)</span>
+<span class="tk-n">name</span><span class="tk-p">[</span><span class="tk-mi">0</span><span class="tk-p">]</span> <span class="tk-o">=</span> <span class="tk-s2">"B"</span></pre></div>
+<div class="output"><div class="cap">Output</div><pre>A e
+li
+Alice Smith
+AliceAliceAlice
+<span class="errline">TypeError: 'str' object does not support item assignment</span></pre></div><p>A string is <b>immutable</b>, which means its characters <b>cannot be changed</b> after it is created. To change it, we must create a new string.</p></div></section>
+<div class="part"><h2>Chapter 2 : Type Conversion and Casting</h2><p>Implicit and explicit conversions.</p></div>
+<section class="q" id="q-m2-q5"><header class="qhead"><span class="qno">Q5</span><h3>Compare implicit and explicit type conversions. <span class="mk">5 marks</span></h3></header><div class="ans"><h4 class="sh">Answer</h4><div class="tblwrap"><table class=""><thead><tr><th>Point</th><th>Implicit conversion</th><th>Explicit conversion (casting)</th></tr></thead><tbody><tr><td>Who does it?</td><td><b>Python</b>, automatically</td><td>The <b>programmer</b>, manually</td></tr><tr><td>Functions</td><td>None needed</td><td><code>int()</code>, <code>float()</code>, <code>str()</code>, <code>bool()</code></td></tr><tr><td>Direction</td><td>Smaller type to larger type (int to float)</td><td>Any direction, if the value is valid</td></tr><tr><td>Data loss</td><td>No data is lost</td><td>May lose data (<code>int(9.9)</code> gives 9)</td></tr><tr><td>Error</td><td>Rarely</td><td><code>int("abc")</code> and <code>int("3.5")</code> give <b>ValueError</b></td></tr></tbody></table></div><div class="codeblock"><div class="cap">Example program</div><pre class="code"><span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-mi">10</span> <span class="tk-o">+</span> <span class="tk-mf">2.5</span><span class="tk-p">)</span>                  <span class="tk-c1"># implicit: int becomes float</span>
+<span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-nb">int</span><span class="tk-p">(</span><span class="tk-s2">"25"</span><span class="tk-p">),</span> <span class="tk-nb">float</span><span class="tk-p">(</span><span class="tk-s2">"3.14"</span><span class="tk-p">))</span>  <span class="tk-c1"># str to number</span>
+<span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-nb">str</span><span class="tk-p">(</span><span class="tk-mi">100</span><span class="tk-p">),</span> <span class="tk-nb">str</span><span class="tk-p">(</span><span class="tk-mf">9.8</span><span class="tk-p">))</span>        <span class="tk-c1"># number to str</span>
+<span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-nb">bool</span><span class="tk-p">(</span><span class="tk-mi">0</span><span class="tk-p">),</span> <span class="tk-nb">bool</span><span class="tk-p">(</span><span class="tk-mi">42</span><span class="tk-p">))</span>
+<span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-nb">int</span><span class="tk-p">(</span><span class="tk-kc">True</span><span class="tk-p">))</span>
+<span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-nb">int</span><span class="tk-p">(</span><span class="tk-mf">9.9</span><span class="tk-p">),</span> <span class="tk-nb">int</span><span class="tk-p">(</span><span class="tk-o">-</span><span class="tk-mf">9.9</span><span class="tk-p">))</span>       <span class="tk-c1"># decimal cut off</span>
+<span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-nb">int</span><span class="tk-p">(</span><span class="tk-nb">float</span><span class="tk-p">(</span><span class="tk-s2">"12.5"</span><span class="tk-p">)))</span>        <span class="tk-c1"># convert a decimal string</span></pre></div>
+<div class="output"><div class="cap">Output</div><pre>12.5
+25 3.14
+100 9.8
+False True
+1
+9 -9
+12</pre></div><div class="tip"><b>Exam tip:</b> To convert a decimal string such as "12.5" to int, first use <code>float()</code> and then <code>int()</code>.</div></div></section>
+<div class="part"><h2>Chapter 3 : Input and Output</h2><p>input() and print().</p></div>
+<section class="q" id="q-m2-q6"><header class="qhead"><span class="qno">Q6</span><h3>Explain input() with a program that reads a number and shows the next year's age. <span class="mk">3 marks</span></h3></header><div class="ans"><h4 class="sh">Answer</h4><p><code>input()</code> reads a line typed by the user and <b>always returns a str</b>. For numbers we convert it with <code>int()</code> or <code>float()</code>. A common error is that <code>"5" + "3"</code> gives <code>"53"</code> and not 8.</p><div class="codeblock"><div class="cap">Example program</div><pre class="code"><span class="tk-n">age</span> <span class="tk-o">=</span> <span class="tk-nb">int</span><span class="tk-p">(</span><span class="tk-nb">input</span><span class="tk-p">(</span><span class="tk-s2">"Enter your age: "</span><span class="tk-p">))</span>
+<span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-s2">"Next year:"</span><span class="tk-p">,</span> <span class="tk-n">age</span> <span class="tk-o">+</span> <span class="tk-mi">1</span><span class="tk-p">)</span></pre></div>
+<div class="output"><div class="cap">Output (the user types 20)</div><pre>Enter your age: <span class="typed">20</span>
+Next year: 21</pre></div></div></section>
+<section class="q" id="q-m2-q7"><header class="qhead"><span class="qno">Q7</span><h3>Explain print() with sep, end and f-string formatting. <span class="mk">5 marks</span></h3></header><div class="ans"><h4 class="sh">Answer</h4><p><code>sep</code> is the gap between values (default: space). <code>end</code> is the ending text (default: new line <code>\n</code>). An <b>f-string</b> (preferred) puts variables inside curly braces, and <code>:.2f</code> gives two decimal places.</p><div class="codeblock"><div class="cap">Example program</div><pre class="code"><span class="tk-n">name</span> <span class="tk-o">=</span> <span class="tk-s2">"Anu"</span>
+<span class="tk-n">age</span> <span class="tk-o">=</span> <span class="tk-mi">20</span>
+<span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-s2">"A"</span><span class="tk-p">,</span> <span class="tk-s2">"B"</span><span class="tk-p">,</span> <span class="tk-s2">"C"</span><span class="tk-p">,</span> <span class="tk-n">sep</span><span class="tk-o">=</span><span class="tk-s2">"-"</span><span class="tk-p">)</span>
+<span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-s2">"No newline"</span><span class="tk-p">,</span> <span class="tk-n">end</span><span class="tk-o">=</span><span class="tk-s2">" "</span><span class="tk-p">)</span>
+<span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-s2">"same line"</span><span class="tk-p">)</span>
+<span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-sa">f</span><span class="tk-s2">"</span><span class="tk-si">{</span><span class="tk-n">name</span><span class="tk-si">}</span><span class="tk-s2"> is </span><span class="tk-si">{</span><span class="tk-n">age</span><span class="tk-si">}</span><span class="tk-s2"> years old"</span><span class="tk-p">)</span>
+<span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-sa">f</span><span class="tk-s2">"</span><span class="tk-si">{</span><span class="tk-mf">3.14159</span><span class="tk-si">:</span><span class="tk-s2">.2f</span><span class="tk-si">}</span><span class="tk-s2">"</span><span class="tk-p">)</span></pre></div>
+<div class="output"><div class="cap">Output</div><pre>A-B-C
+No newline same line
+Anu is 20 years old
+3.14</pre></div></div></section>
+<div class="part"><h2>Chapter 4 : Conditional Statements</h2><p>Taking decisions: if, if-else, if-elif-else and nested if.</p></div>
+<section class="q" id="q-m2-q8"><header class="qhead"><span class="qno">Q8</span><h3>What is a conditional statement? Name its four forms. <span class="mk">3 marks</span></h3></header><div class="ans"><h4 class="sh">Answer</h4><p>A <b>conditional statement</b> chooses which block of code runs, depending on a <b>condition</b> that is True or False. A block is shown by <b>indentation</b>, and the condition line ends with a <b>colon ( : )</b>. The four forms are:</p><ol><li><code>if</code> statement</li><li><code>if-else</code> statement</li><li><code>if-elif-else</code> statement</li><li>Nested <code>if</code> statement</li></ol></div></section>
+<section class="q" id="q-m2-q9"><header class="qhead"><span class="qno">Q9</span><h3>Explain the if statement with an example. <span class="mk">3 marks</span></h3></header><div class="ans"><h4 class="sh">Answer</h4><p>The <code>if</code> statement runs its block <b>only if the condition is True</b>. If the condition is False, the block is skipped.</p><div class="codeblock syntax"><div class="cap">Syntax</div><pre class="code"><span class="tk-k">if</span> <span class="tk-n">condition</span><span class="tk-p">:</span>
+    <span class="tk-c1"># body of if</span></pre></div><div class="codeblock"><div class="cap">Example program</div><pre class="code"><span class="tk-n">temperature</span> <span class="tk-o">=</span> <span class="tk-mi">38</span>
+<span class="tk-k">if</span> <span class="tk-n">temperature</span> <span class="tk-o">&gt;</span> <span class="tk-mi">37</span><span class="tk-p">:</span>
+    <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-s2">"You have a fever."</span><span class="tk-p">)</span>
+<span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-s2">"Program ends"</span><span class="tk-p">)</span></pre></div>
+<div class="output"><div class="cap">Output</div><pre>You have a fever.
+Program ends</pre></div></div></section>
+<section class="q" id="q-m2-q10"><header class="qhead"><span class="qno">Q10</span><h3>Explain the if-else statement with a flowchart and an example. <span class="mk">5 marks</span></h3></header><div class="ans"><h4 class="sh">Answer</h4><p>In the <code>if-else</code> statement, the <b>if block</b> runs when the condition is True and the <b>else block</b> runs when it is False. <b>Exactly one</b> block runs.</p><figure class="fig"><svg viewBox="0 0 560 365" width="560" role="img" aria-label="Fig. Flowchart of if-else" xmlns="http://www.w3.org/2000/svg"><ellipse class="bx2" cx="280" cy="24" rx="60" ry="20"/><text class="t tb" x="280" y="29"><tspan x="280" dy="0">Start</tspan></text><path class="ln ar" d="M280,44 L280,70"/><rect class="bx" x="180" y="70" width="200" height="44" rx="6"/><text class="t" x="280.0" y="97.0"><tspan x="280.0" dy="0">Read age</tspan></text><path class="ln ar" d="M280,114 L280,142"/><polygon class="bx3" points="280,142.0 390.0,187 280,232.0 170.0,187"/><text class="t tb" x="280" y="192"><tspan x="280" dy="0">age &gt;= 18 ?</tspan></text><path class="ln ar" d="M170,187 L150,187"/><path class="ln ar" d="M390,187 L410,187"/><text class="t tb ts" x="160" y="173"><tspan x="160" dy="0">No</tspan></text><text class="t tb ts" x="400" y="173"><tspan x="400" dy="0">Yes</tspan></text><rect class="bxr" x="20" y="152" width="130" height="70" rx="6"/><text class="t" x="85.0" y="184.0"><tspan x="85.0" dy="0">Print</tspan><tspan x="85.0" dy="16">Not eligible</tspan></text><rect class="bxg" x="410" y="152" width="130" height="70" rx="6"/><text class="t" x="475.0" y="184.0"><tspan x="475.0" dy="0">Print</tspan><tspan x="475.0" dy="16">Eligible</tspan></text><path class="ln ar" d="M85,222 L85,330 L220,330"/><path class="ln ar" d="M475,222 L475,330 L340,330"/><ellipse class="bx2" cx="280" cy="330" rx="60" ry="20"/><text class="t tb" x="280" y="335"><tspan x="280" dy="0">End</tspan></text></svg><figcaption>Fig. Flowchart of if-else</figcaption></figure><div class="codeblock"><div class="cap">Example program</div><pre class="code"><span class="tk-n">age</span> <span class="tk-o">=</span> <span class="tk-mi">16</span>
+<span class="tk-k">if</span> <span class="tk-n">age</span> <span class="tk-o">&gt;=</span> <span class="tk-mi">18</span><span class="tk-p">:</span>
+    <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-s2">"You are eligible to vote."</span><span class="tk-p">)</span>
+<span class="tk-k">else</span><span class="tk-p">:</span>
+    <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-s2">"You are not eligible to vote."</span><span class="tk-p">)</span></pre></div>
+<div class="output"><div class="cap">Output</div><pre>You are not eligible to vote.</pre></div><div class="frame"><b>How to write it:</b> Write the syntax, one line on how it works, the flowchart and the program.</div></div></section>
+<section class="q" id="q-m2-q11"><header class="qhead"><span class="qno">Q11</span><h3>Explain the if-elif-else statement with an example. <span class="mk">5 marks</span></h3></header><div class="ans"><h4 class="sh">Answer</h4><p>The <code>if-elif-else</code> statement is used to test <b>many conditions in order</b>. The <b>first True block runs</b> and the remaining blocks are skipped, even if they are also True. <code>elif</code> means "else if". The <code>else</code> block runs only if none of the conditions is True. If no condition is True and there is no else, no block runs.</p><figure class="fig"><svg viewBox="0 0 560 472" width="560" role="img" aria-label="Fig. Flowchart of if-elif-else (grade program)" xmlns="http://www.w3.org/2000/svg"><ellipse class="bx2" cx="200" cy="20" rx="55" ry="16"/><text class="t tb" x="200" y="25"><tspan x="200" dy="0">Start</tspan></text><path class="ln ar" d="M200,36 L200,50"/><polygon class="bx3" points="200,52.0 305.0,92 200,132.0 95.0,92"/><text class="t tb" x="200" y="97"><tspan x="200" dy="0">marks &gt;= 90 ?</tspan></text><path class="ln ar" d="M305,92 L400,92"/><text class="t tb ts" x="352" y="87"><tspan x="352" dy="0">True</tspan></text><rect class="bxg" x="400" y="70" width="130" height="44" rx="6"/><text class="t" x="465.0" y="97.0"><tspan x="465.0" dy="0">Grade A</tspan></text><path class="ln ar" d="M200,132 L200,172"/><text class="t tb ts" x="222" y="159"><tspan x="222" dy="0">False</tspan></text><polygon class="bx3" points="200,172.0 305.0,212 200,252.0 95.0,212"/><text class="t tb" x="200" y="217"><tspan x="200" dy="0">marks &gt;= 75 ?</tspan></text><path class="ln ar" d="M305,212 L400,212"/><text class="t tb ts" x="352" y="207"><tspan x="352" dy="0">True</tspan></text><rect class="bxg" x="400" y="190" width="130" height="44" rx="6"/><text class="t" x="465.0" y="217.0"><tspan x="465.0" dy="0">Grade B</tspan></text><path class="ln ar" d="M200,252 L200,292"/><text class="t tb ts" x="222" y="279"><tspan x="222" dy="0">False</tspan></text><polygon class="bx3" points="200,292.0 305.0,332 200,372.0 95.0,332"/><text class="t tb" x="200" y="337"><tspan x="200" dy="0">marks &gt;= 50 ?</tspan></text><path class="ln ar" d="M305,332 L400,332"/><text class="t tb ts" x="352" y="327"><tspan x="352" dy="0">True</tspan></text><rect class="bxg" x="400" y="310" width="130" height="44" rx="6"/><text class="t" x="465.0" y="337.0"><tspan x="465.0" dy="0">Grade C</tspan></text><path class="ln ar" d="M200,372 L200,412"/><text class="t tb ts" x="222" y="399"><tspan x="222" dy="0">False</tspan></text><rect class="bxr" x="140" y="412" width="120" height="44" rx="6"/><text class="t" x="200.0" y="439.0"><tspan x="200.0" dy="0">Grade: Fail</tspan></text></svg><figcaption>Fig. Flowchart of if-elif-else (grade program)</figcaption></figure><div class="codeblock"><div class="cap">Example program</div><pre class="code"><span class="tk-n">marks</span> <span class="tk-o">=</span> <span class="tk-mi">72</span>
+<span class="tk-k">if</span> <span class="tk-n">marks</span> <span class="tk-o">&gt;=</span> <span class="tk-mi">90</span><span class="tk-p">:</span>
+    <span class="tk-n">grade</span> <span class="tk-o">=</span> <span class="tk-s2">"A"</span>
+<span class="tk-k">elif</span> <span class="tk-n">marks</span> <span class="tk-o">&gt;=</span> <span class="tk-mi">75</span><span class="tk-p">:</span>
+    <span class="tk-n">grade</span> <span class="tk-o">=</span> <span class="tk-s2">"B"</span>
+<span class="tk-k">elif</span> <span class="tk-n">marks</span> <span class="tk-o">&gt;=</span> <span class="tk-mi">60</span><span class="tk-p">:</span>
+    <span class="tk-n">grade</span> <span class="tk-o">=</span> <span class="tk-s2">"C"</span>
+<span class="tk-k">else</span><span class="tk-p">:</span>
+    <span class="tk-n">grade</span> <span class="tk-o">=</span> <span class="tk-s2">"F"</span>
+<span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-sa">f</span><span class="tk-s2">"Grade: </span><span class="tk-si">{</span><span class="tk-n">grade</span><span class="tk-si">}</span><span class="tk-s2">"</span><span class="tk-p">)</span></pre></div>
+<div class="output"><div class="cap">Output</div><pre>Grade: C</pre></div><div class="tip"><b>Exam tip:</b> Write the conditions from the highest to the lowest. The first True condition decides the result.</div></div></section>
+<section class="q" id="q-m2-q12"><header class="qhead"><span class="qno">Q12</span><h3>What are nested and compound conditions? Explain with examples. <span class="mk">5 marks</span></h3></header><div class="ans"><h4 class="sh">Answer</h4><ul><li>A <b>nested if</b> is an <code>if</code> statement written <b>inside another if</b>.</li><li>A <b>compound condition</b> joins tests using <code>and</code>, <code>or</code> and <code>not</code>.</li></ul><div class="codeblock"><div class="cap">Example program</div><pre class="code"><span class="tk-n">username</span> <span class="tk-o">=</span> <span class="tk-s2">"admin"</span>
+<span class="tk-n">password</span> <span class="tk-o">=</span> <span class="tk-s2">"1234"</span>
+<span class="tk-k">if</span> <span class="tk-n">username</span> <span class="tk-o">==</span> <span class="tk-s2">"admin"</span><span class="tk-p">:</span>
+    <span class="tk-k">if</span> <span class="tk-n">password</span> <span class="tk-o">==</span> <span class="tk-s2">"1234"</span><span class="tk-p">:</span>
+        <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-s2">"Access granted"</span><span class="tk-p">)</span>
+    <span class="tk-k">else</span><span class="tk-p">:</span>
+        <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-s2">"Wrong password"</span><span class="tk-p">)</span>
+<span class="tk-k">else</span><span class="tk-p">:</span>
+    <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-s2">"Unknown user"</span><span class="tk-p">)</span>
+
+<span class="tk-n">age</span> <span class="tk-o">=</span> <span class="tk-mi">25</span>
+<span class="tk-n">has_id</span> <span class="tk-o">=</span> <span class="tk-kc">True</span>
+<span class="tk-k">if</span> <span class="tk-n">age</span> <span class="tk-o">&gt;=</span> <span class="tk-mi">18</span> <span class="tk-ow">and</span> <span class="tk-n">has_id</span><span class="tk-p">:</span>
+    <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-s2">"Entry allowed"</span><span class="tk-p">)</span></pre></div>
+<div class="output"><div class="cap">Output</div><pre>Access granted
+Entry allowed</pre></div></div></section>
+<section class="q" id="q-m2-q13"><header class="qhead"><span class="qno">Q13</span><h3>Differentiate between if and if-else. <span class="mk">3 marks</span></h3></header><div class="ans"><h4 class="sh">Answer</h4><div class="tblwrap"><table class=""><thead><tr><th>if</th><th>if-else</th></tr></thead><tbody><tr><td>Only <b>one path</b>. Nothing happens if the condition is False</td><td><b>Two paths</b>. One of them always runs</td></tr><tr><td><code>if</code> can be used <b>without</b> else</td><td>Needs both blocks</td></tr></tbody></table></div></div></section>
+<section class="q" id="q-m2-q14"><header class="qhead"><span class="qno">Q14</span><h3>Explain conditional statements in Python with examples. <span class="mk">10 marks</span></h3></header><div class="ans"><h4 class="sh">Answer</h4><ol class="steps"><li><b>Introduction:</b> Conditional statements take decisions by testing a condition that is True or False. Indentation shows the block and a colon ends the condition line.</li><li><b>if:</b> runs the block only if the condition is True.</li><li><b>if-else:</b> runs the if block for True and the else block for False.</li><li><b>if-elif-else:</b> tests many conditions in order; only the first True block runs.</li><li><b>Nested if and compound conditions:</b> an if inside an if, and tests joined by and, or, not.</li><li><b>Conclusion:</b> Conditional statements make a program flexible, for example in grading, voting eligibility and login checks.</li></ol><figure class="fig"><svg viewBox="0 0 560 472" width="560" role="img" aria-label="Fig. if-elif-else ladder" xmlns="http://www.w3.org/2000/svg"><ellipse class="bx2" cx="200" cy="20" rx="55" ry="16"/><text class="t tb" x="200" y="25"><tspan x="200" dy="0">Start</tspan></text><path class="ln ar" d="M200,36 L200,50"/><polygon class="bx3" points="200,52.0 305.0,92 200,132.0 95.0,92"/><text class="t tb" x="200" y="97"><tspan x="200" dy="0">marks &gt;= 90 ?</tspan></text><path class="ln ar" d="M305,92 L400,92"/><text class="t tb ts" x="352" y="87"><tspan x="352" dy="0">True</tspan></text><rect class="bxg" x="400" y="70" width="130" height="44" rx="6"/><text class="t" x="465.0" y="97.0"><tspan x="465.0" dy="0">Grade A</tspan></text><path class="ln ar" d="M200,132 L200,172"/><text class="t tb ts" x="222" y="159"><tspan x="222" dy="0">False</tspan></text><polygon class="bx3" points="200,172.0 305.0,212 200,252.0 95.0,212"/><text class="t tb" x="200" y="217"><tspan x="200" dy="0">marks &gt;= 75 ?</tspan></text><path class="ln ar" d="M305,212 L400,212"/><text class="t tb ts" x="352" y="207"><tspan x="352" dy="0">True</tspan></text><rect class="bxg" x="400" y="190" width="130" height="44" rx="6"/><text class="t" x="465.0" y="217.0"><tspan x="465.0" dy="0">Grade B</tspan></text><path class="ln ar" d="M200,252 L200,292"/><text class="t tb ts" x="222" y="279"><tspan x="222" dy="0">False</tspan></text><polygon class="bx3" points="200,292.0 305.0,332 200,372.0 95.0,332"/><text class="t tb" x="200" y="337"><tspan x="200" dy="0">marks &gt;= 50 ?</tspan></text><path class="ln ar" d="M305,332 L400,332"/><text class="t tb ts" x="352" y="327"><tspan x="352" dy="0">True</tspan></text><rect class="bxg" x="400" y="310" width="130" height="44" rx="6"/><text class="t" x="465.0" y="337.0"><tspan x="465.0" dy="0">Grade C</tspan></text><path class="ln ar" d="M200,372 L200,412"/><text class="t tb ts" x="222" y="399"><tspan x="222" dy="0">False</tspan></text><rect class="bxr" x="140" y="412" width="120" height="44" rx="6"/><text class="t" x="200.0" y="439.0"><tspan x="200.0" dy="0">Grade: Fail</tspan></text></svg><figcaption>Fig. if-elif-else ladder</figcaption></figure><div class="codeblock"><div class="cap">Example program</div><pre class="code"><span class="tk-n">num</span> <span class="tk-o">=</span> <span class="tk-nb">int</span><span class="tk-p">(</span><span class="tk-nb">input</span><span class="tk-p">(</span><span class="tk-s2">"Enter a number: "</span><span class="tk-p">))</span>
+<span class="tk-k">if</span> <span class="tk-n">num</span> <span class="tk-o">&gt;</span> <span class="tk-mi">0</span><span class="tk-p">:</span>
+    <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-s2">"Positive"</span><span class="tk-p">)</span>
+<span class="tk-k">elif</span> <span class="tk-n">num</span> <span class="tk-o">&lt;</span> <span class="tk-mi">0</span><span class="tk-p">:</span>
+    <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-s2">"Negative"</span><span class="tk-p">)</span>
+<span class="tk-k">else</span><span class="tk-p">:</span>
+    <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-s2">"Zero"</span><span class="tk-p">)</span>
+
+<span class="tk-k">if</span> <span class="tk-n">num</span> <span class="tk-o">&gt;</span> <span class="tk-mi">0</span> <span class="tk-ow">and</span> <span class="tk-n">num</span> <span class="tk-o">%</span> <span class="tk-mi">2</span> <span class="tk-o">==</span> <span class="tk-mi">0</span><span class="tk-p">:</span>
+    <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-s2">"Positive and even"</span><span class="tk-p">)</span></pre></div>
+<div class="output"><div class="cap">Output (the user types 8)</div><pre>Enter a number: <span class="typed">8</span>
+Positive
+Positive and even</pre></div><div class="frame"><b>How to write it:</b> Use the same headings for all forms: meaning, syntax, small example. Draw the ladder diagram for the 10 mark answer.</div></div></section>
+<div class="part"><h2>Chapter 5 : Loops (Iteration)</h2><p>Repeating work using for and while loops.</p></div>
+<section class="q" id="q-m2-q15"><header class="qhead"><span class="qno">Q15</span><h3>What is a loop? What are the four parts of a loop? <span class="mk">3 marks</span></h3></header><div class="ans"><h4 class="sh">Answer</h4><p>A <b>loop</b> repeats a block of code. One repetition is called an <b>iteration</b>. Python has two loops: <code>for</code> and <code>while</code>. Every loop has four parts:</p><figure class="fig"><svg viewBox="0 0 720 110" width="720" role="img" aria-label="Fig. Four parts of a loop" xmlns="http://www.w3.org/2000/svg"><rect class="bx2" x="20" y="35" width="140" height="56" rx="6"/><text class="t" x="90.0" y="60.0"><tspan x="90.0" dy="0">1 Initialization</tspan><tspan x="90.0" dy="16">i = 0</tspan></text><path class="ln ar" d="M164,63 L196,63"/><rect class="bx" x="200" y="35" width="140" height="56" rx="6"/><text class="t" x="270.0" y="60.0"><tspan x="270.0" dy="0">2 Condition</tspan><tspan x="270.0" dy="16">for / while line</tspan></text><path class="ln ar" d="M344,63 L376,63"/><rect class="bxg" x="380" y="35" width="140" height="56" rx="6"/><text class="t" x="450.0" y="60.0"><tspan x="450.0" dy="0">3 Body</tspan><tspan x="450.0" dy="16">indented statements</tspan></text><path class="ln ar" d="M524,63 L556,63"/><rect class="bx2" x="560" y="35" width="140" height="56" rx="6"/><text class="t" x="630.0" y="60.0"><tspan x="630.0" dy="0">4 Update</tspan><tspan x="630.0" dy="16">i += 1</tspan></text></svg><figcaption>Fig. Four parts of a loop</figcaption></figure><p>In a <code>for</code> loop the update is automatic. In a <code>while</code> loop we must write the update ourselves.</p></div></section>
+<section class="q" id="q-m2-q16"><header class="qhead"><span class="qno">Q16</span><h3>Explain the for loop with examples. <span class="mk">5 marks</span></h3></header><div class="ans"><h4 class="sh">Answer</h4><p>The <code>for</code> loop goes through a <b>sequence</b> (list, tuple, string, dictionary, set) or a <code>range</code>. It is used when the <b>number of iterations is known</b>.</p><div class="codeblock syntax"><div class="cap">Syntax</div><pre class="code"><span class="tk-k">for</span> <span class="tk-n">val</span> <span class="tk-ow">in</span> <span class="tk-n">sequence</span><span class="tk-p">:</span>
+    <span class="tk-c1"># body</span></pre></div><figure class="fig"><svg viewBox="0 0 420 350" width="420" role="img" aria-label="Fig. Flowchart of a for loop" xmlns="http://www.w3.org/2000/svg"><ellipse class="bx2" cx="200" cy="20" rx="50" ry="16"/><text class="t tb" x="200" y="25"><tspan x="200" dy="0">Start</tspan></text><path class="ln ar" d="M200,36 L200,56"/><rect class="bx" x="90" y="56" width="220" height="40" rx="6"/><text class="t" x="200.0" y="81.0"><tspan x="200.0" dy="0">Take next item from sequence</tspan></text><path class="ln ar" d="M200,96 L200,120"/><polygon class="bx3" points="200,120.0 300.0,160 200,200.0 100.0,160"/><text class="t tb" x="200" y="165"><tspan x="200" dy="0">Item available ?</tspan></text><path class="ln ar" d="M200,200 L200,228"/><text class="t tb ts" x="224" y="219"><tspan x="224" dy="0">True</tspan></text><rect class="bxg" x="100" y="228" width="200" height="40" rx="6"/><text class="t" x="200.0" y="253.0"><tspan x="200.0" dy="0">Body: print(item)</tspan></text><path class="ln ar" d="M300,248 L360,248 L360,160 L304,160"/><path class="ln ar" d="M100,160 L50,160 L50,300"/><text class="t tb ts" x="72" y="151"><tspan x="72" dy="0">False</tspan></text><ellipse class="bx2" cx="110" cy="320" rx="60" ry="16"/><text class="t tb" x="110" y="325"><tspan x="110" dy="0">End</tspan></text><path class="ln ar" d="M50,300 L50,320 L52,320"/></svg><figcaption>Fig. Flowchart of a for loop</figcaption></figure><div class="codeblock"><div class="cap">Example program</div><pre class="code"><span class="tk-k">for</span> <span class="tk-n">i</span> <span class="tk-ow">in</span> <span class="tk-nb">range</span><span class="tk-p">(</span><span class="tk-mi">5</span><span class="tk-p">):</span>
+    <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-n">i</span><span class="tk-p">,</span> <span class="tk-n">end</span><span class="tk-o">=</span><span class="tk-s2">" "</span><span class="tk-p">)</span>
+<span class="tk-nb">print</span><span class="tk-p">()</span>
+<span class="tk-k">for</span> <span class="tk-n">ch</span> <span class="tk-ow">in</span> <span class="tk-s2">"abc"</span><span class="tk-p">:</span>
+    <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-n">ch</span><span class="tk-p">)</span>
+<span class="tk-n">fruits</span> <span class="tk-o">=</span> <span class="tk-p">[</span><span class="tk-s2">"apple"</span><span class="tk-p">,</span> <span class="tk-s2">"banana"</span><span class="tk-p">,</span> <span class="tk-s2">"cherry"</span><span class="tk-p">]</span>
+<span class="tk-k">for</span> <span class="tk-n">index</span><span class="tk-p">,</span> <span class="tk-n">fruit</span> <span class="tk-ow">in</span> <span class="tk-nb">enumerate</span><span class="tk-p">(</span><span class="tk-n">fruits</span><span class="tk-p">):</span>
+    <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-n">index</span><span class="tk-p">,</span> <span class="tk-n">fruit</span><span class="tk-p">)</span></pre></div>
+<div class="output"><div class="cap">Output</div><pre>0 1 2 3 4 
+a
+b
+c
+0 apple
+1 banana
+2 cherry</pre></div></div></section>
+<section class="q" id="q-m2-q17"><header class="qhead"><span class="qno">Q17</span><h3>Explain the range(start, stop, step) function with examples. <span class="mk">3 marks</span></h3></header><div class="ans"><h4 class="sh">Answer</h4><ul><li><b>start</b>: the first value (optional, default 0).</li><li><b>stop</b>: the end limit (required). The stop value is <b>not included</b>, so the last value is stop - 1.</li><li><b>step</b>: the increase between values (optional, default 1).</li></ul><div class="codeblock"><div class="cap">Example program</div><pre class="code"><span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-nb">list</span><span class="tk-p">(</span><span class="tk-nb">range</span><span class="tk-p">(</span><span class="tk-mi">5</span><span class="tk-p">)))</span>
+<span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-nb">list</span><span class="tk-p">(</span><span class="tk-nb">range</span><span class="tk-p">(</span><span class="tk-mi">2</span><span class="tk-p">,</span> <span class="tk-mi">10</span><span class="tk-p">,</span> <span class="tk-mi">2</span><span class="tk-p">)))</span>
+<span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-nb">list</span><span class="tk-p">(</span><span class="tk-nb">range</span><span class="tk-p">(</span><span class="tk-mi">10</span><span class="tk-p">,</span> <span class="tk-mi">0</span><span class="tk-p">,</span> <span class="tk-o">-</span><span class="tk-mi">3</span><span class="tk-p">)))</span>
+<span class="tk-k">for</span> <span class="tk-n">i</span> <span class="tk-ow">in</span> <span class="tk-nb">range</span><span class="tk-p">(</span><span class="tk-mi">0</span><span class="tk-p">,</span> <span class="tk-mi">4</span><span class="tk-p">):</span>
+    <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-n">i</span><span class="tk-p">,</span> <span class="tk-n">end</span><span class="tk-o">=</span><span class="tk-s2">" "</span><span class="tk-p">)</span></pre></div>
+<div class="output"><div class="cap">Output</div><pre>[0, 1, 2, 3, 4]
+[2, 4, 6, 8]
+[10, 7, 4, 1]
+0 1 2 3 </pre></div><div class="tip"><b>Exam tip:</b> <code>range(5)</code> gives 0 to 4. It never includes 5.</div></div></section>
+<section class="q" id="q-m2-q18"><header class="qhead"><span class="qno">Q18</span><h3>Explain the while loop. What is an infinite loop? <span class="mk">5 marks</span></h3></header><div class="ans"><h4 class="sh">Answer</h4><p>The <code>while</code> loop repeats <b>as long as the condition is True</b>. It is used when the number of iterations is <b>not known in advance</b>. We must <b>update the variable inside the loop</b>. If the condition never becomes False, the loop never ends. This is an <b>infinite loop</b>.</p><div class="codeblock syntax"><div class="cap">Syntax</div><pre class="code"><span class="tk-k">while</span> <span class="tk-n">condition</span><span class="tk-p">:</span>
+    <span class="tk-c1"># body</span>
+    <span class="tk-c1"># update</span></pre></div><figure class="fig"><svg viewBox="0 0 420 400" width="420" role="img" aria-label="Fig. Flowchart of a while loop" xmlns="http://www.w3.org/2000/svg"><ellipse class="bx2" cx="200" cy="20" rx="50" ry="16"/><text class="t tb" x="200" y="25"><tspan x="200" dy="0">Start</tspan></text><path class="ln ar" d="M200,36 L200,56"/><rect class="bx" x="110" y="56" width="180" height="40" rx="6"/><text class="t" x="200.0" y="81.0"><tspan x="200.0" dy="0">Initialise  i = 1</tspan></text><path class="ln ar" d="M200,96 L200,120"/><polygon class="bx3" points="200,120.0 300.0,160 200,200.0 100.0,160"/><text class="t tb" x="200" y="165"><tspan x="200" dy="0">i &lt;= 5 ?</tspan></text><path class="ln ar" d="M200,200 L200,228"/><text class="t tb ts" x="224" y="219"><tspan x="224" dy="0">True</tspan></text><rect class="bxg" x="100" y="228" width="200" height="40" rx="6"/><text class="t" x="200.0" y="253.0"><tspan x="200.0" dy="0">Body: print(i)</tspan></text><path class="ln ar" d="M200,268 L200,292"/><rect class="bx" x="100" y="292" width="200" height="40" rx="6"/><text class="t" x="200.0" y="317.0"><tspan x="200.0" dy="0">Update  i = i + 1</tspan></text><path class="ln ar" d="M300,312 L360,312 L360,160 L304,160"/><path class="ln ar" d="M100,160 L50,160 L50,350"/><text class="t tb ts" x="72" y="151"><tspan x="72" dy="0">False</tspan></text><ellipse class="bx2" cx="110" cy="370" rx="60" ry="16"/><text class="t tb" x="110" y="375"><tspan x="110" dy="0">End</tspan></text><path class="ln ar" d="M50,350 L50,370 L52,370"/></svg><figcaption>Fig. Flowchart of a while loop</figcaption></figure><div class="codeblock"><div class="cap">Example program</div><pre class="code"><span class="tk-n">count</span> <span class="tk-o">=</span> <span class="tk-mi">1</span>
+<span class="tk-k">while</span> <span class="tk-n">count</span> <span class="tk-o">&lt;=</span> <span class="tk-mi">5</span><span class="tk-p">:</span>
+    <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-n">count</span><span class="tk-p">,</span> <span class="tk-n">end</span><span class="tk-o">=</span><span class="tk-s2">" "</span><span class="tk-p">)</span>
+    <span class="tk-n">count</span> <span class="tk-o">+=</span> <span class="tk-mi">1</span>          <span class="tk-c1"># update avoids an infinite loop</span>
+<span class="tk-nb">print</span><span class="tk-p">()</span>
+
+<span class="tk-c1"># A menu-style loop using while True and break</span>
+<span class="tk-k">while</span> <span class="tk-kc">True</span><span class="tk-p">:</span>
+    <span class="tk-n">choice</span> <span class="tk-o">=</span> <span class="tk-nb">input</span><span class="tk-p">(</span><span class="tk-s2">"Enter q to quit: "</span><span class="tk-p">)</span>
+    <span class="tk-k">if</span> <span class="tk-n">choice</span> <span class="tk-o">==</span> <span class="tk-s2">"q"</span><span class="tk-p">:</span>
+        <span class="tk-k">break</span>
+<span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-s2">"Bye"</span><span class="tk-p">)</span></pre></div>
+<div class="output"><div class="cap">Output (the user types a, then q)</div><pre>1 2 3 4 5 
+Enter q to quit: <span class="typed">a</span>
+Enter q to quit: <span class="typed">q</span>
+Bye</pre></div></div></section>
+<section class="q" id="q-m2-q19"><header class="qhead"><span class="qno">Q19</span><h3>What are nested loops? Write programs for a number table and a star pattern. <span class="mk">5 marks</span></h3></header><div class="ans"><h4 class="sh">Answer</h4><p>A <b>nested loop</b> is a loop inside another loop. The <b>inner loop finishes all its rounds</b> for every one round of the outer loop. Nested loops are used for tables, grids, matrices and patterns. Any loop can be nested in the other (a for in a while, or a while in a for).</p><div class="codeblock"><div class="cap">Multiplication grid</div><pre class="code"><span class="tk-k">for</span> <span class="tk-n">i</span> <span class="tk-ow">in</span> <span class="tk-nb">range</span><span class="tk-p">(</span><span class="tk-mi">1</span><span class="tk-p">,</span> <span class="tk-mi">4</span><span class="tk-p">):</span>
+    <span class="tk-k">for</span> <span class="tk-n">j</span> <span class="tk-ow">in</span> <span class="tk-nb">range</span><span class="tk-p">(</span><span class="tk-mi">1</span><span class="tk-p">,</span> <span class="tk-mi">4</span><span class="tk-p">):</span>
+        <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-n">i</span> <span class="tk-o">*</span> <span class="tk-n">j</span><span class="tk-p">,</span> <span class="tk-n">end</span><span class="tk-o">=</span><span class="tk-s2">"</span><span class="tk-se">\t</span><span class="tk-s2">"</span><span class="tk-p">)</span>
+    <span class="tk-nb">print</span><span class="tk-p">()</span></pre></div>
+<div class="output"><div class="cap">Output</div><pre>1	2	3	
+2	4	6	
+3	6	9	</pre></div><div class="codeblock"><div class="cap">Star pattern</div><pre class="code"><span class="tk-k">for</span> <span class="tk-n">i</span> <span class="tk-ow">in</span> <span class="tk-nb">range</span><span class="tk-p">(</span><span class="tk-mi">1</span><span class="tk-p">,</span> <span class="tk-mi">5</span><span class="tk-p">):</span>
+    <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-s2">"*"</span> <span class="tk-o">*</span> <span class="tk-n">i</span><span class="tk-p">)</span></pre></div>
+<div class="output"><div class="cap">Output</div><pre>*
+**
+***
+****</pre></div></div></section>
+<section class="q" id="q-m2-q20"><header class="qhead"><span class="qno">Q20</span><h3>Differentiate between for loop and while loop. <span class="mk">3 marks</span></h3></header><div class="ans"><h4 class="sh">Answer</h4><div class="tblwrap"><table class=""><thead><tr><th>Point</th><th>for loop</th><th>while loop</th></tr></thead><tbody><tr><td>Best when</td><td>Number of iterations is known, or a sequence is used</td><td>Repeats depend on a condition that may change</td></tr><tr><td>Typical use</td><td>Lists, strings, ranges</td><td>Input validation, game loops, polling</td></tr><tr><td>Risk</td><td>Rare. It ends with the sequence</td><td><b>Infinite loop</b> if the condition never becomes False</td></tr><tr><td>Update</td><td>Automatic</td><td>Written by the programmer</td></tr></tbody></table></div></div></section>
+<section class="q" id="q-m2-q21"><header class="qhead"><span class="qno">Q21</span><h3>Write programs to print the first 10 natural numbers using for and while loops. <span class="mk">5 marks</span></h3></header><div class="ans"><h4 class="sh">Answer</h4><div class="codeblock"><div class="cap">Example program</div><pre class="code"><span class="tk-c1"># using a for loop</span>
+<span class="tk-k">for</span> <span class="tk-n">i</span> <span class="tk-ow">in</span> <span class="tk-nb">range</span><span class="tk-p">(</span><span class="tk-mi">1</span><span class="tk-p">,</span> <span class="tk-mi">11</span><span class="tk-p">):</span>
+    <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-n">i</span><span class="tk-p">,</span> <span class="tk-n">end</span><span class="tk-o">=</span><span class="tk-s2">" "</span><span class="tk-p">)</span>
+<span class="tk-nb">print</span><span class="tk-p">()</span>
+
+<span class="tk-c1"># using a while loop</span>
+<span class="tk-n">i</span> <span class="tk-o">=</span> <span class="tk-mi">1</span>
+<span class="tk-k">while</span> <span class="tk-n">i</span> <span class="tk-o">&lt;=</span> <span class="tk-mi">10</span><span class="tk-p">:</span>
+    <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-n">i</span><span class="tk-p">,</span> <span class="tk-n">end</span><span class="tk-o">=</span><span class="tk-s2">" "</span><span class="tk-p">)</span>
+    <span class="tk-n">i</span> <span class="tk-o">+=</span> <span class="tk-mi">1</span></pre></div>
+<div class="output"><div class="cap">Output</div><pre>1 2 3 4 5 6 7 8 9 10 
+1 2 3 4 5 6 7 8 9 10 </pre></div><p>The same idea, <code>range(1, 13)</code>, prints the numbers from 1 to 12. The stop value is always one more than the last number needed.</p></div></section>
+<section class="q" id="q-m2-q22"><header class="qhead"><span class="qno">Q22</span><h3>Write a Python program to display the multiplication table of a given number. <span class="mk">5 marks</span></h3></header><div class="ans"><h4 class="sh">Answer</h4><div class="codeblock"><div class="cap">Example program</div><pre class="code"><span class="tk-n">n</span> <span class="tk-o">=</span> <span class="tk-nb">int</span><span class="tk-p">(</span><span class="tk-nb">input</span><span class="tk-p">(</span><span class="tk-s2">"Enter a number: "</span><span class="tk-p">))</span>
+<span class="tk-k">for</span> <span class="tk-n">i</span> <span class="tk-ow">in</span> <span class="tk-nb">range</span><span class="tk-p">(</span><span class="tk-mi">1</span><span class="tk-p">,</span> <span class="tk-mi">11</span><span class="tk-p">):</span>
+    <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-n">n</span><span class="tk-p">,</span> <span class="tk-s2">"x"</span><span class="tk-p">,</span> <span class="tk-n">i</span><span class="tk-p">,</span> <span class="tk-s2">"="</span><span class="tk-p">,</span> <span class="tk-n">n</span> <span class="tk-o">*</span> <span class="tk-n">i</span><span class="tk-p">)</span></pre></div>
+<div class="output"><div class="cap">Output (the user types 6)</div><pre>Enter a number: <span class="typed">6</span>
+6 x 1 = 6
+6 x 2 = 12
+6 x 3 = 18
+6 x 4 = 24
+6 x 5 = 30
+6 x 6 = 36
+6 x 7 = 42
+6 x 8 = 48
+6 x 9 = 54
+6 x 10 = 60</pre></div><div class="frame"><b>How to write it:</b> Steps: read the number, loop from 1 to 10 using range(1, 11), print n x i = n * i. The output shows the typed value.</div></div></section>
+<div class="part"><h2>Chapter 6 : Loop Control Statements</h2><p>break, continue, pass and else with loops.</p></div>
+<section class="q" id="q-m2-q23"><header class="qhead"><span class="qno">Q23</span><h3>Explain break, continue and pass with examples. <span class="mk">5 marks</span></h3></header><div class="ans"><h4 class="sh">Answer</h4><ul><li><b>break</b> ends the <b>nearest loop completely</b>. The remaining rounds are skipped.</li><li><b>continue</b> skips the <b>rest of the current round</b> and goes to the next round. The loop does not end.</li><li><b>pass</b> does <b>nothing</b>. It is a placeholder where a statement is needed but no action is ready yet.</li></ul><figure class="fig"><svg viewBox="0 0 480 300" width="480" role="img" aria-label="Fig. Flow of break and continue inside a loop" xmlns="http://www.w3.org/2000/svg"><rect class="bx2" x="140" y="8" width="220" height="34" rx="6"/><text class="t tb" x="250.0" y="30.0"><tspan x="250.0" dy="0">for / while loop starts</tspan></text><path class="ln ar" d="M250,42 L250,62"/><polygon class="bx3" points="250,67.0 350.0,98 250,129.0 150.0,98"/><text class="t tb" x="250" y="103"><tspan x="250" dy="0">Condition for break?</tspan></text><path class="ln ar" d="M150,98 L70,98 L70,252"/><text class="t tb ts" x="110" y="93"><tspan x="110" dy="0">Yes: break</tspan></text><path class="ln ar" d="M250,129 L250,150"/><text class="t tb ts" x="278" y="149"><tspan x="278" dy="0">No</tspan></text><polygon class="bx3" points="250,155.0 350.0,186 250,217.0 150.0,186"/><text class="t tb" x="250" y="191"><tspan x="250" dy="0">Condition for continue?</tspan></text><path class="ln ar" d="M350,186 L430,186 L430,26 L362,26"/><text class="t tb ts" x="388" y="173"><tspan x="388" dy="0">Yes: continue</tspan></text><path class="ln ar" d="M250,217 L250,240"/><text class="t tb ts" x="278" y="239"><tspan x="278" dy="0">No</tspan></text><rect class="bxg" x="150" y="240" width="200" height="34" rx="6"/><text class="t" x="250.0" y="262.0"><tspan x="250.0" dy="0">Rest of the loop body</tspan></text><rect class="bxr" x="14" y="254" width="112" height="34" rx="6"/><text class="t" x="70.0" y="276.0"><tspan x="70.0" dy="0">After the loop</tspan></text></svg><figcaption>Fig. Flow of break and continue inside a loop</figcaption></figure><div class="codeblock"><div class="cap">Example program</div><pre class="code"><span class="tk-k">for</span> <span class="tk-n">num</span> <span class="tk-ow">in</span> <span class="tk-nb">range</span><span class="tk-p">(</span><span class="tk-mi">1</span><span class="tk-p">,</span> <span class="tk-mi">10</span><span class="tk-p">):</span>
+    <span class="tk-k">if</span> <span class="tk-n">num</span> <span class="tk-o">==</span> <span class="tk-mi">5</span><span class="tk-p">:</span>
+        <span class="tk-k">break</span>
+    <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-n">num</span><span class="tk-p">,</span> <span class="tk-n">end</span><span class="tk-o">=</span><span class="tk-s2">" "</span><span class="tk-p">)</span>
+<span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-s2">"&lt;- break"</span><span class="tk-p">)</span>
+
+<span class="tk-k">for</span> <span class="tk-n">num</span> <span class="tk-ow">in</span> <span class="tk-nb">range</span><span class="tk-p">(</span><span class="tk-mi">1</span><span class="tk-p">,</span> <span class="tk-mi">6</span><span class="tk-p">):</span>
+    <span class="tk-k">if</span> <span class="tk-n">num</span> <span class="tk-o">==</span> <span class="tk-mi">3</span><span class="tk-p">:</span>
+        <span class="tk-k">continue</span>
+    <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-n">num</span><span class="tk-p">,</span> <span class="tk-n">end</span><span class="tk-o">=</span><span class="tk-s2">" "</span><span class="tk-p">)</span>
+<span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-s2">"&lt;- continue"</span><span class="tk-p">)</span>
+
+<span class="tk-k">for</span> <span class="tk-n">num</span> <span class="tk-ow">in</span> <span class="tk-nb">range</span><span class="tk-p">(</span><span class="tk-mi">5</span><span class="tk-p">):</span>
+    <span class="tk-k">if</span> <span class="tk-n">num</span> <span class="tk-o">==</span> <span class="tk-mi">2</span><span class="tk-p">:</span>
+        <span class="tk-k">pass</span>
+    <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-n">num</span><span class="tk-p">,</span> <span class="tk-n">end</span><span class="tk-o">=</span><span class="tk-s2">" "</span><span class="tk-p">)</span>
+<span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-s2">"&lt;- pass"</span><span class="tk-p">)</span>
+
+<span class="tk-k">def</span><span class="tk-w"> </span><span class="tk-nf">not_ready</span><span class="tk-p">():</span>
+    <span class="tk-k">pass</span>              <span class="tk-c1"># empty body, no error</span></pre></div>
+<div class="output"><div class="cap">Output</div><pre>1 2 3 4 &lt;- break
+1 2 4 5 &lt;- continue
+0 1 2 3 4 &lt;- pass</pre></div><div class="tip"><b>Exam tip:</b> break ends the loop, continue skips one round, pass does nothing at all. Also: break ends only the nearest loop, not all nested loops.</div></div></section>
+<section class="q" id="q-m2-q24"><header class="qhead"><span class="qno">Q24</span><h3>Explain the else clause with loops. <span class="mk">3 marks</span></h3></header><div class="ans"><h4 class="sh">Answer</h4><p>A <code>for</code> or <code>while</code> loop can have an optional <code>else</code>. The else block runs when the loop ends <b>normally</b> (all rounds are done). It is <b>skipped if the loop was ended by break</b>.</p><div class="codeblock"><div class="cap">Example program</div><pre class="code"><span class="tk-k">for</span> <span class="tk-n">i</span> <span class="tk-ow">in</span> <span class="tk-nb">range</span><span class="tk-p">(</span><span class="tk-mi">3</span><span class="tk-p">):</span>
+    <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-n">i</span><span class="tk-p">,</span> <span class="tk-n">end</span><span class="tk-o">=</span><span class="tk-s2">" "</span><span class="tk-p">)</span>
+<span class="tk-k">else</span><span class="tk-p">:</span>
+    <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-s2">"Loop finished normally"</span><span class="tk-p">)</span>
+
+<span class="tk-k">for</span> <span class="tk-n">i</span> <span class="tk-ow">in</span> <span class="tk-nb">range</span><span class="tk-p">(</span><span class="tk-mi">10</span><span class="tk-p">):</span>
+    <span class="tk-k">if</span> <span class="tk-n">i</span> <span class="tk-o">==</span> <span class="tk-mi">3</span><span class="tk-p">:</span>
+        <span class="tk-k">break</span>
+    <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-n">i</span><span class="tk-p">,</span> <span class="tk-n">end</span><span class="tk-o">=</span><span class="tk-s2">" "</span><span class="tk-p">)</span>
+<span class="tk-k">else</span><span class="tk-p">:</span>
+    <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-s2">"skipped"</span><span class="tk-p">)</span>
+<span class="tk-nb">print</span><span class="tk-p">()</span></pre></div>
+<div class="output"><div class="cap">Output</div><pre>0 1 2 Loop finished normally
+0 1 2 </pre></div></div></section>
+<section class="q" id="q-m2-q25"><header class="qhead"><span class="qno">Q25</span><h3>Write a program to check whether a number is prime using loop-else. <span class="mk">5 marks</span></h3></header><div class="ans"><h4 class="sh">Answer</h4><ol class="steps"><li>If the number is less than 2, it is not prime.</li><li>Check the divisors from 2 to n - 1.</li><li>If any divisor divides n exactly, print "Not prime" and <b>break</b>.</li><li>If the loop ends <b>without break</b>, the else block prints "Prime".</li></ol><div class="codeblock"><div class="cap">Example program</div><pre class="code"><span class="tk-n">n</span> <span class="tk-o">=</span> <span class="tk-mi">29</span>
+<span class="tk-k">if</span> <span class="tk-n">n</span> <span class="tk-o">&lt;</span> <span class="tk-mi">2</span><span class="tk-p">:</span>
+    <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-s2">"Not prime"</span><span class="tk-p">)</span>
+<span class="tk-k">else</span><span class="tk-p">:</span>
+    <span class="tk-k">for</span> <span class="tk-n">i</span> <span class="tk-ow">in</span> <span class="tk-nb">range</span><span class="tk-p">(</span><span class="tk-mi">2</span><span class="tk-p">,</span> <span class="tk-n">n</span><span class="tk-p">):</span>
+        <span class="tk-k">if</span> <span class="tk-n">n</span> <span class="tk-o">%</span> <span class="tk-n">i</span> <span class="tk-o">==</span> <span class="tk-mi">0</span><span class="tk-p">:</span>
+            <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-s2">"Not prime"</span><span class="tk-p">)</span>
+            <span class="tk-k">break</span>
+    <span class="tk-k">else</span><span class="tk-p">:</span>
+        <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-s2">"Prime"</span><span class="tk-p">)</span></pre></div>
+<div class="output"><div class="cap">Output (n = 29)</div><pre>Prime</pre></div><div class="output"><div class="cap">Output (n = 28)</div><pre>Not prime</pre></div></div></section>
+<section class="q" id="q-m2-q26"><header class="qhead"><span class="qno">Q26</span><h3>Write a program to search for an item in a list using loop-else. <span class="mk">3 marks</span></h3></header><div class="ans"><h4 class="sh">Answer</h4><div class="codeblock"><div class="cap">Example program</div><pre class="code"><span class="tk-n">numbers</span> <span class="tk-o">=</span> <span class="tk-p">[</span><span class="tk-mi">2</span><span class="tk-p">,</span> <span class="tk-mi">4</span><span class="tk-p">,</span> <span class="tk-mi">6</span><span class="tk-p">,</span> <span class="tk-mi">8</span><span class="tk-p">]</span>
+<span class="tk-n">target</span> <span class="tk-o">=</span> <span class="tk-mi">5</span>
+<span class="tk-k">for</span> <span class="tk-n">n</span> <span class="tk-ow">in</span> <span class="tk-n">numbers</span><span class="tk-p">:</span>
+    <span class="tk-k">if</span> <span class="tk-n">n</span> <span class="tk-o">==</span> <span class="tk-n">target</span><span class="tk-p">:</span>
+        <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-s2">"Found!"</span><span class="tk-p">)</span>
+        <span class="tk-k">break</span>
+<span class="tk-k">else</span><span class="tk-p">:</span>
+    <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-s2">"Target not found in list"</span><span class="tk-p">)</span></pre></div>
+<div class="output"><div class="cap">Output</div><pre>Target not found in list</pre></div></div></section>
+<section class="q" id="q-m2-q27"><header class="qhead"><span class="qno">Q27</span><h3>Differentiate between break, continue, pass and else in loops. <span class="mk">3 marks</span></h3></header><div class="ans"><h4 class="sh">Answer</h4><div class="tblwrap"><table class=""><thead><tr><th>Statement</th><th>Effect</th><th>Scope</th></tr></thead><tbody><tr><td><code>break</code></td><td>Exits the loop immediately</td><td>Ends the whole (nearest) loop</td></tr><tr><td><code>continue</code></td><td>Skips the rest of the current round</td><td>Only the current pass</td></tr><tr><td><code>pass</code></td><td>Does nothing (placeholder)</td><td>No effect on the flow</td></tr><tr><td><code>else</code></td><td>Runs if the loop ends without break</td><td>Once, after the loop</td></tr></tbody></table></div></div></section>
+<section class="q" id="q-m2-q28"><header class="qhead"><span class="qno">Q28</span><h3>Explain the loop control statements in Python with suitable programs. <span class="mk">10 marks</span></h3></header><div class="ans"><h4 class="sh">Answer</h4><ol class="steps"><li><b>Introduction:</b> Loop control statements change the normal flow of a loop. They are break, continue, pass and the else clause.</li><li><b>break:</b> leaves the loop at once.</li><li><b>continue:</b> skips the current round.</li><li><b>pass:</b> a placeholder that does nothing.</li><li><b>else:</b> runs only if the loop ends without a break.</li><li><b>Programs:</b> prime check and list search (given below).</li><li><b>Conclusion:</b> write the summary table of the four statements.</li></ol><figure class="fig"><svg viewBox="0 0 480 300" width="480" role="img" aria-label="Fig. break and continue" xmlns="http://www.w3.org/2000/svg"><rect class="bx2" x="140" y="8" width="220" height="34" rx="6"/><text class="t tb" x="250.0" y="30.0"><tspan x="250.0" dy="0">for / while loop starts</tspan></text><path class="ln ar" d="M250,42 L250,62"/><polygon class="bx3" points="250,67.0 350.0,98 250,129.0 150.0,98"/><text class="t tb" x="250" y="103"><tspan x="250" dy="0">Condition for break?</tspan></text><path class="ln ar" d="M150,98 L70,98 L70,252"/><text class="t tb ts" x="110" y="93"><tspan x="110" dy="0">Yes: break</tspan></text><path class="ln ar" d="M250,129 L250,150"/><text class="t tb ts" x="278" y="149"><tspan x="278" dy="0">No</tspan></text><polygon class="bx3" points="250,155.0 350.0,186 250,217.0 150.0,186"/><text class="t tb" x="250" y="191"><tspan x="250" dy="0">Condition for continue?</tspan></text><path class="ln ar" d="M350,186 L430,186 L430,26 L362,26"/><text class="t tb ts" x="388" y="173"><tspan x="388" dy="0">Yes: continue</tspan></text><path class="ln ar" d="M250,217 L250,240"/><text class="t tb ts" x="278" y="239"><tspan x="278" dy="0">No</tspan></text><rect class="bxg" x="150" y="240" width="200" height="34" rx="6"/><text class="t" x="250.0" y="262.0"><tspan x="250.0" dy="0">Rest of the loop body</tspan></text><rect class="bxr" x="14" y="254" width="112" height="34" rx="6"/><text class="t" x="70.0" y="276.0"><tspan x="70.0" dy="0">After the loop</tspan></text></svg><figcaption>Fig. break and continue</figcaption></figure><div class="codeblock"><div class="cap">Example program</div><pre class="code"><span class="tk-n">numbers</span> <span class="tk-o">=</span> <span class="tk-p">[</span><span class="tk-mi">3</span><span class="tk-p">,</span> <span class="tk-mi">7</span><span class="tk-p">,</span> <span class="tk-mi">11</span><span class="tk-p">,</span> <span class="tk-mi">15</span><span class="tk-p">]</span>
+<span class="tk-k">for</span> <span class="tk-n">n</span> <span class="tk-ow">in</span> <span class="tk-n">numbers</span><span class="tk-p">:</span>
+    <span class="tk-k">if</span> <span class="tk-n">n</span> <span class="tk-o">%</span> <span class="tk-mi">2</span> <span class="tk-o">==</span> <span class="tk-mi">0</span><span class="tk-p">:</span>
+        <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-s2">"Even number found:"</span><span class="tk-p">,</span> <span class="tk-n">n</span><span class="tk-p">)</span>
+        <span class="tk-k">break</span>
+<span class="tk-k">else</span><span class="tk-p">:</span>
+    <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-s2">"No even number in the list"</span><span class="tk-p">)</span>
+
+<span class="tk-k">for</span> <span class="tk-n">i</span> <span class="tk-ow">in</span> <span class="tk-nb">range</span><span class="tk-p">(</span><span class="tk-mi">1</span><span class="tk-p">,</span> <span class="tk-mi">8</span><span class="tk-p">):</span>
+    <span class="tk-k">if</span> <span class="tk-n">i</span> <span class="tk-o">%</span> <span class="tk-mi">2</span> <span class="tk-o">==</span> <span class="tk-mi">0</span><span class="tk-p">:</span>
+        <span class="tk-k">continue</span>
+    <span class="tk-nb">print</span><span class="tk-p">(</span><span class="tk-n">i</span><span class="tk-p">,</span> <span class="tk-n">end</span><span class="tk-o">=</span><span class="tk-s2">" "</span><span class="tk-p">)</span>
+<span class="tk-nb">print</span><span class="tk-p">()</span></pre></div>
+<div class="output"><div class="cap">Output</div><pre>No even number in the list
+1 3 5 7 </pre></div></div></section>
+<div class="part"><h2>Revision : Applications, Terms and Key Points</h2><p>Real-life uses, important terms and one-line answers.</p></div>
+<section class="q" id="q-m2-q29"><header class="qhead"><span class="qno">Q29</span><h3>Give the real-life applications of conditions and loops. <span class="mk">3 marks</span></h3></header><div class="ans"><h4 class="sh">Answer</h4><ul><li><b>Conditions:</b> grading, voting eligibility, login check (username and password).</li><li><b>for loop:</b> going through lists and strings, multiplication tables.</li><li><b>while loop:</b> input validation, menu-driven programs, game loops, polling.</li><li><b>Nested loops:</b> grids, matrices, pattern printing.</li><li><b>Loop-else:</b> searching for an item (found or not found).</li></ul></div></section>
+<section class="q" id="q-m2-q30"><header class="qhead"><span class="qno">Q30</span><h3>Define the following: condition, block, nested, iteration, iterable, infinite loop, truthy / falsy, immutable, type casting. <span class="mk">5 marks</span></h3></header><div class="ans"><h4 class="sh">Answer</h4><div class="tblwrap"><table class=""><thead><tr><th>Term</th><th>Meaning</th></tr></thead><tbody><tr><td>Condition</td><td>Expression that is True or False</td></tr><tr><td>Block</td><td>Indented group of statements</td></tr><tr><td>Nested</td><td>One statement or loop inside another</td></tr><tr><td>Iteration</td><td>One repetition of a loop</td></tr><tr><td>Iterable</td><td>Object a for loop can go through (list, string, range)</td></tr><tr><td>Infinite loop</td><td>Loop whose condition never becomes False</td></tr><tr><td>Truthy / Falsy</td><td>Values treated as True / False</td></tr><tr><td>Immutable</td><td>Cannot be changed after creation (str)</td></tr><tr><td>Type casting</td><td>Manual change of data type</td></tr></tbody></table></div></div></section>
+<section class="q" id="q-m2-q31"><header class="qhead"><span class="qno">Q31</span><h3>Answer in one line each (rapid revision of Module II). <span class="mk">5 marks</span></h3></header><div class="ans"><h4 class="sh">Answer</h4><div class="tblwrap"><table class=""><thead><tr><th>Question</th><th>One-line answer</th></tr></thead><tbody><tr><td>Which types are basic in Python?</td><td>int, float, complex, bool, str</td></tr><tr><td>Is str mutable?</td><td>No, it is immutable</td></tr><tr><td>Value of True + True?</td><td>2</td></tr><tr><td>Which values are falsy?</td><td>0, 0.0, "", [], (), {}, None</td></tr><tr><td>Does int("3.5") work?</td><td>No. It gives ValueError</td></tr><tr><td>What is the default of sep and end?</td><td>A space and a new line</td></tr><tr><td>Can an if be used without else?</td><td>Yes</td></tr><tr><td>What does elif mean?</td><td>else if: checks the next condition when earlier ones are False</td></tr><tr><td>If no condition is True and there is no else?</td><td>No block runs</td></tr><tr><td>Which loop is used when iterations are known?</td><td>for loop</td></tr><tr><td>Does range(5) include 5?</td><td>No. It gives 0 to 4</td></tr><tr><td>What happens to a while loop without an update step?</td><td>Infinite loop</td></tr><tr><td>break vs continue vs pass?</td><td>break stops the loop; continue skips one round; pass does nothing</td></tr><tr><td>When does loop else run?</td><td>Only if the loop ends without break</td></tr><tr><td>Does break end all nested loops?</td><td>No. Only the nearest loop</td></tr></tbody></table></div></div></section>
+<section class="cov" id="coverage"><h2>Syllabus coverage check</h2>
+<p>Every topic of Module 2 is listed here with the questions that cover it.</p>
+<div class="tblwrap"><table class=""><thead><tr><th>Syllabus topic</th><th>Covered in</th></tr></thead><tbody><tr><td>int, float, complex, bool, str with key points</td><td><a href="#q-m2-q1">Q1</a></td></tr><tr><td>bool as subclass of int and comparison results</td><td><a href="#q-m2-q2">Q2</a></td></tr><tr><td>Falsy and truthy values</td><td><a href="#q-m2-q3">Q3</a></td></tr><tr><td>String operations (indexing, slicing, concatenation, repetition, immutability)</td><td><a href="#q-m2-q4">Q4</a></td></tr><tr><td>Implicit conversion</td><td><a href="#q-m2-q5">Q5</a></td></tr><tr><td>Explicit conversion and its errors</td><td><a href="#q-m2-q5">Q5</a></td></tr><tr><td>input()</td><td><a href="#q-m2-q6">Q6</a></td></tr><tr><td>print(), sep, end, f-string and formatting</td><td><a href="#q-m2-q7">Q7</a></td></tr><tr><td>Conditional statements, four forms, block and colon</td><td><a href="#q-m2-q8">Q8</a> <a href="#q-m2-q14">Q14</a></td></tr><tr><td>if statement</td><td><a href="#q-m2-q9">Q9</a> <a href="#q-m2-q14">Q14</a></td></tr><tr><td>if-else statement</td><td><a href="#q-m2-q10">Q10</a> <a href="#q-m2-q14">Q14</a></td></tr><tr><td>if-elif-else statement</td><td><a href="#q-m2-q11">Q11</a> <a href="#q-m2-q14">Q14</a></td></tr><tr><td>Nested and compound conditions; if vs if-else</td><td><a href="#q-m2-q12">Q12</a> <a href="#q-m2-q13">Q13</a> <a href="#q-m2-q14">Q14</a></td></tr><tr><td>Loop, iteration and the 4 parts of a loop</td><td><a href="#q-m2-q15">Q15</a></td></tr><tr><td>for loop</td><td><a href="#q-m2-q16">Q16</a></td></tr><tr><td>range(start, stop, step) and enumerate()</td><td><a href="#q-m2-q16">Q16</a> <a href="#q-m2-q17">Q17</a></td></tr><tr><td>while loop and infinite loop</td><td><a href="#q-m2-q18">Q18</a></td></tr><tr><td>Nested loops (tables, patterns)</td><td><a href="#q-m2-q19">Q19</a> <a href="#q-m2-q22">Q22</a></td></tr><tr><td>for vs while</td><td><a href="#q-m2-q20">Q20</a></td></tr><tr><td>Loop programs (natural numbers etc.)</td><td><a href="#q-m2-q21">Q21</a> <a href="#q-m2-q22">Q22</a></td></tr><tr><td>break</td><td><a href="#q-m2-q23">Q23</a> <a href="#q-m2-q28">Q28</a></td></tr><tr><td>continue</td><td><a href="#q-m2-q23">Q23</a> <a href="#q-m2-q28">Q28</a></td></tr><tr><td>pass</td><td><a href="#q-m2-q23">Q23</a> <a href="#q-m2-q28">Q28</a></td></tr><tr><td>else with loops</td><td><a href="#q-m2-q24">Q24</a> <a href="#q-m2-q28">Q28</a></td></tr><tr><td>Prime number check using loop-else</td><td><a href="#q-m2-q25">Q25</a> <a href="#q-m2-q28">Q28</a></td></tr><tr><td>Search in a list using loop-else</td><td><a href="#q-m2-q26">Q26</a> <a href="#q-m2-q28">Q28</a></td></tr><tr><td>Summary of break, continue, pass, else</td><td><a href="#q-m2-q27">Q27</a> <a href="#q-m2-q28">Q28</a></td></tr><tr><td>Real-life applications of Module II</td><td><a href="#q-m2-q29">Q29</a></td></tr><tr><td>Important terms of Module II</td><td><a href="#q-m2-q30">Q30</a></td></tr><tr><td>Key observations and exam points of Module II</td><td><a href="#q-m2-q31">Q31</a></td></tr></tbody></table></div>
+</section>
+<div class="foot">Python Programming &middot; Model Questions &middot; Module 2</div>
+</div>
+<div class="hub-pagenav"><a class="hub-btn" href="ModelQuestions-Module1.html">&larr; Module 1 Questions</a><a class="hub-btn" href="ModelQuestions.html">All Model Questions</a><a class="hub-btn" href="ModelQuestions-Module3.html">Module 3 Questions &rarr;</a></div>
+<div class="hub-footer">BCA Study Hub &middot; <a href="../index.html">Semester 1</a> &middot; <a href="../../index.html">Home</a></div>
+<a class="totop" href="#top">&uarr; Top</a>
+</body>
+</html>
