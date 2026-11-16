@@ -20,7 +20,8 @@ semester-1/
     module4.html  (Python Data Structures)
     module5.html  (File Handling and Exception Management)
     ModelQuestions.html
-    PreviousQuestions.html
+    PreviousQuestions.html  (Year list)
+    PreviousQuestions-2025.html  (November 2025 paper, answers)
   lab-python-programming/
     index.html  (Subject navigation)
     module1.html  (Basic Programs: Variables, Odd/Even and Largest of Three)
